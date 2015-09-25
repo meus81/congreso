@@ -55,6 +55,9 @@ public class PersonRestService {
         System.out.println("First Name = "+ person.getName());
         System.out.println("Last Name  = "+ person.getSurname());
         
+        PersonService personService = new PersonService();
+        personService.save(person);
+
         return "ok";
 	}
 	

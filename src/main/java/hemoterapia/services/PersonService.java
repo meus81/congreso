@@ -2,11 +2,18 @@ package hemoterapia.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 import hemoterapia.domain.Person;
 
 public class PersonService {
 
+	private static final String PERSISTENCE_UNIT_NAME = "congreso";
+	private static EntityManagerFactory factory;
+	private EntityManager entity;
+		
 	public Person getDefaultPerson(){
 		Person person = new Person();
 		person.setName("Rodrigo");
@@ -38,5 +45,13 @@ public class PersonService {
 		allPersons.add(person4);
 		
 		return allPersons;
+	}
+
+	public void save(Person person) {
+		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+	    EntityManager entity = factory.createEntityManager();
+		entity.getTransaction().begin();
+		entity.persist(person);
+		entity.getTransaction().commit();
 	}
 }
