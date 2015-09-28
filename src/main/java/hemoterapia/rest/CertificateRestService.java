@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 
 import hemoterapia.domain.Certificate;
 import hemoterapia.domain.Person;
+import hemoterapia.services.CertificateService;
 import hemoterapia.services.PersonService;
 
 @ApplicationPath("/resources")
