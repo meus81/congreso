@@ -53,6 +53,7 @@ public class PersonRestService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String savePerson(Person person){
+		
 		System.out.println("calling the post a person... service");
         System.out.println("First Name = "+ person.getName());
         System.out.println("Last Name  = "+ person.getSurname());
