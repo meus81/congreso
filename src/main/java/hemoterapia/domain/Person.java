@@ -10,7 +10,6 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -22,12 +21,10 @@ public class Person{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO) 
 	private int idPerson;
-	@XmlElement
 	private String name;
-	@XmlElement
 	private String surname;
-	@XmlElement
 	private int companions;
+	
 	
 	@OneToOne
 	@JoinColumn(name="idCertificate", unique=false, nullable=false)
