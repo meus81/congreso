@@ -1,18 +1,23 @@
 package hemoterapia.rest;
 
 import java.io.InputStream;
+import java.util.Enumeration;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import hemoterapia.domain.Certificate;
 import hemoterapia.domain.Person;
 import hemoterapia.services.PersonService;
 
@@ -51,14 +56,14 @@ public class PersonRestService {
 	@Path("/person")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String savePerson(Person person){
-		
+	public String savePerson(Person person, @Context HttpServletRequest request){
+
+		System.out.println(java.util.Arrays.asList(request.getParameterNames()));
 		System.out.println("calling the post a person... service");
         System.out.println("First Name = "+ person.getName());
         System.out.println("Last Name  = "+ person.getSurname());
         System.out.println("companions = " + person.getCompanions());
         System.out.println("certificate = " + person.getTitle());
-        
         
         PersonService personService = new PersonService();
         //personService.save(person);

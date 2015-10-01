@@ -1,18 +1,19 @@
 package hemoterapia.domain;
 
+import javax.inject.Singleton;
 import javax.persistence.DiscriminatorValue;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Entity;
 import javax.persistence.Transient;
 
-@MappedSuperclass
+@Entity
 @DiscriminatorValue("G")
+@Singleton
 public class Guest extends Certificate {
 
 	@Transient
 	private static Guest instance = null;
 
 	protected Guest(){
-		this.setTax(0.0);
 	}
 	
 		public static Guest getInstance(){
