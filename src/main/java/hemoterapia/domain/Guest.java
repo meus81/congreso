@@ -10,6 +10,10 @@ import javax.persistence.Transient;
 @Singleton
 public class Guest extends Certificate {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Transient
 	private static Guest instance = null;
 

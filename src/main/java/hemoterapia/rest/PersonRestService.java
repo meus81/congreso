@@ -1,6 +1,9 @@
 package hemoterapia.rest;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -57,18 +60,39 @@ public class PersonRestService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String savePerson(Person person, @Context HttpServletRequest request){
+//	public Response savePerson(InputStream incomingData){
 
-		System.out.println(java.util.Arrays.asList(request.getParameterNames()));
+		Enumeration<String> parametros = request.getAttributeNames();
+		while(parametros.hasMoreElements()) {
+			System.out.println(parametros.nextElement());
+		}
+		
 		System.out.println("calling the post a person... service");
         System.out.println("First Name = "+ person.getName());
         System.out.println("Last Name  = "+ person.getSurname());
         System.out.println("companions = " + person.getCompanions());
         System.out.println("certificate = " + person.getTitle());
         
+        
+        
         PersonService personService = new PersonService();
-        //personService.save(person);
-
+        personService.save(person);
+        
         return "ok";
+
+//		StringBuilder crunchifyBuilder = new StringBuilder();
+//		try {
+//			BufferedReader in = new BufferedReader(new InputStreamReader(incomingData));
+//			String line = null;
+//			while ((line = in.readLine()) != null) {
+//				crunchifyBuilder.append(line);
+//			}
+//		} catch (Exception e) {
+//			System.out.println("Error Parsing: - ");
+//		}
+//		System.out.println("Data Received: " + crunchifyBuilder.toString());
+//		
+//        return Response.status(200).entity(crunchifyBuilder.toString()).build();
 	}
 	
 }

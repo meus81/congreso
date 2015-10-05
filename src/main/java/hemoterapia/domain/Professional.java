@@ -1,5 +1,6 @@
 package hemoterapia.domain;
 
+
 import javax.inject.Singleton;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -9,6 +10,10 @@ import javax.persistence.Transient;
 @DiscriminatorValue("P")
 @Singleton
 public class Professional extends Certificate {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Transient
 	private static Professional instance = null;
 	

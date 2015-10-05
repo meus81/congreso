@@ -9,6 +9,10 @@ import javax.persistence.Transient;
 @DiscriminatorValue("T")
 @Singleton
 public class Technician extends Certificate {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Transient
 	private static Technician instance = null;
 

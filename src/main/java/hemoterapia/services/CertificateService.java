@@ -19,8 +19,9 @@ public class CertificateService {
 				.setParameter("id", id)
 				.getSingleResult();
 
+		System.out.println(certificate.getClass().getName());
 		System.out.println("El certificado obtenido es: " + certificate.toString() + " - Tax: " + certificate.getTax());
-
+		
 		return certificate;
 	}
 }

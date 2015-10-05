@@ -1,35 +1,42 @@
 package hemoterapia.domain;
 
+import hemoterapia.domain.Certificate;
+
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.glassfish.jersey.linking.InjectLink;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table
-public class Person{
+public class Person implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO) 
 	private int idPerson;
 	private String name;
 	private String surname;
 	private int companions;
-
-	@OneToOne
-	@JoinColumn(name="idCertificate", unique=false, nullable=false)
-	@PrimaryKeyJoinColumn
+	
+//	@InjectLink("/certificate/{îd}")
+	@ManyToOne(optional=false)
+	@JoinColumn(name="idCertificate", nullable=false, updatable=false)
 	private Certificate title;
 	
 //	private LodgingType lodgings;
