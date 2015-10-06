@@ -11,9 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlType;
 
-@XmlType(name = "title")
 @Entity
 @Table
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)

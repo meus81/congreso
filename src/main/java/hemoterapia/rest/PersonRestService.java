@@ -59,21 +59,19 @@ public class PersonRestService {
 	@Path("/person")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String savePerson(Person person, @Context HttpServletRequest request){
+	public String savePerson(Person person){
 //	public Response savePerson(InputStream incomingData){
 
-		Enumeration<String> parametros = request.getAttributeNames();
-		while(parametros.hasMoreElements()) {
-			System.out.println(parametros.nextElement());
-		}
+//		Enumeration<String> parametros = request.getAttributeNames();
+//		while(parametros.hasMoreElements()) {
+//			System.out.println(parametros.nextElement());
+//		}
 		
 		System.out.println("calling the post a person... service");
         System.out.println("First Name = "+ person.getName());
         System.out.println("Last Name  = "+ person.getSurname());
         System.out.println("companions = " + person.getCompanions());
         System.out.println("certificate = " + person.getTitle());
-        
-        
         
         PersonService personService = new PersonService();
         personService.save(person);

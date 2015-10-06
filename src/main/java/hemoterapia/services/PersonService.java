@@ -1,41 +1,45 @@
 package hemoterapia.services;
 
-
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
-
+import hemoterapia.configuration.Application;
 import hemoterapia.domain.Person;
+import hemoterapia.domain.Professional;
 
 public class PersonService {
 
-	private static final String PERSISTENCE_UNIT_NAME = "congreso";
-	private static EntityManagerFactory factory;
-		
-	public Person getDefaultPerson(){
+	public Person getDefaultPerson() {
 		Person person = new Person();
 		person.setName("Rodrigo");
 		person.setSurname("Rolón Luna");
 		return person;
 	}
-	
-	public List<Person> getAllPersons(){
-		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-	    EntityManager em = factory.createEntityManager();
-	    
+
+	public List<Person> getAllPersons() {
+		Application ap = Application.getInstance();
+		EntityManager em = ap.getEntityManager();
+		
 		Query query = em.createQuery("SELECT p FROM Person p");
-	    List<Person> allPerson = (List<Person>)query.getResultList();
+		List<Person> allPerson = (List<Person>) query.getResultList();
 		return allPerson;
 	}
 
+	public Person getPerson(int id) {
+		Application ap = Application.getInstance();
+		EntityManager em = ap.getEntityManager();
+		Person p = (Person) em.createQuery("SELECT p FROM Person p where p.id = :id")
+							  .setParameter("id", id)
+				              .getSingleResult();
+		return p;
+	}
+
 	public void save(Person person) {
-		factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-	    EntityManager entity = factory.createEntityManager();
-		entity.getTransaction().begin();
-		entity.persist(person);
-		entity.getTransaction().commit();
+		Application ap = Application.getInstance();
+		EntityManager em = ap.getEntityManager();
+		em.getTransaction().begin();
+		em.persist(person);
+		em.getTransaction().commit();
 	}
 }
