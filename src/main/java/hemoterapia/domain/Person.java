@@ -34,7 +34,6 @@ public class Person implements Serializable{
 	private String surname;
 	private int companions;
 	
-	@InjectLink("/certificate/{îd}")
 	@ManyToOne
 	@JoinColumn(name="idCertificate", nullable=false, updatable=false)
 	private Certificate title;

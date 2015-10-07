@@ -28,10 +28,9 @@ public class Professional extends Certificate {
 //	}
 	
 	public Professional(){
-		
 	}
 	
 	public String toString(){
-		return "Professional";
+		return this.getName();
 	}
 }

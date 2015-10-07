@@ -20,6 +20,8 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.glassfish.jersey.linking.InjectLink;
+
 import hemoterapia.domain.Certificate;
 import hemoterapia.domain.Person;
 import hemoterapia.services.PersonService;

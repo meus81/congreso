@@ -27,11 +27,19 @@ public abstract class Certificate implements Serializable{
 	private int idCertificate;
 	
 	private double tax;
+	private String name;
 	
 	public double getTax() {
 		return tax;
 	}
 	protected void setTax(double tax) {
 		this.tax = tax;
+	}
+	
+	public String getName(){
+		return this.name;
+	}
+	protected void setName(String aName){
+		this.name = aName;
 	}
 }

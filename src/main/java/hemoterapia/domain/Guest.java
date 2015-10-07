@@ -28,10 +28,9 @@ public class Guest extends Certificate {
 //	}
 	
 	public Guest(){
-		
 	}
 	
 	public String toString(){
-		return "Guest";
+		return this.getName();
 	}
 }

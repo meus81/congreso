@@ -26,10 +26,9 @@ public class Technician extends Certificate {
 //		return instance;
 //	}
 	public Technician(){
-		
 	}
 	
 	public String toString(){
-		return "Technician";
+		return this.getName();
 	}
 }
