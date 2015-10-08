@@ -14,22 +14,18 @@ public class Professional extends Certificate {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-//	@Transient
-//	private static Professional instance = null;
-//	
-//	private Professional(){
-//	}
-//	
-//	public static Professional getInstance(){
-//		if (instance == null){
-//			instance = new Professional();
-//		}
-//		return instance;
-//	}
+	@Transient
+	private static Professional instance = null;
 	
-	public Professional(){
+	protected Professional(){
 	}
 	
+	public static Professional getInstance(){
+	if (instance == null){
+			instance = new Professional();
+		}
+		return instance;
+	}
 	public String toString(){
 		return this.getName();
 	}

@@ -11,10 +11,11 @@ public class CertificateTest extends TestCase {
 	public void testGetCertificate() {
 		CertificateService certificateService = new CertificateService();
 		Certificate professional = certificateService.getCertificate(1);
-		assertTrue(professional.toString() == "Professional");
+		System.out.println(professional.toString());
+		assertTrue(professional.toString().equalsIgnoreCase("Professional"));
 		Certificate technical = certificateService.getCertificate(2);
-		assertTrue(technical.toString() == "Technician");
+		assertTrue(technical.toString().equalsIgnoreCase("Technician"));
 		Certificate guest = certificateService.getCertificate(3);
-		assertTrue(guest.toString() == "Guest");
+		assertTrue(guest.toString().equalsIgnoreCase("Guest"));
 	}
 }

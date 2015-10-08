@@ -19,6 +19,7 @@ public class Application {
 	public static Application getInstance(){
 		if (_instance == null){
 			_instance = new Application();
+			
 		}
 		return _instance;
 	}
