@@ -15,8 +15,8 @@ public class PersonTest extends TestCase {
 		
 		PersonService personService = new PersonService();
 		Person personSave = new Person();
-		personSave.setName("Paulo");
-		personSave.setSurname("Vinci");
+		personSave.setName("Sole");
+		personSave.setSurname("Sanchez");
 		personSave.setCompanions(3);
 		personSave.setTitle(professional);
 		personService.save(personSave);
