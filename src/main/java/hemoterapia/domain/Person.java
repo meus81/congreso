@@ -13,9 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
-import org.glassfish.jersey.linking.InjectLink;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -34,6 +35,7 @@ public class Person implements Serializable{
 	private String surname;
 	private int companions;
 	
+	@XmlElement(name="title", required=true)
 	@ManyToOne
 	@JoinColumn(name="idCertificate", nullable=false, updatable=false)
 	private Certificate title;

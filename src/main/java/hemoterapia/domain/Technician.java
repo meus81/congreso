@@ -3,8 +3,10 @@ package hemoterapia.domain;
 import javax.inject.Singleton;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @DiscriminatorValue("T")
 @Singleton
@@ -13,19 +15,11 @@ public class Technician extends Certificate {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Transient
-	private static Technician instance = null;
 
-	protected Technician(){
+	public Technician(){
 	}
 	
-	public static Technician getInstance(){
-		if (instance == null){
-			instance = new Technician();
-		}
-		return instance;
-	}
-	
+	@Override
 	public String toString(){
 		return this.getName();
 	}

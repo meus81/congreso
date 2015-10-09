@@ -4,8 +4,10 @@ package hemoterapia.domain;
 import javax.inject.Singleton;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @DiscriminatorValue("P")
 @Singleton
@@ -14,18 +16,11 @@ public class Professional extends Certificate {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Transient
-	private static Professional instance = null;
-	
-	protected Professional(){
+		
+	public Professional(){
 	}
-	
-	public static Professional getInstance(){
-	if (instance == null){
-			instance = new Professional();
-		}
-		return instance;
-	}
+
+	@Override
 	public String toString(){
 		return this.getName();
 	}

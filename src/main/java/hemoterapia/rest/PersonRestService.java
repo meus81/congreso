@@ -48,13 +48,13 @@ public class PersonRestService {
 	}
 	
 	@GET
-	@Path("/person")
+	@Path("/all_persons")
 	@Produces(MediaType.APPLICATION_JSON)
-	public GenericEntity<List<Person>> getAlltPersonInJson(){
+	public Response getAlltPersonInJson(){
 		PersonService personService = new PersonService();
-		return new GenericEntity<List<Person>>(personService.getAllPersons()){
-			
-		};	
+		GenericEntity<List<Person>> list = new GenericEntity<List<Person>>(personService.getAllPersons()){
+		};
+		return Response.ok(list).build();
 	}
 	
 	@POST
