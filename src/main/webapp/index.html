@@ -18,11 +18,25 @@
 		<div ng-controller= "SavePersonController as saveCtrl">
 			<form name="register-person" novalidate="novalidate">
 			
-				<label title="Nombre"> Nombre:
+				<label title="Name"> Nombre:
 				<input type="text" id="name" ng-model="person.name" />
-				</label> 
-				<label title="Apellido"> Apellido: 
+				</label> <br />
+				<label title="Surname"> Apellido: 
 				<input type="text" id="surname" ng-model="person.surname" />
+				</label><br />
+				<label title="Companions"> Acompa&ntilde;antes: 
+				<input type="text" id="companions" ng-model="person.companions" />
+				</label><br />
+				
+				<label title="Certificate"> Tipo de inscripci&oacute;n: </label><br />
+				<label>
+				<input type="radio" ng-model="person.certificate.idCertificate" value="1"> Profesional
+				</label><br />
+				<label> <input type="radio" ng-model="person.certificate.idCertificate" value="2"> T&eacute;cnico
+				</label><br />
+				<label> <input type="radio" ng-model="person.certificate.idCertificate" value="3"> Invitado
+				</label><br /> 
+				
 				<input type="submit" value="Enviar" ng-click="savePerson(person)"/>
 			</form>
 		</div>

@@ -78,6 +78,13 @@
 			<version>7.0</version> <!-- Put here the version of your Java EE app, in my case 7.0 -->
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- JSON depndency -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20140107</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>congreso</finalName>

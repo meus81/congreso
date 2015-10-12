@@ -1,17 +1,19 @@
 package hemoterapia.domain;
 
 
+import java.io.Serializable;
+
 import javax.inject.Singleton;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlAccessorType(XmlAccessType.FIELD)
+
+@XmlRootElement
 @Entity
 @DiscriminatorValue("P")
 @Singleton
-public class Professional extends Certificate {
+public class Professional extends Certificate implements Serializable{
 	/**
 	 * 
 	 */

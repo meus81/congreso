@@ -19,7 +19,7 @@ public class CertificateRestService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Certificate getCertificate(@PathParam("id") int id ){
 		System.out.println("El id del parametro " + id);
-		CertificateService personService = new CertificateService();
-		return personService.getCertificate(id);
+		CertificateService certificateService = new CertificateService();
+		return certificateService.getCertificate(id);
 	}
 }

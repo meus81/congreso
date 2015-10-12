@@ -18,12 +18,12 @@ public class PersonTest extends TestCase {
 		personSave.setName("Sole");
 		personSave.setSurname("Sanchez");
 		personSave.setCompanions(3);
-		personSave.setTitle(professional);
+		personSave.setCertificate(professional);
 		personService.save(personSave);
 		
 		Person personGet = personService.getPerson(1);
 		System.out.println("la persona es: " + personGet.getName() + "-" + 
 							personGet.getSurname() + "-" + 
-							personGet.getTitle().toString());
+							personGet.getCertificate().toString());
 	}
 }

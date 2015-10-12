@@ -15,7 +15,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 
 @XmlRootElement
@@ -35,10 +34,10 @@ public class Person implements Serializable{
 	private String surname;
 	private int companions;
 	
-	@XmlElement(name="title", required=true)
-	@ManyToOne
+	@XmlElement(name="certificate", required=true)
+	@ManyToOne(optional=false)
 	@JoinColumn(name="idCertificate", nullable=false, updatable=false)
-	private Certificate title;
+	private Certificate certificate;
 	
 //	private LodgingType lodgings;
 	
@@ -66,10 +65,10 @@ public class Person implements Serializable{
 	public void setCompanions(int companions) {
 		this.companions = companions;
 	}
-	public Certificate getTitle() {
-		return title;
+	public Certificate getCertificate() {
+		return certificate;
 	}
-	public void setTitle(Certificate title) {
-		this.title = title;
+	public void setCertificate(Certificate certificate) {
+		this.certificate = certificate;
 	}
 }

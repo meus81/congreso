@@ -4,6 +4,8 @@ app.controller('DefaultPersonController', ['$scope', 'PersonFactory', function (
 	 PersonFactory.query({}, function (personFactory) {
        $scope.name = personFactory.name;
        $scope.surname = personFactory.surname;
+       $scope.companions = personFactory.companions;
+       $scope.certificate = personFactory.certificate;
    })
 }]);
 

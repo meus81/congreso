@@ -3,10 +3,9 @@ package hemoterapia.domain;
 import javax.inject.Singleton;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement
 @Entity
 @DiscriminatorValue("G")
 @Singleton

@@ -11,9 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlType(name="")
+@XmlRootElement
 @Entity
 @Table
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
@@ -31,6 +31,14 @@ public abstract class Certificate implements Serializable{
 	private double tax;
 	private String name;
 	
+		
+	protected int getIdCertificate() {
+		return idCertificate;
+	}
+	protected void setIdCertificate(int idCertificate) {
+		this.idCertificate = idCertificate;
+	}
+	
 	public double getTax() {
 		return tax;
 	}
@@ -43,9 +51,5 @@ public abstract class Certificate implements Serializable{
 	}
 	protected void setName(String aName){
 		this.name = aName;
-	}
-	
-	public Certificate(){
-		
 	}
 }
