@@ -71,4 +71,10 @@ public class Person implements Serializable{
 	public void setCertificate(Certificate certificate) {
 		this.certificate = certificate;
 	}
+	public double getAmountToPaid() {
+		double certificateAmount = this.getCertificate().getAmount();
+//		double lodgingAmount = this.getLoadging().getAmount() * this.getCompanions 
+		double total = certificateAmount;
+		return total;
+	}
 }

@@ -19,6 +19,7 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import hemoterapia.configuration.Application;
 import hemoterapia.domain.Person;
 import hemoterapia.domain.Professional;
+import hemoterapia.print.Printer;
 
 public class PersonService {
 
@@ -54,39 +55,8 @@ public class PersonService {
 //		em.persist(person);
 //		em.getTransaction().commit();
 		
-		System.out.println("VOY a IMPRIMIR......");
-		// Create a document and add a page to it
-		PDDocument document = new PDDocument();
-		PDPage page = new PDPage();
-		document.addPage( page );
-
-		// Create a new font object selecting one of the PDF base fonts
-		PDFont font = PDType1Font.HELVETICA_BOLD;
-
-		// Start a new content stream which will "hold" the to be created content
-		PDPageContentStream contentStream;
-		try {
-			contentStream = new PDPageContentStream(document, page);
-			// Define a text content stream using the selected font, moving the cursor and drawing the text "Hello World"
-			contentStream.beginText();
-			contentStream.setFont( font, 12 );
-			contentStream.moveTextPositionByAmount( 100, 700 );
-			contentStream.drawString( "Hello World" );
-			contentStream.endText();
-
-			// Make sure that the content stream is closed:
-			contentStream.close();
-			
-			PrinterJob printJob = PrinterJob.getPrinterJob();
-			PrintService service = PrintServiceLookup.lookupDefaultPrintService(); 
-			printJob.setPrintService(service);
-			
-			document.silentPrint(printJob);
-		} catch (IOException | PrinterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		Printer printer = new Printer();
+		printer.printRegistrationTicket(person);
 		
 	}
 }

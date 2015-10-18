@@ -52,4 +52,8 @@ public abstract class Certificate implements Serializable{
 	protected void setName(String aName){
 		this.name = aName;
 	}
+	
+	public double getAmount(){
+		return this.getTax();
+	}
 }

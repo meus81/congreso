@@ -26,4 +26,5 @@ public class Professional extends Certificate implements Serializable{
 	public String toString(){
 		return this.getName();
 	}
+
 }
