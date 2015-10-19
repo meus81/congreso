@@ -27,4 +27,10 @@ public class Professional extends Certificate implements Serializable{
 		return this.getName();
 	}
 
+	@Override
+	public double getAmountWithLodgings(int companions) {
+//		CertificateService certificateService = new CertificateService();
+//		certificateService.getCertificate(id)
+		return this.getTaxWithLodgings() + companions * (new Technician()).getTaxWithLodgings();
+	}
 }

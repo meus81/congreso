@@ -22,4 +22,9 @@ public class Technician extends Certificate {
 	public String toString(){
 		return this.getName();
 	}
+
+	@Override
+	public double getAmountWithLodgings(int companions) {
+		return this.getTaxWithoutLodgings() + this.getTaxWithLodgings() * companions;
+	}
 }

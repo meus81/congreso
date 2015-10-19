@@ -16,10 +16,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Entity
 @Table
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "certificate_type", discriminatorType=DiscriminatorType.STRING)
-public abstract class Certificate implements Serializable{
-	
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "certificate_type", discriminatorType = DiscriminatorType.STRING)
+public abstract class Certificate implements Serializable {
+
 	/**
 	 * 
 	 */
@@ -27,33 +27,50 @@ public abstract class Certificate implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private int idCertificate;
-	
-	private double tax;
+
+	private double taxWithLodgings;
+	private double taxWithoutLodgings;
 	private String name;
-	
-		
+
 	protected int getIdCertificate() {
 		return idCertificate;
 	}
+
 	protected void setIdCertificate(int idCertificate) {
 		this.idCertificate = idCertificate;
 	}
-	
-	public double getTax() {
-		return tax;
+
+	public double getTaxWithLodgings() {
+		return taxWithLodgings;
 	}
-	protected void setTax(double tax) {
-		this.tax = tax;
+
+	public void setTaxWithLodgings(double taxWithLodgings) {
+		this.taxWithLodgings = taxWithLodgings;
 	}
-	
-	public String getName(){
+
+	public double getTaxWithoutLodgings() {
+		return taxWithoutLodgings;
+	}
+
+	public void setTaxWithoutLodgings(double taxWithoutLodgings) {
+		this.taxWithoutLodgings = taxWithoutLodgings;
+	}
+
+	public String getName() {
 		return this.name;
 	}
-	protected void setName(String aName){
+
+	protected void setName(String aName) {
 		this.name = aName;
 	}
-	
-	public double getAmount(){
-		return this.getTax();
+
+	public double getAmount(LodgingsType lodgingsType, int companions) {
+		return lodgingsType.getAmount(this, companions);
+	}
+
+	public abstract double getAmountWithLodgings(int companions);
+
+	public double getAmountWithoutLodgings() {
+		return this.getAmountWithoutLodgings();
 	}
 }

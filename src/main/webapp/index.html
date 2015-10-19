@@ -24,18 +24,25 @@
 				<label title="Surname"> Apellido: 
 				<input type="text" id="surname" ng-model="person.surname" />
 				</label><br />
-				<label title="Companions"> Acompa&ntilde;antes: 
-				<input type="text" id="companions" ng-model="person.companions" />
-				</label><br />
-				
+								
 				<label title="Certificate"> Tipo de inscripci&oacute;n: </label><br />
 				<label>
-				<input type="radio" ng-model="person.certificate.idCertificate" value="1"> Profesional
+				<input type="radio" ng-model="person.certificate.idCertificate" value="1" checked> Profesional
 				</label><br />
 				<label> <input type="radio" ng-model="person.certificate.idCertificate" value="2"> T&eacute;cnico
 				</label><br />
 				<label> <input type="radio" ng-model="person.certificate.idCertificate" value="3"> Invitado
 				</label><br /> 
+				
+				<label title="Lodgings"> Alojamiento </label><br />
+				<label>
+				<input type="radio" ng-model="person.lodgings.lodgings_type" value="WithLodgings" checked> Sin Alojamiento
+				</label><br />
+				<label> <input type="radio" ng-model="person.lodgings.lodgings_type" value="WithoutLodgings"> Con Alojamiento
+				</label><br />
+				<label title="Companions"> Acompa&ntilde;antes: 
+				<input type="text" id="companions" ng-model="person.companions" value="0" numeric-only/>
+				</label><br />
 				
 				<input type="submit" value="Enviar" ng-click="savePerson(person)"/>
 			</form>

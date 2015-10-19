@@ -25,8 +25,10 @@ import org.glassfish.jersey.linking.InjectLink;
 import org.json.JSONObject;
 
 import hemoterapia.domain.Certificate;
+import hemoterapia.domain.LodgingsType;
 import hemoterapia.domain.Person;
 import hemoterapia.services.CertificateService;
+import hemoterapia.services.LodgingsService;
 import hemoterapia.services.PersonService;
 
 @ApplicationPath("/resources")
@@ -108,17 +110,22 @@ public class PersonRestService {
 		String surname = obj.getString("surname");
 		int companions = obj.getInt("companions");
 		int idCertificate = obj.getJSONObject("certificate").getInt("idCertificate");
+		String lodgingsType = obj.getJSONObject("lodgings").getString("lodgings_type");
 		
 		System.out.println("Data re-contruct " + name + "-" + surname + "-" + companions +"-" + idCertificate);
 		
 		CertificateService certificateService = new CertificateService();
 		Certificate certificate  = certificateService.getCertificate(idCertificate);
 		
+		LodgingsService lodgingsService = new LodgingsService();
+		LodgingsType lodgingType = lodgingsService.getLodgingsType(lodgingsType); 
+		
 		Person p = new Person();
 		p.setName(name);
 		p.setSurname(surname);
 		p.setCompanions(companions);
 		p.setCertificate(certificate);
+		p.setLodgings(lodgingType);
 		
 		PersonService personService = new PersonService();
 		personService.save(p);

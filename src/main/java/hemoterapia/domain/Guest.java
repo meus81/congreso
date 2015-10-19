@@ -23,4 +23,9 @@ public class Guest extends Certificate {
 	public String toString(){
 		return this.getName();
 	}
+
+	@Override
+	public double getAmountWithLodgings(int companions) {
+		return this.getTaxWithoutLodgings();
+	}
 }

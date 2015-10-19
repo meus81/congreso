@@ -11,12 +11,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
+/**
+ * @author meus
+ *
+ */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
@@ -32,6 +37,8 @@ public class Person implements Serializable{
 	private int idPerson;
 	private String name;
 	private String surname;
+	private String email;
+	private String address;
 	private int companions;
 	
 	@XmlElement(name="certificate", required=true)
@@ -39,7 +46,8 @@ public class Person implements Serializable{
 	@JoinColumn(name="idCertificate", nullable=false, updatable=false)
 	private Certificate certificate;
 	
-//	private LodgingType lodgings;
+	private LodgingsType lodgings;
+	
 	
 	public int getIdPerson(){
 		return idPerson;
@@ -65,16 +73,34 @@ public class Person implements Serializable{
 	public void setCompanions(int companions) {
 		this.companions = companions;
 	}
+		
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 	public Certificate getCertificate() {
 		return certificate;
 	}
 	public void setCertificate(Certificate certificate) {
 		this.certificate = certificate;
 	}
+	
+	public LodgingsType getLodgings() {
+		return lodgings;
+	}
+	public void setLodgings(LodgingsType lodgings) {
+		this.lodgings = lodgings;
+	}
 	public double getAmountToPaid() {
-		double certificateAmount = this.getCertificate().getAmount();
-//		double lodgingAmount = this.getLoadging().getAmount() * this.getCompanions 
-		double total = certificateAmount;
+		double total = this.getCertificate().getAmount(this.getLodgings(), this.getCompanions());
 		return total;
 	}
 }
