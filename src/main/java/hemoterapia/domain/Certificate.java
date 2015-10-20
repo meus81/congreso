@@ -30,20 +30,19 @@ public abstract class Certificate implements Serializable {
 
 	private double taxWithLodgings;
 	private double taxWithoutLodgings;
+	private double taxCompanions;
 	private String name;
 
 	protected int getIdCertificate() {
 		return idCertificate;
 	}
-
 	protected void setIdCertificate(int idCertificate) {
 		this.idCertificate = idCertificate;
 	}
-
+	
 	public double getTaxWithLodgings() {
 		return taxWithLodgings;
 	}
-
 	public void setTaxWithLodgings(double taxWithLodgings) {
 		this.taxWithLodgings = taxWithLodgings;
 	}
@@ -51,15 +50,20 @@ public abstract class Certificate implements Serializable {
 	public double getTaxWithoutLodgings() {
 		return taxWithoutLodgings;
 	}
-
 	public void setTaxWithoutLodgings(double taxWithoutLodgings) {
 		this.taxWithoutLodgings = taxWithoutLodgings;
+	}
+
+	public double getTaxCompanions() {
+		return taxCompanions;
+	}
+	public void setTaxCompanions(double taxCompanions) {
+		this.taxCompanions = taxCompanions;
 	}
 
 	public String getName() {
 		return this.name;
 	}
-
 	protected void setName(String aName) {
 		this.name = aName;
 	}
@@ -67,10 +71,8 @@ public abstract class Certificate implements Serializable {
 	public double getAmount(LodgingsType lodgingsType, int companions) {
 		return lodgingsType.getAmount(this, companions);
 	}
-
-	public abstract double getAmountWithLodgings(int companions);
-
 	public double getAmountWithoutLodgings() {
-		return this.getAmountWithoutLodgings();
+		return this.getTaxWithoutLodgings();
 	}
+	public abstract double getAmountWithLodgings(int companions);
 }

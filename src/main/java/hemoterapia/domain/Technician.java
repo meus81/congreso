@@ -25,6 +25,9 @@ public class Technician extends Certificate {
 
 	@Override
 	public double getAmountWithLodgings(int companions) {
-		return this.getTaxWithoutLodgings() + this.getTaxWithLodgings() * companions;
+		double total = this.getTaxWithLodgings() + companions * this.getTaxCompanions();
+		System.out.println("La tasa a pagar es: " + this.getTaxWithLodgings() + " + " 
+							+ companions + " * " + this.getTaxCompanions() + "= " + total );
+		return total;
 	}
 }
