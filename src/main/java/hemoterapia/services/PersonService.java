@@ -49,11 +49,11 @@ public class PersonService {
 	}
 
 	public void save(Person person) {
-		Application ap = Application.getInstance();
-		EntityManager em = ap.getEntityManager();
-		em.getTransaction().begin();
-		em.persist(person);
-		em.getTransaction().commit();
+//		Application ap = Application.getInstance();
+//		EntityManager em = ap.getEntityManager();
+//		em.getTransaction().begin();
+//		em.persist(person);
+//		em.getTransaction().commit();
 		
 		Printer printer = new Printer();
 		printer.printRegistrationTicket(person);

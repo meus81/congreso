@@ -1,16 +1,12 @@
 package hemoterapia.print;
 
 import java.awt.image.BufferedImage;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
 
 import org.apache.pdfbox.exceptions.COSVisitorException;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -42,8 +38,11 @@ public class Printer {
 		return new PDPage(size);
 	}
 
-	private void drawHeaderPDF(PDDocument doc, PDPageContentStream contentStream, PDRectangle mediabox)
+	private void drawHeaderPDF(PDDocument doc, PDPage page, PDRectangle mediabox)
 			throws IOException {
+		
+		PDPageContentStream contentStreamDraw = new PDPageContentStream(doc, page, true, true);
+		
 		BufferedImage tmp_image = ImageIO.read(new File("./src/main/webapp/img/logo.png"));
 		BufferedImage image = new BufferedImage(tmp_image.getWidth(), tmp_image.getHeight(),
 				BufferedImage.TYPE_4BYTE_ABGR);
@@ -51,7 +50,6 @@ public class Printer {
 		PDXObjectImage logoImage = new PDPixelMap(doc, image);
 
 		float margin = 50;
-
 		float headerX = mediabox.getLowerLeftX() + margin;
 		float headerY = mediabox.getUpperRightY() - margin - 10;
 		float headerWidth = mediabox.getWidth() - 2 * margin;
@@ -61,7 +59,8 @@ public class Printer {
 				+ mediabox.getWidth() + " - " + mediabox.getHeight());
 		System.out.println("Print medidas: " + headerX + " - " + headerY + " - " + headerWidth + " - " + headerHeight);
 
-		contentStream.drawXObject(logoImage, headerX, headerY, headerWidth, headerHeight);
+		contentStreamDraw.drawXObject(logoImage, headerX, headerY, headerWidth, headerHeight);
+		contentStreamDraw.close();
 		// contentStream.drawXObject(logoImage, 50, 780, 500, 40);
 	}
 
@@ -73,7 +72,6 @@ public class Printer {
 				+ " en concepto de inscripción al 29° encuentro provincial"
 				+ " de hemoterapia a realizarse los días 4, 5 y 6 de noviembre de 2015 en la ciudad de Villa Gesel, provincia"
 				+ " de Buenos Aires, Argentina";
-
 	}
 
 	private List<String> getTextInLines(String text, PDFont pdfFont, float fontSize, float width) throws IOException {
@@ -106,51 +104,70 @@ public class Printer {
 		return lines;
 	}
 
+	private void putTextInDiferentsLines(PDDocument doc, PDPage page, PDRectangle mediabox, 
+			PDFont pdfFont, float fontSize, float leading, String text, float width, 
+			float startX, float startY) throws IOException{
+		
+		PDPageContentStream contentStream = new PDPageContentStream(doc, page, true, true);
+		List<String> lines = getTextInLines(text, pdfFont, fontSize, width);
+	
+		contentStream.beginText();
+		contentStream.setFont(pdfFont, fontSize);
+		contentStream.moveTextPositionByAmount(startX, startY);
+		for (String line : lines) {
+			contentStream.drawString(line);
+			contentStream.moveTextPositionByAmount(0, -leading);
+		}
+		contentStream.endText();
+		contentStream.close();
+	}
+	
+	
 	public void printRegistrationTicket(Person person) {
 		try {
 			PDDocument doc = createDoc();
-			PDPage page = setPage(PDPage.PAGE_SIZE_A4);
+			PDPage page = setPage(PDPage.PAGE_SIZE_A5);
 
 			doc.addPage(page);
-			PDPageContentStream contentStream = new PDPageContentStream(doc, page);
-
+			
 			PDFont pdfFont = PDType1Font.HELVETICA;
 			float fontSize = 10;
 			float leading = 1.5f * fontSize;
 
 			PDRectangle mediabox = page.findMediaBox();
+			drawHeaderPDF(doc, page, mediabox);
+			
+			PDPageContentStream title = new PDPageContentStream(doc, page, true, true);
 			float margin = 60;
 			float width = mediabox.getWidth() - 2 * margin;
 			float startX = mediabox.getLowerLeftX() + margin;
 			float startY = mediabox.getUpperRightY() - margin - 45;
-
-			String text = createTextTicket(person);
-			List<String> lines = getTextInLines(text, pdfFont, fontSize, width);
-
-			drawHeaderPDF(doc, contentStream, mediabox);
-
-			contentStream.beginText();
-			contentStream.setFont(pdfFont, fontSize);
-			contentStream.moveTextPositionByAmount(startX, startY);
-			for (String line : lines) {
-				contentStream.drawString(line);
-				contentStream.moveTextPositionByAmount(0, -leading);
-			}
-			contentStream.endText();
-			contentStream.close();
-
-			doc.save("test.pdf");
+			String textTile = "Insituto de hemoterapia de la Pcia de Buenos Aires 29 "
+					+ "encuentro de no se que poronga";
+			putTextInDiferentsLines(doc, page, mediabox, pdfFont, fontSize, leading, textTile,
+					width, startX, startY);
+			
+			
+			margin = 60;
+			startY = mediabox.getUpperRightY() - margin - 90;
+			String textTicket = createTextTicket(person);
+			putTextInDiferentsLines(doc, page, mediabox, pdfFont, fontSize, leading, textTicket,
+					width, startX, startY);
+			
+			
+			doc.save(person.getName()+"-"+person.getSurname()+".pdf");
 		} catch (IOException | COSVisitorException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
+	/*
 	public void printRegistrationTicket2(Person person) {
 		System.out.println("VOY a IMPRIMIR......");
 		// Create a document and add a page to it
 		PDDocument document = new PDDocument();
-		PDPage page = new PDPage(PDPage.PAGE_SIZE_A4);
+		PDPage page = new PDPage(PDPage.PAGE_SIZE_A5);
 
 		document.addPage(page);
 
@@ -192,4 +209,5 @@ public class Printer {
 			e.printStackTrace();
 		}
 	}
+	*/
 }
