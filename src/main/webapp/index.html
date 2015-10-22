@@ -7,45 +7,14 @@
 		<script src="js/controllers.js"></script>
 	</head>
 	<body>
-		<div ng-controller="DefaultPersonController">
-			<hr>
-			<h1>Bienvenido a la pagina de hemoterapia!</h1>
-			<h3>
-	        Result from RESTful service is: {{name + " " + surname}}
-			</h3>
-		</div>
+		<h1>Bienvenido al sistema de registración de personas para el encuentro anual
+		provincial de hemoterapia de la Provincia de Buenos Aires</h1>
+		<br/>
+		<br/>
+		<br/>
 		
-		<div ng-controller= "SavePersonController as saveCtrl">
-			<form name="register-person" novalidate="novalidate">
-			
-				<label title="Name"> Nombre:
-				<input type="text" id="name" ng-model="person.name" />
-				</label> <br />
-				<label title="Surname"> Apellido: 
-				<input type="text" id="surname" ng-model="person.surname" />
-				</label><br />
-								
-				<label title="Certificate"> Tipo de inscripci&oacute;n: </label><br />
-				<label>
-				<input type="radio" ng-model="person.certificate.idCertificate" value="1" checked> Profesional
-				</label><br />
-				<label> <input type="radio" ng-model="person.certificate.idCertificate" value="2"> T&eacute;cnico
-				</label><br />
-				<label> <input type="radio" ng-model="person.certificate.idCertificate" value="3"> Invitado
-				</label><br /> 
-				
-				<label title="Lodgings"> Alojamiento </label><br />
-				<label>
-				<input type="radio" ng-model="person.lodgings.lodgings_type" value="hemoterapia.domain.WithoutLodgings" checked> Sin Alojamiento
-				</label><br />
-				<label> <input type="radio" ng-model="person.lodgings.lodgings_type" value="hemoterapia.domain.WithLodgings"> Con Alojamiento
-				</label><br />
-				<label title="Companions"> Acompa&ntilde;antes: 
-				<input type="text" id="companions" ng-model="person.companions" value="0" numeric-only/>
-				</label><br />
-				
-				<input type="submit" value="Enviar" ng-click="savePerson(person)"/>
-			</form>
-		</div>
+		<a href="./registrar_personas.html" >Registrar Personas al encuentro</a> <br/>
+		<a href="./consultar_persona.html" >Realizar consultas sobre personas inscriptas</a> <br/>
+		<a href="./estadisticas.html" >Estadisticas</a><br/>
 	</body>
 </html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html ng-app="hemoterapia.controllers">
+<head>
+	<script src="lib/angular/angular.js"></script>
+	<script src="lib/angular/angular-resource.js"></script>
+	<script src="js/services.js"></script>
+	<script src="js/controllers.js"></script>
+	<script type="text/javascript" src="lib/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$("input:radio").change(function() {
+		    if ($(this).val() === "hemoterapia.domain.WithLodgings") {
+		    	$("#companios_div").show("slow");
+		    } else if ($(this).val() === "hemoterapia.domain.WithoutLodgings") {
+		    	$("#companios_div").hide("slow");
+		    }
+		 });
+	});
+	 </script>
+</head>
+<body>
+	<div ng-controller="SavePersonController as saveCtrl">
+		<form name="register-person" novalidate="novalidate">
+			<label title="Name"> Nombre: 
+				<input type="text" id="name" ng-model="person.name" />
+			</label> <br /> 
+			<label title="Surname"> Apellido: 
+				<input type="text" id="surname" ng-model="person.surname" />
+			</label><br />
+			 
+			<div> 
+			<label title="Certificate"> Tipo de	inscripci&oacute;n: </label><br /> 
+			<label> <input type="radio"	name="certificate" ng-model="person.certificate.idCertificate" value="1" checked>
+				Profesional
+			</label><br /> 
+			<label> <input type="radio"	name="certificate" ng-model="person.certificate.idCertificate" value="2">
+				T&eacute;cnico
+			</label><br />
+			<label> <input type="radio"	name="certificate" ng-model="person.certificate.idCertificate" value="3">
+				Invitado
+			</label><br />
+			</div>
+			
+			<div> 
+			<label title="Lodgings"> Alojamiento </label><br /> <label>
+				<input type="radio" name="lodgings" ng-model="person.lodgings.lodgings_type" 
+						value="hemoterapia.domain.WithoutLodgings" id="withoutLodgings" checked="checked"> 
+						Sin	Alojamiento
+			</label><br /> 
+			<label> 
+				<input type="radio"	name="lodgings" ng-model="person.lodgings.lodgings_type" 
+				value="hemoterapia.domain.WithLodgings" id="withLodgings"> 
+				Con Alojamiento
+			</label>
+			<br /> 
+			</div> 
+			
+			<div id="companios_div" style="display: none">
+			<label title="Companions"> Acompa&ntilde;antes: 
+				<input type="text" id="companions" ng-model="person.companions" value="0" numeric-only />
+			</label><br />
+			</div>
+			
+			<input type="submit" value="Registrar"	ng-click="savePerson(person)" />
+		</form>
+	</div>
+</body>
+</html>
