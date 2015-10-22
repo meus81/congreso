@@ -44,7 +44,8 @@ public class Printer {
 
 	private void drawHeaderPDF(PDDocument doc, PDPage page, PDRectangle mediabox) throws IOException {
 		PDPageContentStream contentStreamDraw = new PDPageContentStream(doc, page, true, true);
-
+//		contentStream.concatenate2CTM(0, 1, -1, 0, mediabox.getWidth(), 0);
+		
 		BufferedImage tmp_image = ImageIO.read(new File("./src/main/webapp/img/logo.png"));
 		BufferedImage image = new BufferedImage(tmp_image.getWidth(), tmp_image.getHeight(),
 				BufferedImage.TYPE_4BYTE_ABGR);
@@ -123,12 +124,13 @@ public class Printer {
 	}
 
 	public void printRegistrationTicket(Person person) {
+		PDDocument doc = null;
 		try {
-			PDDocument doc = createDoc();
+			doc = createDoc();
 			PDPage page = setPage(PDPage.PAGE_SIZE_A5);
-
-			doc.addPage(page);
-
+			page.setRotation(90);
+			
+			doc.addPage(page);			
 			PDFont pdfFont = PDType1Font.HELVETICA;
 			float fontSize = 10;
 			float leading = 1.5f * fontSize;
@@ -136,27 +138,29 @@ public class Printer {
 			PDRectangle mediabox = page.findMediaBox();
 			drawHeaderPDF(doc, page, mediabox);
 
-			float margin = 60;
+           	float margin = 60;
 			float width = mediabox.getWidth() - 2 * margin;
 			float startX = mediabox.getLowerLeftX() + margin;
 			float startY = mediabox.getUpperRightY() - margin - 45;
-			String textTile = "Insituto de hemoterapia de la Pcia de Buenos Aires 29º"
-					+ " encuentro";
-			putTextInDiferentsLines(doc, page, mediabox, pdfFont, fontSize, leading, textTile, width, startX, startY);
+			String textTile = "Insituto de hemoterapia de la Pcia de Buenos Aires - 29º"
+					+ " encuentro Villa Gessel";
+			putTextInDiferentsLines(doc, page, mediabox, PDType1Font.HELVETICA_BOLD, fontSize, 
+					leading, textTile, width, startX, startY);
 
 			margin = 60;
 			startY = mediabox.getUpperRightY() - margin - 90;
 			String textTicket = createTextTicket(person);
 			putTextInDiferentsLines(doc, page, mediabox, pdfFont, fontSize, leading, textTicket, width, startX, startY);
 			
-//			PrinterJob printJob = PrinterJob.getPrinterJob(); 
-//			PrintService service = PrintServiceLookup.lookupDefaultPrintService();
-//			printJob.setPrintService(service); 
-//			doc.silentPrint(printJob);
-//			 | PrinterException
+			PrinterJob printJob = PrinterJob.getPrinterJob(); 
+			PrintService service = PrintServiceLookup.lookupDefaultPrintService();
+			printJob.setPrintService(service); 
+			doc.silentPrint(printJob);
+//			| PrinterException
 
 			doc.save(person.getName() + "-" + person.getSurname() + ".pdf");
-		} catch (IOException | COSVisitorException e) {
+			doc.close();
+		} catch (IOException | COSVisitorException | PrinterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
