@@ -18,13 +18,13 @@ USE `congresohemoterapia`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `person`
+-- Table structure for table `Person`
 --
 
-DROP TABLE IF EXISTS `person`;
+DROP TABLE IF EXISTS `Person`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `person` (
+CREATE TABLE `Person` (
   `idPerson` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   `surname` varchar(45) DEFAULT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE `person` (
   `lodgings` int(11) DEFAULT NULL,
   PRIMARY KEY (`idPerson`),
   KEY `fk_Person_1_idx` (`idCertificate`),
-  CONSTRAINT `fk_Person_1` FOREIGN KEY (`idCertificate`) REFERENCES `certificate` (`idCertificate`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_Person_1` FOREIGN KEY (`idCertificate`) REFERENCES `Certificate` (`idCertificate`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -43,20 +43,20 @@ CREATE TABLE `person` (
 -- Dumping data for table `person`
 --
 
-LOCK TABLES `person` WRITE;
-/*!40000 ALTER TABLE `person` DISABLE KEYS */;
-INSERT INTO `person` VALUES (7,'Marcos Esteban','Urbanjea Sanchez',2,1,NULL,NULL,1),(8,'Daniel','Formia',1,2,NULL,NULL,1),(9,'Ricardo','Jaime',1,2,NULL,NULL,1),(10,'Ricardo','Jaime',1,2,NULL,NULL,1),(11,'Paulo','Vinci',1,2,NULL,NULL,1),(12,'Paulo','Vinci',1,2,NULL,NULL,1),(13,'Paulo','Vinci',1,2,NULL,NULL,1);
-/*!40000 ALTER TABLE `person` ENABLE KEYS */;
+LOCK TABLES `Person` WRITE;
+/*!40000 ALTER TABLE `Person` DISABLE KEYS */;
+INSERT INTO `Person` VALUES (7,'Marcos Esteban','Urbanjea Sanchez',2,1,NULL,NULL,1),(8,'Daniel','Formia',1,2,NULL,NULL,1),(9,'Ricardo','Jaime',1,2,NULL,NULL,1),(10,'Ricardo','Jaime',1,2,NULL,NULL,1),(11,'Paulo','Vinci',1,2,NULL,NULL,1),(12,'Paulo','Vinci',1,2,NULL,NULL,1),(13,'Paulo','Vinci',1,2,NULL,NULL,1);
+/*!40000 ALTER TABLE `Person` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `certificate`
+-- Table structure for table `Certificate`
 --
 
-DROP TABLE IF EXISTS `certificate`;
+DROP TABLE IF EXISTS `Certificate`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `certificate` (
+CREATE TABLE `Certificate` (
   `idCertificate` int(11) NOT NULL AUTO_INCREMENT COMMENT '		',
   `certificate_type` char(1) NOT NULL,
   `taxWithLodgings` double DEFAULT NULL,
@@ -68,13 +68,13 @@ CREATE TABLE `certificate` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `certificate`
+-- Dumping data for table `Certificate`
 --
 
-LOCK TABLES `certificate` WRITE;
-/*!40000 ALTER TABLE `certificate` DISABLE KEYS */;
-INSERT INTO `certificate` VALUES (1,'P',1900,'Professional',1200,1450),(2,'T',1450,'Technician',800,1450),(3,'G',0,'Guest',0,0);
-/*!40000 ALTER TABLE `certificate` ENABLE KEYS */;
+LOCK TABLES `Certificate` WRITE;
+/*!40000 ALTER TABLE `Certificate` DISABLE KEYS */;
+INSERT INTO `Certificate` VALUES (1,'P',1900,'Professional',1200,1450),(2,'T',1450,'Technician',800,1450),(3,'G',0,'Guest',0,0);
+/*!40000 ALTER TABLE `Certificate` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

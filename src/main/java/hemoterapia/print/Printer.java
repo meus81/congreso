@@ -43,8 +43,6 @@ public class Printer {
 	}
 
 	private void drawHeaderPDF(PDDocument doc, PDPage page, PDRectangle mediabox) throws IOException {
-		PDPageContentStream contentStreamDraw = new PDPageContentStream(doc, page, true, true);
-//		contentStream.concatenate2CTM(0, 1, -1, 0, mediabox.getWidth(), 0);
 		
 		BufferedImage tmp_image = ImageIO.read(new File("./src/main/webapp/img/logo.png"));
 		BufferedImage image = new BufferedImage(tmp_image.getWidth(), tmp_image.getHeight(),
@@ -52,19 +50,24 @@ public class Printer {
 		image.createGraphics().drawRenderedImage(tmp_image, null);
 		PDXObjectImage logoImage = new PDPixelMap(doc, image);
 
+//		In a normal case without rotate
+//		float margin = 50;
+//		float headerX = mediabox.getLowerLeftX() + margin;
+//		float headerY = mediabox.getUpperRightY() - margin - 10;
+//		float headerWidth = mediabox.getWidth() - 2 * margin;
+//		float headerHeight = 40;
+		
 		float margin = 50;
-		float headerX = mediabox.getLowerLeftX() + margin;
-		float headerY = mediabox.getUpperRightY() - margin - 10;
-		float headerWidth = mediabox.getWidth() - 2 * margin;
+		float headerX = mediabox.getLowerLeftY() + margin;
+		float headerY = mediabox.getUpperRightX() - margin - 10;
+		float headerWidth = mediabox.getHeight() - 2 * margin;
 		float headerHeight = 40;
-
-		System.out.println("Print medidas: " + mediabox.getLowerLeftX() + " - " + mediabox.getUpperRightY() + " - "
-				+ mediabox.getWidth() + " - " + mediabox.getHeight());
-		System.out.println("Print medidas: " + headerX + " - " + headerY + " - " + headerWidth + " - " + headerHeight);
-
+		
+		PDPageContentStream contentStreamDraw = new PDPageContentStream(doc, page, true, true);
+//		contentStreamDraw.concatenate2CTM(cos 90°, sen 90°, -sen 90°, cos 90°, 0, 0);
+		contentStreamDraw.concatenate2CTM(0, 1, -1, 0, mediabox.getWidth(), 0);
 		contentStreamDraw.drawXObject(logoImage, headerX, headerY, headerWidth, headerHeight);
 		contentStreamDraw.close();
-		// contentStream.drawXObject(logoImage, 50, 780, 500, 40);
 	}
 
 	private String createTextTicket(Person person) {
@@ -76,6 +79,7 @@ public class Printer {
 				+ " de hemoterapia a realizarse los días 4, 5 y 6 de noviembre de 2015 en la ciudad de Villa Gesel, provincia"
 				+ " de Buenos Aires, Argentina";
 	}
+	
 
 	private List<String> getTextInLines(String text, PDFont pdfFont, float fontSize, float width) throws IOException {
 		List<String> lines = new ArrayList<String>();
@@ -122,87 +126,56 @@ public class Printer {
 		contentStream.endText();
 		contentStream.close();
 	}
+	
 
-	public void printRegistrationTicket(Person person) {
+	public void printRegistrationTicket(Person person, boolean print) {
 		PDDocument doc = null;
 		try {
 			doc = createDoc();
 			PDPage page = setPage(PDPage.PAGE_SIZE_A5);
 			page.setRotation(90);
 			
-			doc.addPage(page);			
-			PDFont pdfFont = PDType1Font.HELVETICA;
-			float fontSize = 10;
-			float leading = 1.5f * fontSize;
+			doc.addPage(page);	
 
 			PDRectangle mediabox = page.findMediaBox();
 			drawHeaderPDF(doc, page, mediabox);
 
-           	float margin = 60;
-			float width = mediabox.getWidth() - 2 * margin;
-			float startX = mediabox.getLowerLeftX() + margin;
-			float startY = mediabox.getUpperRightY() - margin - 45;
+			PDFont pdfFont = PDType1Font.HELVETICA;
+			float fontSize = 10;
+			float leading = 1.5f * fontSize;
+         
+			float margin = 100;
+//			In a normal case where the page is not rotated (landscape)
+//			float width = mediabox.getWidth() - 2 * margin;
+//			float startX = mediabox.getLowerLeftX() + margin;
+//			float startY = mediabox.getUpperRightY() - margin - 45;			
+			float startX = mediabox.getLowerLeftY() + margin;
+			float startY = mediabox.getUpperRightX() - margin - 10;
+			float width = mediabox.getHeight() - 2 * margin;
+			
 			String textTile = "Insituto de hemoterapia de la Pcia de Buenos Aires - 29º"
-					+ " encuentro Villa Gessel";
+							+ " encuentro Villa Gessel";
 			putTextInDiferentsLines(doc, page, mediabox, PDType1Font.HELVETICA_BOLD, fontSize, 
 					leading, textTile, width, startX, startY);
 
-			margin = 60;
-			startY = mediabox.getUpperRightY() - margin - 90;
+			margin = 190;
+			startY = mediabox.getUpperRightX() - margin;
 			String textTicket = createTextTicket(person);
 			putTextInDiferentsLines(doc, page, mediabox, pdfFont, fontSize, leading, textTicket, width, startX, startY);
 			
-			PrinterJob printJob = PrinterJob.getPrinterJob(); 
-			PrintService service = PrintServiceLookup.lookupDefaultPrintService();
-			printJob.setPrintService(service); 
-			doc.silentPrint(printJob);
-//			| PrinterException
+			if (print) {
+				PrinterJob printJob = PrinterJob.getPrinterJob(); 
+				PrintService service = PrintServiceLookup.lookupDefaultPrintService();
+				printJob.setPrintService(service); 
+				doc.silentPrint(printJob);
+			}
 
 			doc.save(person.getName() + "-" + person.getSurname() + ".pdf");
 			doc.close();
+			
 		} catch (IOException | COSVisitorException | PrinterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
-	/*
-	 * public void printRegistrationTicket2(Person person) { System.out.println(
-	 * "VOY a IMPRIMIR......"); // Create a document and add a page to it
-	 * PDDocument document = new PDDocument(); PDPage page = new
-	 * PDPage(PDPage.PAGE_SIZE_A5);
-	 * 
-	 * document.addPage(page);
-	 * 
-	 * // Create a new font object selecting one of the PDF base fonts PDFont
-	 * font = PDType1Font.HELVETICA_BOLD;
-	 * 
-	 * // Start a new content stream which will "hold" the to be created //
-	 * content PDPageContentStream contentStream; try { contentStream = new
-	 * PDPageContentStream(document, page);
-	 * 
-	 * BufferedImage tmp_image = ImageIO.read(new
-	 * File("./src/main/webapp/img/logo.png")); BufferedImage image = new
-	 * BufferedImage(tmp_image.getWidth(), tmp_image.getHeight(),
-	 * BufferedImage.TYPE_4BYTE_ABGR);
-	 * image.createGraphics().drawRenderedImage(tmp_image, null); PDXObjectImage
-	 * logoImage = new PDPixelMap(document, image);
-	 * 
-	 * contentStream.drawXObject(logoImage, 35, 770, 500, 45);
-	 * 
-	 * // Define a text content stream using the selected font, moving the //
-	 * cursor and drawing the text "Hello World" contentStream.beginText();
-	 * contentStream.setFont(font, 12);
-	 * contentStream.moveTextPositionByAmount(40, 600);
-	 * contentStream.drawString("Hello World"); contentStream.endText();
-	 * 
-	 * // Make sure that the content stream is closed: contentStream.close();
-	 * 
-	 * PrinterJob printJob = PrinterJob.getPrinterJob(); PrintService service =
-	 * PrintServiceLookup.lookupDefaultPrintService();
-	 * printJob.setPrintService(service); document.silentPrint(printJob);
-	 * 
-	 * } catch (IOException | PrinterException e) { // TODO Auto-generated catch
-	 * block e.printStackTrace(); } }
-	 */
 }
