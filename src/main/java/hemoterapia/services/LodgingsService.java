@@ -1,17 +1,22 @@
 package hemoterapia.services;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import hemoterapia.domain.LodgingsType;
-import hemoterapia.domain.WithoutLodgings;
 
 public class LodgingsService {
 
 	public LodgingsType getLodgingsType(String subClassName) {
 		Class<LodgingsType> c;
-		LodgingsType lodgingsType = new WithoutLodgings();
+		LodgingsType lodgingsType = null;
 		try {
 			c = (Class<LodgingsType>) Class.forName(subClassName);
-			lodgingsType = (LodgingsType) c.newInstance();
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+			Method factoryMethod = c.getDeclaredMethod("getInstance", null);
+			lodgingsType = (LodgingsType) factoryMethod.invoke(null, null);;
+		} catch (ClassNotFoundException | IllegalAccessException 
+				| NoSuchMethodException | SecurityException 
+				| IllegalArgumentException | InvocationTargetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

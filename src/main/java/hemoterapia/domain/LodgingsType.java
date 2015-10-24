@@ -1,12 +1,17 @@
 package hemoterapia.domain;
 
-public abstract class LodgingsType {
+import java.io.Serializable;
+
+import javax.xml.bind.annotation.XmlSeeAlso;
+
+@XmlSeeAlso({WithLodgings.class, WithoutLodgings.class})
+public abstract class LodgingsType implements Serializable{
 
 	/**
 	* 
 	*/
 	private static final long serialVersionUID = 1L;
-
+	
 	public abstract double getAmount(Certificate certificate, int companions);
 
 	/**

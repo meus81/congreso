@@ -14,7 +14,7 @@ import hemoterapia.domain.LodgingsType;
 import hemoterapia.domain.WithLodgings;
 import hemoterapia.domain.WithoutLodgings;
 
-public class LogdingsUserType implements UserType {
+public class LodgingsUserType implements UserType {
 
 	public static final int WITH_LODGING_DB_VALUE = 1;
 	public static final int WITHOUT_LODGING_DB_VALUE = 2;
@@ -69,10 +69,10 @@ public class LogdingsUserType implements UserType {
 		LodgingsType lodgingsType = null;
 		switch (lodgingsValue) {
 		case WITH_LODGING_DB_VALUE:
-			lodgingsType = new WithLodgings();
+			lodgingsType = WithLodgings.getInstance();
 			break;
 		case WITHOUT_LODGING_DB_VALUE:
-			lodgingsType = new WithoutLodgings();
+			lodgingsType = WithoutLodgings.getInstance();
 			break;
 		default:
 			throw new RuntimeException("Unknown Lodgins value [" + lodgingsValue + "]");
@@ -86,9 +86,9 @@ public class LogdingsUserType implements UserType {
 		if (value == null) {
 			st.setNull(index, Types.INTEGER);
 		} else {
-			if (value.equals(new WithLodgings())) {
+			if (value.equals(WithLodgings.getInstance())) {
 				st.setInt(index, WITH_LODGING_DB_VALUE);
-			} else if (value.equals(new WithoutLodgings())) {
+			} else if (value.equals(WithoutLodgings.getInstance())) {
 				st.setInt(index, WITHOUT_LODGING_DB_VALUE);
 			} else {
 				throw new RuntimeException("Unknown CustomerState [" + value + "]");

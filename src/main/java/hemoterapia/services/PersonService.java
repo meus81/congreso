@@ -39,6 +39,22 @@ public class PersonService {
 		return allPerson;
 	}
 
+	public List<Person> getPersons(String name, String surname) {
+		Application ap = Application.getInstance();
+		EntityManager em = ap.getEntityManager();
+		
+		System.out.println("Imprimiendo los stings de busqueda: " + name + " - " + surname);
+		
+		name = (name!=null)? name : "";
+		surname = (surname!=null)? surname : "";
+		
+		Query query = em.createQuery("SELECT p FROM Person p WHERE p.name like :name and p.surname like :surname")
+				.setParameter("name", "%"+name+"%").
+				setParameter("surname", "%"+surname+"%");
+		List<Person> allPerson = (List<Person>) query.getResultList();
+		return allPerson;
+	}
+	
 	public Person getPerson(int id) {
 		Application ap = Application.getInstance();
 		EntityManager em = ap.getEntityManager();
@@ -58,4 +74,5 @@ public class PersonService {
 		Printer printer = new Printer();
 		printer.printRegistrationTicket(person, false);
 	}
+
 }

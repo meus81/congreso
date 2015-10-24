@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 import org.hibernate.annotations.Type;
 
@@ -49,7 +50,7 @@ public class Person implements Serializable {
 	private Certificate certificate;
 
 	@Column(name = "lodgings")
-	@Type(type = "hemoterapia.configuration.LogdingsUserType")
+	@Type(type = "hemoterapia.configuration.LodgingsUserType")
 	private LodgingsType lodgings;
 
 	public int getIdPerson() {

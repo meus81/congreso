@@ -16,6 +16,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
@@ -55,9 +56,9 @@ public class PersonRestService {
 	@GET
 	@Path("/all_persons")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAlltPersonInJson(){
+	public Response getAlltPersonInJson(@QueryParam("name") String name, @QueryParam("surname") String surname){
 		PersonService personService = new PersonService();
-		GenericEntity<List<Person>> list = new GenericEntity<List<Person>>(personService.getAllPersons()){
+		GenericEntity<List<Person>> list = new GenericEntity<List<Person>>(personService.getPersons(name, surname)){
 		};
 		return Response.ok(list).build();
 	}
@@ -76,7 +77,7 @@ public class PersonRestService {
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response savePerson(InputStream incomingData){
 //	public String savePerson(Person person){
-
+//
 //		System.out.println("calling the post a person... service");
 //        System.out.println("First Name = "+ person.getName());
 //        System.out.println("Last Name  = "+ person.getSurname());

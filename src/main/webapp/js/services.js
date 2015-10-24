@@ -10,9 +10,40 @@ services.factory('PersonFactory', function ($resource) {
         },
     	save: {
 	        method: 'POST'
-	    }
+	    },
+        search:{
+        	method: 'GET',
+        	params: {name: "@name", surname: "@surname"},
+        	url: '/congreso/rest/all_persons',
+        	isArray: true        	
+        }
     })
 });
+
+function resourceErrorHandlerQuery(response){
+	console.log(response);
+	return response;
+}
+
+function resourceErrorHandlerSave(response){
+	console.log(response);
+	return response;
+}
+
+function resourceResponseHandler(response){
+	console.log(response);
+	return response;
+}
+
+//Project.prototype.update = function(cb) {
+//    return Project.update({id: this._id.$oid})
+//      .$promise.then(
+//        //success
+//        function( value ){/*Do something with value*/},
+//        //error
+//        function( error ){/*Do something with error*/}
+//      )
+//  };
 
 
 //services.service('saveService',['$http', function($http){

@@ -1,17 +1,117 @@
 <!DOCTYPE html>
 <html ng-app="hemoterapia.controllers">
 <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="img/favicon.ico">
+	
+	<title>Congreso de Hemoterapia</title>
+	
+	<!-- Bootstrap core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<!-- Bootstrap theme -->
+	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+	
+	<!-- Custom styles for this template -->
+	<link href="css/theme.css" rel="stylesheet">
+	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	    <![endif]-->
 	<script src="lib/angular/angular.js"></script>
 	<script src="lib/angular/angular-resource.js"></script>
+	<script src="lib/angular/angular-route.js"></script>
 	<script src="js/services.js"></script>
 	<script src="js/controllers.js"></script>
 </head>
 
-<body>
-	<div ng-controller="DefaultPersonController">
-		<hr>
-		<h1>Bienvenido a la pagina de hemoterapia!</h1>
-		<h3>Result from RESTful service is: {{name + " " + surname}}</h3>
+<body ng-controller="SearchPersonController as searchCtrl">
+	<div >
+		<form name="search-person" novalidate="novalidate">
+			<h3>B&uacute;squeda</h3>
+			<label title="Name"> Nombre: 
+				<input type="text" id="name" ng-model="person.name" />
+			</label> <br /> 
+	 		<label title="Surname"> Apellido: 
+				<input type="text" id="surname" ng-model="person.surname" />
+			</label><br />
+			
+			<input type="submit" value="Buscar"	ng-click="obtenerPersonas(person)" />
+		
+		</form>
+	</div>
+	
+	<div>
+		<ul class="people">
+	        <li ng-repeat="a_person in gentes">
+	          {{a_person.name}}
+	          <p>{{a_person.companions}}</p>
+	        </li>
+      	</ul>
+	</div>
+	
+	
+	<div>
+		<div class="wraper" ng-controller="modifyPersonCtrl">
+			<table>
+				<thead>
+					<tr>
+						<th>Nombre</th>
+						<th>Apellido</th>
+						<th>Tipo de Inscripci&oacute;n</th>
+						<th>Alojamiento</th>
+						<th>Acompa&ntilde;ntes</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="tableData in tablesData">
+						<td>
+							<div ng-hide="editingData[tableData.id]">{{tableData.name |	uppercase}}</div>
+							<div ng-show="editingData[tableData.id]">
+								<input type="text" ng-model="tableData.name" />
+							</div>
+						</td>
+						<td>
+							<div ng-hide="editingData[tableData.id]">{{tableData.surname}}</div>
+							<div ng-show="editingData[tableData.id]">
+								<input type="text" ng-model="tableData.surname" />
+							</div>
+						</td>
+						<td>
+							<div ng-hide="editingData[tableData.id]">{{tableData.certificate}}</div>
+							<div ng-show="editingData[tableData.id]">
+								<input type="text" ng-model="tableData.certificate" />
+							</div>
+						</td>
+						<td>
+							<div ng-hide="editingData[tableData.id]">{{tableData.lodgings}}</div>
+							<div ng-show="editingData[tableData.id]">
+								<input type="text" ng-model="tableData.lodgings" />
+							</div>
+						</td>
+						<td>
+							<div ng-hide="editingData[tableData.id]">{{tableData.companions}}</div>
+							<div ng-show="editingData[tableData.id]">
+								<input type="text" ng-model="tableData.companions" />
+							</div>
+						</td>
+						<td>
+							<button ng-hide="editingData[tableData.id]"	ng-click="modify(tableData)">Modify</button>
+							<button ng-show="editingData[tableData.id]" ng-click="update(tableData)">Update</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+
 	</div>
 </body>
 </html>

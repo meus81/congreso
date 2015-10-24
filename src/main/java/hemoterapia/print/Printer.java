@@ -5,6 +5,7 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,43 +44,47 @@ public class Printer {
 	}
 
 	private void drawHeaderPDF(PDDocument doc, PDPage page, PDRectangle mediabox) throws IOException {
-		
-		BufferedImage tmp_image = ImageIO.read(new File("./src/main/webapp/img/logo.png"));
+
+		BufferedImage tmp_image = ImageIO.read(new File("./src/main/webapp/img/nuevoLogo.png"));
 		BufferedImage image = new BufferedImage(tmp_image.getWidth(), tmp_image.getHeight(),
 				BufferedImage.TYPE_4BYTE_ABGR);
 		image.createGraphics().drawRenderedImage(tmp_image, null);
 		PDXObjectImage logoImage = new PDPixelMap(doc, image);
-
-//		In a normal case without rotate
-//		float margin = 50;
-//		float headerX = mediabox.getLowerLeftX() + margin;
-//		float headerY = mediabox.getUpperRightY() - margin - 10;
-//		float headerWidth = mediabox.getWidth() - 2 * margin;
-//		float headerHeight = 40;
 		
-		float margin = 50;
-		float headerX = mediabox.getLowerLeftY() + margin;
-		float headerY = mediabox.getUpperRightX() - margin - 10;
-		float headerWidth = mediabox.getHeight() - 2 * margin;
+		float margin = 30;
+		float headerX = mediabox.getLowerLeftX() + margin;
+		float headerY = mediabox.getUpperRightY() - margin - 40;
+		float headerWidth = 140;
 		float headerHeight = 40;
-		
+
+		// Si lo queremos rotar
+		// float margin = 50;
+		// float headerX = mediabox.getLowerLeftY() + margin;
+		// float headerY = mediabox.getUpperRightX() - margin - 10;
+		// float headerWidth = mediabox.getHeight() - 2 * margin;
+		// float headerHeight = 40;
+
 		PDPageContentStream contentStreamDraw = new PDPageContentStream(doc, page, true, true);
-//		contentStreamDraw.concatenate2CTM(cos 90°, sen 90°, -sen 90°, cos 90°, 0, 0);
-		contentStreamDraw.concatenate2CTM(0, 1, -1, 0, mediabox.getWidth(), 0);
+		// si lo queremos rotar a landscape
+		// contentStreamDraw.concatenate2CTM(cos 90°, sen 90°, -sen 90°, cos
+		// 90°, 0, 0);
+		// contentStreamDraw.concatenate2CTM(0, 1, -1, 0, mediabox.getWidth(),
+		// 0);
 		contentStreamDraw.drawXObject(logoImage, headerX, headerY, headerWidth, headerHeight);
+		contentStreamDraw.drawLine(mediabox.getLowerLeftX() + 25, headerY - 8, mediabox.getUpperRightX() - 25, headerY - 8);
 		contentStreamDraw.close();
 	}
 
 	private String createTextTicket(Person person) {
 		String completeName = person.getName() + " " + person.getSurname();
 		Double total2Pay = person.getAmountToPaid();
+		DecimalFormat df = new DecimalFormat("#.00"); 
+		
 
-		return "Recibe de " + completeName + " la suma de pesos " + total2Pay.toString()
+		return "Recibe de " + completeName + " la suma de pesos " + df.format(total2Pay)
 				+ " en concepto de inscripción al 29° encuentro provincial"
-				+ " de hemoterapia a realizarse los días 4, 5 y 6 de noviembre de 2015 en la ciudad de Villa Gesel, provincia"
-				+ " de Buenos Aires, Argentina";
+				+ " de hemoterapia.";
 	}
-	
 
 	private List<String> getTextInLines(String text, PDFont pdfFont, float fontSize, float width) throws IOException {
 		List<String> lines = new ArrayList<String>();
@@ -126,16 +131,15 @@ public class Printer {
 		contentStream.endText();
 		contentStream.close();
 	}
-	
 
 	public void printRegistrationTicket(Person person, boolean print) {
 		PDDocument doc = null;
 		try {
 			doc = createDoc();
 			PDPage page = setPage(PDPage.PAGE_SIZE_A5);
-			page.setRotation(90);
-			
-			doc.addPage(page);	
+			// si queremos rotar a ladnscape la hoja
+			// page.setRotation(90);
+			doc.addPage(page);
 
 			PDRectangle mediabox = page.findMediaBox();
 			drawHeaderPDF(doc, page, mediabox);
@@ -143,36 +147,80 @@ public class Printer {
 			PDFont pdfFont = PDType1Font.HELVETICA;
 			float fontSize = 10;
 			float leading = 1.5f * fontSize;
-         
-			float margin = 100;
-//			In a normal case where the page is not rotated (landscape)
-//			float width = mediabox.getWidth() - 2 * margin;
-//			float startX = mediabox.getLowerLeftX() + margin;
-//			float startY = mediabox.getUpperRightY() - margin - 45;			
-			float startX = mediabox.getLowerLeftY() + margin;
-			float startY = mediabox.getUpperRightX() - margin - 10;
-			float width = mediabox.getHeight() - 2 * margin;
-			
-			String textTile = "Insituto de hemoterapia de la Pcia de Buenos Aires - 29º"
-							+ " encuentro Villa Gessel";
-			putTextInDiferentsLines(doc, page, mediabox, PDType1Font.HELVETICA_BOLD, fontSize, 
-					leading, textTile, width, startX, startY);
 
-			margin = 190;
-			startY = mediabox.getUpperRightX() - margin;
+			float margin = 50;
+			float width = mediabox.getWidth() - 2 * margin;
+			float startX = mediabox.getLowerLeftX() + margin;
+			float startY = mediabox.getUpperRightY() - margin - 100;
+			// si lo queremos rotar a 90°
+			// float startX = mediabox.getLowerLeftY() + margin;
+			// float startY = mediabox.getUpperRightX() - margin - 10;
+			// float width = mediabox.getHeight() - 2 * margin;
+
 			String textTicket = createTextTicket(person);
 			putTextInDiferentsLines(doc, page, mediabox, pdfFont, fontSize, leading, textTicket, width, startX, startY);
+
 			
+			String textFooter = "Encuentro para la Organización y Administración de la Hemoterapia de la Provincia de Buenos Aires";
+			List<String> lines = getTextInLines(textFooter, pdfFont, fontSize, width);
+			
+//			putTextInDiferentsLines(doc, page, mediabox, PDType1Font.HELVETICA, 9, leading, textTile, width,
+//					startX, startY);
+			int marginTop = 510;			
+			PDPageContentStream stream = new PDPageContentStream(doc, page, true, true);
+			fontSize = 9; // Or whatever font size you want.
+			float titleWidth = pdfFont.getStringWidth(textFooter) / 1000 * fontSize;
+			float titleHeight = pdfFont.getFontDescriptor().getFontBoundingBox().getHeight() / 1000 * fontSize;
+
+			stream.beginText();
+			stream.setFont(pdfFont, fontSize);
+			float anteriorX= 0;
+			float anteriorY = 0;
+			for (String line : lines) {
+				titleWidth = pdfFont.getStringWidth(line) / 1000 * fontSize;
+				stream.moveTextPositionByAmount(((mediabox.getWidth() - titleWidth) / 2)-anteriorX, mediabox.getHeight() - marginTop - anteriorY);
+				stream.drawString(line);
+				anteriorX = (mediabox.getWidth() - titleWidth) / 2;
+				anteriorY =  mediabox.getHeight() - marginTop;
+				marginTop = marginTop + 15;
+				System.out.println("medidas:" + mediabox.getHeight()+ "-"+ marginTop+ "-"+ titleHeight + "-" + leading);
+			}
+			stream.endText();
+			stream.close();
+			
+			
+			PDPageContentStream contentStreamDraw = new PDPageContentStream(doc, page, true, true);
+			contentStreamDraw.drawLine(mediabox.getLowerLeftX() + 20, mediabox.getUpperRightY() - 530, mediabox.getUpperRightX() - 20, mediabox.getUpperRightY() - 530);
+			contentStreamDraw.close();
+			
+			marginTop = 535;
+			startY = mediabox.getUpperRightX() - margin;
+			String textFooter2 = "Villa Gesell 4, 5 y 6 de noviembre de 2015";
+//			putTextInDiferentsLines(doc, page, mediabox, PDType1Font.HELVETICA, 8, leading, textTile, width,
+//			startX, startY);
+			
+			PDPageContentStream stream2 = new PDPageContentStream(doc, page, true, true);
+			fontSize = 8; // Or whatever font size you want.
+			titleWidth = pdfFont.getStringWidth(textFooter2) / 1000 * fontSize;
+			titleHeight = pdfFont.getFontDescriptor().getFontBoundingBox().getHeight() / 1000 * fontSize;
+
+			stream2.beginText();
+			stream2.setFont(pdfFont, fontSize);
+			stream2.moveTextPositionByAmount((mediabox.getWidth() - titleWidth) / 2, mediabox.getHeight() - marginTop - titleHeight);
+			stream2.drawString(textFooter2);
+			stream2.endText();
+			stream2.close();
+
 			if (print) {
-				PrinterJob printJob = PrinterJob.getPrinterJob(); 
+				PrinterJob printJob = PrinterJob.getPrinterJob();
 				PrintService service = PrintServiceLookup.lookupDefaultPrintService();
-				printJob.setPrintService(service); 
+				printJob.setPrintService(service);
 				doc.silentPrint(printJob);
 			}
 
 			doc.save(person.getName() + "-" + person.getSurname() + ".pdf");
 			doc.close();
-			
+
 		} catch (IOException | COSVisitorException | PrinterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
