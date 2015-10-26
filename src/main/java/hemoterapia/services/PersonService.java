@@ -1,24 +1,12 @@
 package hemoterapia.services;
 
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
-import java.io.IOException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
-
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDFont;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 import hemoterapia.configuration.Application;
 import hemoterapia.domain.Person;
-import hemoterapia.domain.Professional;
 import hemoterapia.print.Printer;
 
 public class PersonService {

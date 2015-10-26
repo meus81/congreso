@@ -1,0 +1,66 @@
+<!-- <ul class="thumbnails">
+    <li ng-repeat="note in notes">
+        <my-note class="span2 thumbnail" delete="deleteNote(note.id)" note="note">
+            <button class="btn btn-large close pull-right" ng-click="delete()">&times;</button>
+            <hr/>
+            <p>{{note.title}}</p>
+        </my-note>
+    </li>
+</ul> -->
+
+		<myTableResults complete="llenartabla()" >
+		<div class="wraper" >
+			<table class="table table-striped" >
+				<thead>
+					<tr>
+						<th>Nombre</th>
+						<th>Apellido</th>
+						<th>Tipo de Inscripci&oacute;n</th>
+						<th>Alojamiento</th>
+						<th>Acompa&ntilde;ntes</th>
+						<th>Acci&oacute;n</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="tableData in tablesdata">
+						<td>
+							<div ng-hide="editingData[tableData.id]">{{tableData.name |
+								uppercase}}</div>
+							<div ng-show="editingData[tableData.id]">
+								<input type="text" ng-model="tableData.name" />
+							</div>
+						</td>
+						<td>
+							<div ng-hide="editingData[tableData.id]">{{tableData.surname}}</div>
+							<div ng-show="editingData[tableData.id]">
+								<input type="text" ng-model="tableData.surname" />
+							</div>
+						</td>
+						<td>
+							<div ng-hide="editingData[tableData.id]">{{tableData.certificate.name}}</div>
+							<div ng-show="editingData[tableData.id]">
+								<input type="text" ng-model="tableData.certificate" />
+							</div>
+						</td>
+						<td>
+							<div ng-hide="editingData[tableData.id]">{{tableData.lodgings.type}}</div>
+							<div ng-show="editingData[tableData.id]">
+								<input type="text" ng-model="tableData.lodgings" />
+							</div>
+						</td>
+						<td>
+							<div ng-hide="editingData[tableData.id]">{{tableData.companions}}</div>
+							<div ng-show="editingData[tableData.id]">
+								<input type="text" ng-model="tableData.companions" />
+							</div>
+						</td>
+						<td>
+							<button ng-hide="editingData[tableData.id]"
+								ng-click="modify(tableData)">Modify</button>
+							<button ng-show="editingData[tableData.id]"	ng-click="update(tableData)">Update</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</myTableResults>

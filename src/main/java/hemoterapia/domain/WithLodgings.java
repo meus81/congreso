@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(name="withLodgings", factoryMethod="getInstance")
+@XmlType(name="Con Alojamiento", factoryMethod="getInstance")
 public class WithLodgings extends LodgingsType{
 	/**
 	 * 

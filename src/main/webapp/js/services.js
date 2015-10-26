@@ -20,6 +20,19 @@ services.factory('PersonFactory', function ($resource) {
     })
 });
 
+services.service('searchService', function(){
+	var search_results = [];
+	
+	this.getResults= function(){
+		console.log("Service - invocaron a getResults");
+		return search_results;
+	}
+	this.setResults= function(listOfResults){
+		console.log("Service - invocaron a setResults");
+		search_results = listOfResults;
+	}
+});
+
 function resourceErrorHandlerQuery(response){
 	console.log(response);
 	return response;
