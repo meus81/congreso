@@ -50,9 +50,9 @@ app.directive("mySearchResults", function(){
 		},
 		templateUrl: "partials/search-results-directive.html",
 		controller: function ($scope, $attrs){
-			$scope.modifyLine= function(tableData){
+			$scope.modifyLine= function(){
 				console.log("Dir - en el controlador invocando a cargar tabla");
-				$scope.completeTable({tableData:tableData});
+				$scope.completeTable();
 			}
 		}
 	};
