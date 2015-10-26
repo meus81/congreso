@@ -45,14 +45,14 @@ app.directive("mySearchResults", function(){
 	return {
 		restrict: "E",
 		scope: {
-//			tablesdata:'=',
+			tablesdata:'=',
 			completeTable:'&'
 		},
 		templateUrl: "partials/search-results-directive.html",
 		controller: function ($scope, $attrs){
-			$scope.filltable= function(){
+			$scope.modifyLine= function(tableData){
 				console.log("Dir - en el controlador invocando a cargar tabla");
-				$scope.completeTable();
+				$scope.completeTable({tableData:tableData});
 			}
 		}
 	};
@@ -63,8 +63,7 @@ app.directive("myTableResults", function(){
 	return {
 		restrict: "E",
 		scope:{
-//			tablesdata: '=',
-			complete:'&'
+			modify:'&'
 		}
 	}
 })
