@@ -46,13 +46,13 @@ app.directive("mySearchResults", function(){
 		restrict: "E",
 		scope: {
 			tablesdata:'=',
-			completeTable:'&'
+			addmodify:'&'
 		},
 		templateUrl: "partials/search-results-directive.html",
 		controller: function ($scope, $attrs){
-			$scope.modifyLine= function(){
-				console.log("Dir - en el controlador invocando a cargar tabla");
-				$scope.completeTable();
+			$scope.modifyline= function(){
+				console.log("Dir - en el controlador invocando a modificar");
+				$scope.addmodify();
 			}
 		}
 	};
@@ -63,14 +63,15 @@ app.directive("myTableResults", function(){
 	return {
 		restrict: "E",
 		scope:{
-			modify:'&'
+			botonmodificar:'&',
+			data:'='
 		}
 	}
 })
 
-
 app.controller('SearchPersonController', [ '$scope', 'PersonFactory',
                                            'searchService', function($scope, PersonFactory, searchService) {
+		
 	$scope.getPersons = function(person) {
 		console.log(person.name);
 		console.log(person.surname);
@@ -78,7 +79,6 @@ app.controller('SearchPersonController', [ '$scope', 'PersonFactory',
 			name : person.name,
 			surname : person.surname
 		});
-		$scope.gentes = result; //elimianr cuando funcione
 		searchService.setResults(result);
 	};
 	$scope.resetForm = function() {
@@ -91,20 +91,25 @@ app.controller('SearchPersonController', [ '$scope', 'PersonFactory',
     	console.log ("Ctrl - Obteniendo resultados para la tabla");
     	return searchService.getResults();
     };
-    $scope.setResultsForTable= function(){
+    
+    $scope.prueba = function(){
+    	console.log("Ctrl - ingresando a prueba");
+    };   
+    
+    $scope.setModifyButton= function(id){
     	console.log("Ctrl - Seteando resultados para la tabla");
 		$scope.tablesdata = searchService.results;
-	
-		$scope.editingData = [];
-		for (var i = 0, length = $scope.tablesdata.length; i < length; i++) {
-			$scope.editingData[$scope.tablesdata[i].id] = false;
-		}
-		$scope.modify = function(tableData) {
-			$scope.editingData[tableData.id] = true;
-		};
-		$scope.update = function(tableData) {
-			$scope.editingData[tableData.id] = false;
-		};
+		
+//		$scope.editingData = [];
+//		for (var i = 0, length = $scope.tablesdata.length; i < length; i++) {
+//			$scope.editingData[$scope.tablesdata[i].id] = false;
+//		}
+//		$scope.modify = function(tableData) {
+//			$scope.editingData[tableData.id] = true;
+//		};
+//		$scope.update = function(tableData) {
+//			$scope.editingData[tableData.id] = false;
+//		};
     }
 } ]);
 

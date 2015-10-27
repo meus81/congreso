@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  ng-app="hemoterapia.controllers">
+<html ng-app="hemoterapia.controllers">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -65,7 +65,8 @@
                             ng-disabled="!person" ng-click="getPersons(person);resetForm();">Buscar
 				</button>
 			</form>            
-       <my-search-results tablesdata="getResultsForTable()" completeTable="setResultsInTable(tableData)"></my-search-results>
+       <my-search-results tablesdata="getResultsForTable()" addmodify="prueba()"></my-search-results>
+       <!-- <my-notebook notes="getNotes()" ondelete="deleteNote(id)"></my-notebook> -->
 	</div>
 </body>
 </html>

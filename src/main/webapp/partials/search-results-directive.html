@@ -8,8 +8,7 @@
     </li>
 </ul> -->
 
-		<myTableResults modify= "modifyLine(tableData)" >
-		<div class="wraper" >
+		<div class="wraper">
 			<table class="table table-striped" >
 				<thead>
 					<tr>
@@ -22,45 +21,49 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="tableData in tablesdata">
-						<td>
-							<div ng-hide="editingData[tableData.id]">{{tableData.name |
-								uppercase}}</div>
-							<div ng-show="editingData[tableData.id]">
-								<input type="text" ng-model="tableData.name" />
-							</div>
-						</td>
-						<td>
-							<div ng-hide="editingData[tableData.id]">{{tableData.surname}}</div>
-							<div ng-show="editingData[tableData.id]">
-								<input type="text" ng-model="tableData.surname" />
-							</div>
-						</td>
-						<td>
-							<div ng-hide="editingData[tableData.id]">{{tableData.certificate.name}}</div>
-							<div ng-show="editingData[tableData.id]">
-								<input type="text" ng-model="tableData.certificate" />
-							</div>
-						</td>
-						<td>
-							<div ng-hide="editingData[tableData.id]">{{tableData.lodgings.type}}</div>
-							<div ng-show="editingData[tableData.id]">
-								<input type="text" ng-model="tableData.lodgings" />
-							</div>
-						</td>
-						<td>
-							<div ng-hide="editingData[tableData.id]">{{tableData.companions}}</div>
-							<div ng-show="editingData[tableData.id]">
-								<input type="text" ng-model="tableData.companions" />
-							</div>
-						</td>
-						<td>
-							<button ng-hide="editingData[tableData.id]"
-								ng-click="modify()">Modify</button>
-							<button ng-show="editingData[tableData.id]"	ng-click="update(tableData)">Update</button>
-						</td>
+					<!-- <li ng-repeat="note in notes">
+            			<my-note class="span2 thumbnail" delete="deleteNoteDirective(note.id)" note="note"> -->
+					<tr ng-repeat="tabledata in tablesdata">
+						<my-table-results data="tabledata" botonmodificar="modifyline()">
+							<td>
+								<div ng-hide="editingData[tabledata.id]">{{tabledata.name |
+									uppercase}}</div>
+								<div ng-show="editingData[tabledata.id]">
+									<input type="text" ng-model="tabledata.name" />
+								</div>
+							</td>
+							<td>
+								<div ng-hide="editingData[tabledata.id]">{{tabledata.surname}}</div>
+								<div ng-show="editingData[tabledata.id]">
+									<input type="text" ng-model="tabledata.surname" />
+								</div>
+							</td>
+							<td>
+								<div ng-hide="editingData[tabledata.id]">{{tabledata.certificate.name}}</div>
+								<div ng-show="editingData[tabledata.id]">
+									<input type="text" ng-model="tabledata.certificate" />
+								</div>
+							</td>
+							<td>
+								<div ng-hide="editingData[tabledata.id]">{{tabledata.lodgings.type}}</div>
+								<div ng-show="editingData[tabledata.id]">
+									<input type="text" ng-model="tabledata.lodgings" />
+								</div>
+							</td>
+							<td>
+								<div ng-hide="editingData[tabledata.id]">{{tabledata.companions}}</div>
+								<div ng-show="editingData[tabledata.id]">
+									<input type="text" ng-model="tabledata.companions" />
+								</div>
+							</td>
+							<td>
+								<button ng-hide="editingData[tabledata.id]"
+									ng-click="botonmodificar()">Modify</button>
+								<!-- <button ng-show="editingData[tabledata.id]" ng-click="update(tabledata)">Update</button>-->
+							</td>
+						</my-table-results>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-	</myTableResults>
+	
