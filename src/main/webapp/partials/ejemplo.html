@@ -1,0 +1,23 @@
+<ul class="thumbnails">
+	<li ng-repeat="note in notes">
+		<my-note class="span2 thumbnail" delete="deleteNoteDirective(note.id)" note="note">
+			<button class="btn btn-large close pull-right" ng-click="delete()">&times;</button>
+			<hr />
+			<p>{{note.title}}</p>
+		</my-note>
+	</li>
+</ul>
+
+<!-- 
+FUNCIONA lo documentado no se porque en el ejemplo de arriba el directive my-note con el delete no dispara el evento a su controlador padre
+<ul class="thumbnails">
+	<li ng-repeat="note in notes">
+		<my-note class="span2 thumbnail" note="note">
+			<button class="btn btn-large close pull-right" ng-click="deleteNoteDirective(note.id)">&times;</button>
+			<hr />
+			<p>{{note.title}}</p>
+		</my-note>
+	</li>
+</ul>
+
+ -->

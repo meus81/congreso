@@ -29,10 +29,13 @@
 <script src="lib/angular/angular-route.js"></script>
 <script src="js/services.js"></script>
 <script src="js/controllers.js"></script>
+
+	<script src="js/jquery-1.11.3.min.js"></script>
+
 </head>
 
 <body>
-<!-- 	<div ng-controller="SearchPersonController as searchCtrl">
+<!--  	<div ng-controller="SearchPersonController as searchCtrl">
 		<form name="search-person" novalidate="novalidate">
 			<h3>B&uacute;squeda</h3>
 			<label title="Name"> Nombre: <input type="text" id="name"
@@ -50,8 +53,8 @@
 					<p>{{a_person.companions}}</p>
 				</li>
 			</ul>
-		</div>
- -->
+		</div> -->
+
 	
        
 	<div ng-controller="SearchPersonController as searchCtrl">
@@ -65,8 +68,29 @@
                             ng-disabled="!person" ng-click="getPersons(person);resetForm();">Buscar
 				</button>
 			</form>            
-       <my-search-results tablesdata="getResultsForTable()" addmodify="prueba()"></my-search-results>
+       <my-search-results tablesdata="getResultsForTable()" addmodify="setModifyButton(tabledata)"></my-search-results>
        <!-- <my-notebook notes="getNotes()" ondelete="deleteNote(id)"></my-notebook> -->
 	</div>
+
+
+
+<!--     <div id="app" ng-controller="NotebookCtrl">
+        <div class="page-header">
+            <h1>AngularJS Sticky Notes</h1>
+        </div>
+        <div class="form-actions">
+            <div class="input-append">
+                <form ng-submit="addNote(noteTitle);resetForm();">
+                    <input class="span3" ng-model="noteTitle" size="16" type="text" placeholder="Add a note">
+                    <button class="btn btn-success" type="button"
+                            ng-disabled="!noteTitle" ng-click="addNote(noteTitle);resetForm();">Add Note
+                    </button>
+                </form>
+            </div>
+        </div>
+        <my-notebook notes="getNotes()" ondelete="deleteNote(id)"></my-notebook>
+    </div> -->
+
+
 </body>
 </html>
