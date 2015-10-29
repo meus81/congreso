@@ -58,8 +58,9 @@
 							</td>
 							<td>
 								<button ng-hide="editingData[tabledata.idPerson]"
-									ng-click="modifyline(tabledata)">Modify</button>
-								<button ng-show="editingData[tabledata.idPerson]" ng-click="update(tabledata)">Update</button>
+									ng-click="modifylineperson(tabledata)">Modify</button>
+								<button ng-show="editingData[tabledata.idPerson]" ng-click="updatelineperson(tabledata)">Update</button>
+								<button ng-hide="editingData[tabledata.idPerson]" ng-click="deletelineperson(tabledata)">Delete</button>
 							</td>
 
 					</tr>

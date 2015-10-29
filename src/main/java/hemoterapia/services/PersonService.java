@@ -60,7 +60,19 @@ public class PersonService {
 		em.getTransaction().commit();
 		
 		Printer printer = new Printer();
-		printer.printRegistrationTicket(person, false);
+		printer.printRegistrationTicket(person, true);
+	}
+
+	public int deletePerson(int id) {
+		Application ap = Application.getInstance();
+		EntityManager em = ap.getEntityManager();
+		em.getTransaction().begin();
+		int result = em.createQuery("DELETE FROM Person p where p.id = :id")
+							  .setParameter("id", id)
+				              .executeUpdate();
+		em.getTransaction().commit();
+		System.out.println("Rows affected: " + result);
+		return result;
 	}
 
 }

@@ -16,7 +16,13 @@ services.factory('PersonFactory', function ($resource) {
         	params: {name: "@name", surname: "@surname"},
         	url: '/congreso/rest/all_persons',
         	isArray: true        	
-        }
+        },
+	    deletePer:{
+	    	method: 'DELETE',
+	    	params:{},
+	    	url: '/congreso/rest/person/:id',
+	    	isArray: false
+	    }
     })
 });
 
@@ -30,6 +36,9 @@ services.service('searchService', function(){
 	this.setResults= function(listOfResults){
 		console.log("Service - invocaron a setResults");
 		search_results = listOfResults;
+	}
+	this.deleteAResult= function(data){
+		console.log("Service - se invoco a deleteAResult")
 	}
 });
 

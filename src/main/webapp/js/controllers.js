@@ -1,24 +1,31 @@
 var app = angular.module('hemoterapia.controllers', [ "hemoterapia.services" ])
 
-app.controller('DefaultPersonController', [ '$scope', 'PersonFactory',
-		function($scope, PersonFactory) {
-			PersonFactory.query({}, function(personFactory) {
-				$scope.name = personFactory.name;
-				$scope.surname = personFactory.surname;
-				$scope.companions = personFactory.companions;
-				$scope.certificate = personFactory.certificate;
-			})
-		} ]);
+app.controller('DefaultPersonController', ['$scope', 'PersonFactory',
+	function($scope, PersonFactory) {
+		PersonFactory.query({}, function(personFactory) {
+			$scope.name = personFactory.name;
+			$scope.surname = personFactory.surname;
+			$scope.companions = personFactory.companions;
+			$scope.certificate = personFactory.certificate;
+		})
+	} ]);
 
 app.controller('SavePersonController', [ '$scope', 'PersonFactory',
-		function($scope, PersonFactory) {
-			$scope.person = {
-				companions : 0,
-			}
-			$scope.savePerson = function(person) {
-				PersonFactory.save(person);
-			}
-		} ]);
+	function($scope, PersonFactory) {
+		$scope.person = {
+			companions : 0,
+		};
+		$scope.savePerson = function(person) {
+			PersonFactory.save(person);
+		};
+		$scope.resetForm = function() {			
+	        $scope.person.name = '';  
+	        $scope.person.surname = '';
+	        $scope.person.certificate.idCertificate= 1;
+	        $scope.person.lodgings.lodgings_type='hemoterapia.domain.WithoutLodgings';
+	        $scope.person.companions = 0;
+	    };
+	} ]);
 
 
 // Solo permitimos numeros en aquellos tags html que tengan la palabra
@@ -46,16 +53,27 @@ app.directive("mySearchResults", function(){
 		restrict: "E",
 		scope: {
 			tablesdata:'=',
-			addmodify:'&'
+			modifyperson:'&',
+			updateperson:'&',
+			deleteperson:'&'
 		},
 		templateUrl:"partials/search-results-directive.html",
 		controller:function ($scope, $attrs){
 			console.log("Hola que tal");
-		
-			$scope.modifyline = function (tabledata){
+			
+			
+			$scope.modifylineperson = function (tabledata){
 				console.log("Dir - en el controlador invocando a modificar");
 				console.log("el valor de tabledata es: " + tabledata);
-				$scope.addmodify({tabledata:tabledata});
+				
+				$scope.modifyperson({tabledata:tabledata});
+			};
+			$scope.updatelineperson = function (tabledata){
+				console.log("Dir - en el controlador invocando a update");
+			};
+			$scope.deletelineperson = function (tabledata){
+				console.log("Dir - en el controlador invocando a delete");
+				$scope.deleteperson({tabledata:tabledata});
 			}
 		}
 	};
@@ -71,10 +89,8 @@ app.directive("myTableResults", function(){
 		}
 	}
 })
-
 app.controller('SearchPersonController', [ '$scope', 'PersonFactory',
                                            'searchService', function($scope, PersonFactory, searchService) {
-		
 	$scope.editingData = {};
 	
 	$scope.getPersons = function(person) {
@@ -108,12 +124,40 @@ app.controller('SearchPersonController', [ '$scope', 'PersonFactory',
     
     $scope.setModifyButton= function(data){
     	console.log("Ctrl - Seteando resultados para la tabla");
-    	console.log("que es tabledata: " + data)
-		$scope.editingData[data.idPerson] = true
+    	console.log("que es tabledata: " + data);
+		$scope.editingData[data.idPerson] = true;
     };
 
-    $scope.update = function(data) {
+    $scope.updatePerson = function(data) {
     	$scope.editingData[data.idPerson] = false;
+    };
+    
+    $scope.deletePerson = function(tabledata){
+    	console.log("Ctrl - Delete resultados para la tabla");
+//    	delete($scope.editingData[tabledata.idPerson]);
+    	var indice = 0;
+    	var keys = Object.keys($scope.editingData);
+    	for(var i = keys.length - 1; i >= 0; i--){
+    	    if(keys[i] == tabledata.idPerson) {
+    	    	indice = keys[i];
+    	    }
+    	};
+    	console.log("eliminando de editingData");
+    	console.log("el indice es: " + indice);
+    	delete($scope.editingData).indice;    	
+    	
+    	indice = 0;
+    	for(var i = $scope.tablesdata.length - 1; i >= 0; i--) {
+    	    if($scope.tablesdata[i] == tabledata) {
+    	    	indice = i;
+    	    }
+    	};
+    	console.log("eliminando de tablesdata");
+    	console.log("el indice es: " + indice);
+    	($scope.tablesdata).splice(indice, 1);
+    	
+    	searchService.deleteAResult(tabledata.idPerson);
+    	PersonFactory.deletePer({id:tabledata.idPerson});
     }
 } ]);
 

@@ -10,6 +10,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -69,6 +70,17 @@ public class PersonRestService {
 	public Person getPerson(@PathParam("id") int id ){
 		PersonService personService = new PersonService();
 		return personService.getPerson(id);
+	}
+
+	
+	@DELETE
+	@Path("/person/{id}")
+	@Produces(MediaType.TEXT_PLAIN)
+	public Response deletePerson(@PathParam("id") int id ){
+		PersonService personService = new PersonService();
+		personService.deletePerson(id);
+		String result = "Person deleted";
+		return Response.status(200).entity(result).build();
 	}
 	
 	@POST
