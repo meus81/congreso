@@ -26,6 +26,8 @@ services.factory('PersonFactory', function ($resource) {
     })
 });
 
+
+
 services.service('searchService', function(){
 	var search_results = [];
 	
@@ -42,20 +44,30 @@ services.service('searchService', function(){
 	}
 });
 
-function resourceErrorHandlerQuery(response){
-	console.log(response);
-	return response;
-}
+services.factory('StatisticsFactory', function ($resource) {
+	
+	return $resource('/congreso/rest/statistics', {}, {
+		query: {
+            method: 'GET',
+            isArray: false
+        }
+    })
+});
 
-function resourceErrorHandlerSave(response){
-	console.log(response);
-	return response;
-}
-
-function resourceResponseHandler(response){
-	console.log(response);
-	return response;
-}
+//function resourceErrorHandlerQuery(response){
+//	console.log(response);
+//	return response;
+//}
+//
+//function resourceErrorHandlerSave(response){
+//	console.log(response);
+//	return response;
+//}
+//
+//function resourceResponseHandler(response){
+//	console.log(response);
+//	return response;
+//}
 
 //Project.prototype.update = function(cb) {
 //    return Project.update({id: this._id.$oid})

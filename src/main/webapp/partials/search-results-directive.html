@@ -7,13 +7,16 @@
         </my-note>
     </li>
 </ul> -->
-
-		<div class="wraper">
+		
+		<div class="wraper" ng-hide="!!!tablesdata.length">
+			<h3>Resultados</h3>
 			<table class="table table-striped" >
 				<thead>
 					<tr>
 						<th>Nombre</th>
 						<th>Apellido</th>
+						<th>E-mail</th>
+						<th>Direcci&oacute;n</th>
 						<th>Tipo de Inscripci&oacute;n</th>
 						<th>Alojamiento</th>
 						<th>Acompa&ntilde;ntes</th>
@@ -27,7 +30,7 @@
 
 							<td>
 								<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.name |
-									uppercase}} - {{editingData}}</div>
+									uppercase}}</div>
 								<div ng-show="editingData[tabledata.idPerson]">
 									<input type="text" ng-model="tabledata.name" />
 								</div>
@@ -36,6 +39,18 @@
 								<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.surname}}</div>
 								<div ng-show="editingData[tabledata.idPerson]">
 									<input type="text" ng-model="tabledata.surname" />
+								</div>
+							</td>
+							<td>
+								<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.email}}</div>
+								<div ng-show="editingData[tabledata.idPerson]">
+									<input type="text" ng-model="tabledata.email" />
+								</div>
+							</td>
+							<td>
+								<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.address}}</div>
+								<div ng-show="editingData[tabledata.idPerson]">
+									<input type="text" ng-model="tabledata.address" />
 								</div>
 							</td>
 							<td>
@@ -58,7 +73,7 @@
 							</td>
 							<td>
 								<button ng-hide="editingData[tabledata.idPerson]"
-									ng-click="modifylineperson(tabledata)">Modify</button>
+									    ng-click="modifylineperson(tabledata)">Modify</button>
 								<button ng-show="editingData[tabledata.idPerson]" ng-click="updatelineperson(tabledata)">Update</button>
 								<button ng-hide="editingData[tabledata.idPerson]" ng-click="deletelineperson(tabledata)">Delete</button>
 							</td>

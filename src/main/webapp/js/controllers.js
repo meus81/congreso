@@ -13,17 +13,23 @@ app.controller('DefaultPersonController', ['$scope', 'PersonFactory',
 app.controller('SavePersonController', [ '$scope', 'PersonFactory',
 	function($scope, PersonFactory) {
 		$scope.person = {
-			companions : 0,
+			certificate: {idCertificate: 1},
+			lodgings: {lodgings_type: 'hemoterapia.domain.WithoutLodgings'},
+			companions : 0
 		};
 		$scope.savePerson = function(person) {
 			PersonFactory.save(person);
 		};
 		$scope.resetForm = function() {			
-	        $scope.person.name = '';  
-	        $scope.person.surname = '';
-	        $scope.person.certificate.idCertificate= 1;
-	        $scope.person.lodgings.lodgings_type='hemoterapia.domain.WithoutLodgings';
-	        $scope.person.companions = 0;
+	        $scope.person= {
+        		name: '',
+        		surname: '',
+        		email: '',
+        		address: '',
+        		certificate: {idCertificate: 1},
+    			lodgings: {lodgings_type: 'hemoterapia.domain.WithoutLodgings'},
+    			companions : 0
+	        }
 	    };
 	} ]);
 
@@ -161,7 +167,18 @@ app.controller('SearchPersonController', [ '$scope', 'PersonFactory',
     }
 } ]);
 
-
+app.controller('StatisticsController', ['$scope', 'StatisticsFactory',
+                                           function($scope, StatisticsFactory) {
+		StatisticsFactory.query({}, function(staticsResults){
+			$scope.professionalsQty= staticsResults.professionalQTy;
+			$scope.technicianQty= staticsResults.technicianQTy;
+			$scope.guestsQty= staticsResults.guestQTy;
+			$scope.companionsQty= staticsResults.companionsQty;
+			$scope.personsWithLodgingsQty= staticsResults.personsWithLodgingsQty;
+			$scope.totalPersons= staticsResults.totalPersons;
+			$scope.totalAmount= staticsResults.totalAmount;
+		})
+}]);
 
 
 //app.controller('modifyPersonCtrl', ['$scope', '$rootScope', 'searchService',

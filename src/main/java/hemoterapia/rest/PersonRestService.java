@@ -121,6 +121,8 @@ public class PersonRestService {
 		JSONObject obj = new JSONObject(personBuilder.toString());
 		String name = obj.getString("name");
 		String surname = obj.getString("surname");
+		String email = obj.getString("email");
+		String address = obj.getString("address");
 		int companions = obj.getInt("companions");
 		int idCertificate = obj.getJSONObject("certificate").getInt("idCertificate");
 		String lodgingsType = obj.getJSONObject("lodgings").getString("lodgings_type");
@@ -136,6 +138,8 @@ public class PersonRestService {
 		Person p = new Person();
 		p.setName(name);
 		p.setSurname(surname);
+		p.setAddress(address);
+		p.setEmail(email);
 		p.setCompanions(companions);
 		p.setCertificate(certificate);
 		p.setLodgings(lodgingType);

@@ -120,4 +120,8 @@ public class Person implements Serializable {
 	public double getAmountToPaid() {
 		return this.getCertificate().getAmount(this.getLodgings(), this.getCompanions());
 	}
+
+	public String imprimiteLindo() {
+		return this.getName() + " - titulo: " + this.getCertificate() + " - acompañantes: "  + this.getCompanions()  + " - Alojamiento: " + this.getLodgings();
+	}
 }
