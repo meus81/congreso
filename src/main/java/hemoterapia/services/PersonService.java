@@ -1,5 +1,6 @@
 package hemoterapia.services;
 
+import java.io.InputStream;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -52,7 +53,7 @@ public class PersonService {
 		return p;
 	}
 
-	public void save(Person person) {
+	public void save(Person person, InputStream headerImage) {
 		Application ap = Application.getInstance();
 		EntityManager em = ap.getEntityManager();
 		em.getTransaction().begin();
@@ -60,7 +61,7 @@ public class PersonService {
 		em.getTransaction().commit();
 		
 		Printer printer = new Printer();
-		printer.printRegistrationTicket(person, true);
+		printer.printRegistrationTicket(person, true, headerImage);
 	}
 
 	public int deletePerson(int id) {

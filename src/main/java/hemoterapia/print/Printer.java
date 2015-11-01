@@ -5,6 +5,7 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import javax.imageio.ImageIO;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 
+import org.apache.log4j.Logger;
 import org.apache.pdfbox.exceptions.COSVisitorException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -26,6 +28,8 @@ import org.apache.pdfbox.pdmodel.graphics.xobject.PDXObjectImage;
 import hemoterapia.domain.Person;
 
 public class Printer {
+
+	public static Logger log = Logger.getLogger("fileAppender");
 
 	public Printer() {
 
@@ -43,47 +47,92 @@ public class Printer {
 		return new PDPage(size);
 	}
 
-	private void drawHeaderPDF(PDDocument doc, PDPage page, PDRectangle mediabox) throws IOException {
+	private void drawHeaderPDF(PDDocument doc, PDPage page, PDRectangle mediabox, InputStream headerImage)
+			throws IOException {
+		BufferedImage tmp_image;
+		try {
+			tmp_image = ImageIO.read(headerImage);
+			BufferedImage image = new BufferedImage(tmp_image.getWidth(), tmp_image.getHeight(),
+					BufferedImage.TYPE_4BYTE_ABGR);
+			image.createGraphics().drawRenderedImage(tmp_image, null);
+			PDXObjectImage logoImage = new PDPixelMap(doc, image);
 
-		BufferedImage tmp_image = ImageIO.read(new File("./src/main/webapp/img/nuevoLogo.png"));
-		BufferedImage image = new BufferedImage(tmp_image.getWidth(), tmp_image.getHeight(),
-				BufferedImage.TYPE_4BYTE_ABGR);
-		image.createGraphics().drawRenderedImage(tmp_image, null);
-		PDXObjectImage logoImage = new PDPixelMap(doc, image);
-		
-		float margin = 30;
-		float headerX = mediabox.getLowerLeftX() + margin;
-		float headerY = mediabox.getUpperRightY() - margin - 40;
-		float headerWidth = 140;
-		float headerHeight = 40;
+			float margin = 30;
+			float headerX = mediabox.getLowerLeftX() + margin;
+			float headerY = mediabox.getUpperRightY() - margin - 40;
+			float headerWidth = 140;
+			float headerHeight = 40;
 
-		// Si lo queremos rotar
-		// float margin = 50;
-		// float headerX = mediabox.getLowerLeftY() + margin;
-		// float headerY = mediabox.getUpperRightX() - margin - 10;
-		// float headerWidth = mediabox.getHeight() - 2 * margin;
-		// float headerHeight = 40;
+			// Si lo queremos rotar
+			// float margin = 50;
+			// float headerX = mediabox.getLowerLeftY() + margin;
+			// float headerY = mediabox.getUpperRightX() - margin - 10;
+			// float headerWidth = mediabox.getHeight() - 2 * margin;
+			// float headerHeight = 40;
 
-		PDPageContentStream contentStreamDraw = new PDPageContentStream(doc, page, true, true);
-		// si lo queremos rotar a landscape
-		// contentStreamDraw.concatenate2CTM(cos 90°, sen 90°, -sen 90°, cos
-		// 90°, 0, 0);
-		// contentStreamDraw.concatenate2CTM(0, 1, -1, 0, mediabox.getWidth(),
-		// 0);
-		contentStreamDraw.drawXObject(logoImage, headerX, headerY, headerWidth, headerHeight);
-		contentStreamDraw.drawLine(mediabox.getLowerLeftX() + 25, headerY - 8, mediabox.getUpperRightX() - 25, headerY - 8);
-		contentStreamDraw.close();
+			PDPageContentStream contentStreamDraw = new PDPageContentStream(doc, page, true, true);
+			// si lo queremos rotar a landscape
+			// contentStreamDraw.concatenate2CTM(cos 90°, sen 90°, -sen 90°, cos
+			// 90°, 0, 0);
+			// contentStreamDraw.concatenate2CTM(0, 1, -1, 0,
+			// mediabox.getWidth(),
+			// 0);
+			contentStreamDraw.drawXObject(logoImage, headerX, headerY, headerWidth, headerHeight);
+			contentStreamDraw.drawLine(mediabox.getLowerLeftX() + 25, headerY - 8, mediabox.getUpperRightX() - 25,
+					headerY - 8);
+			contentStreamDraw.close();
+		} catch (IOException e) {
+			try {
+				tmp_image = ImageIO.read(new File(
+						"C:\\Program Files\\Apache Software Foundation\\Tomcat 7.0\\webapps\\congreso\\img\\nuevoLogo.png"));
+				BufferedImage image = new BufferedImage(tmp_image.getWidth(), tmp_image.getHeight(),
+						BufferedImage.TYPE_4BYTE_ABGR);
+				image.createGraphics().drawRenderedImage(tmp_image, null);
+				PDXObjectImage logoImage = new PDPixelMap(doc, image);
+
+				float margin = 30;
+				float headerX = mediabox.getLowerLeftX() + margin;
+				float headerY = mediabox.getUpperRightY() - margin - 40;
+				float headerWidth = 140;
+				float headerHeight = 40;
+
+				// Si lo queremos rotar
+				// float margin = 50;
+				// float headerX = mediabox.getLowerLeftY() + margin;
+				// float headerY = mediabox.getUpperRightX() - margin - 10;
+				// float headerWidth = mediabox.getHeight() - 2 * margin;
+				// float headerHeight = 40;
+
+				PDPageContentStream contentStreamDraw = new PDPageContentStream(doc, page, true, true);
+				// si lo queremos rotar a landscape
+				// contentStreamDraw.concatenate2CTM(cos 90°, sen 90°, -sen 90°,
+				// cos
+				// 90°, 0, 0);
+				// contentStreamDraw.concatenate2CTM(0, 1, -1, 0,
+				// mediabox.getWidth(),
+				// 0);
+				contentStreamDraw.drawXObject(logoImage, headerX, headerY, headerWidth, headerHeight);
+				contentStreamDraw.drawLine(mediabox.getLowerLeftX() + 25, headerY - 8, mediabox.getUpperRightX() - 25,
+						headerY - 8);
+				contentStreamDraw.close();
+			} catch (IOException e1) {
+				float margin = 30;
+				float headerY = mediabox.getUpperRightY() - margin - 40;
+				PDPageContentStream contentStreamDraw = new PDPageContentStream(doc, page, true, true);
+				contentStreamDraw.drawLine(mediabox.getLowerLeftX() + 25, headerY - 8, mediabox.getUpperRightX() - 25,
+						headerY - 8);
+				contentStreamDraw.close();
+			}
+		}
 	}
 
 	private String createTextTicket(Person person) {
 		String completeName = person.getName() + " " + person.getSurname();
 		Double total2Pay = person.getAmountToPaid();
-		DecimalFormat df = new DecimalFormat("#.00"); 
-		
+		DecimalFormat df = new DecimalFormat("#.00");
 
-		return "Recibe de " + completeName + " la suma de pesos " + df.format(total2Pay)
-				+ " en concepto de inscripción al 29° encuentro provincial"
-				+ " de hemoterapia.";
+		return "Recibí de " + completeName + " la suma de pesos " + df.format(total2Pay)
+				+ " en concepto de inscripción al 29° encuentro provincial" + " de hemoterapia.";
 	}
 
 	private List<String> getTextInLines(String text, PDFont pdfFont, float fontSize, float width) throws IOException {
@@ -132,7 +181,7 @@ public class Printer {
 		contentStream.close();
 	}
 
-	public void printRegistrationTicket(Person person, boolean print) {
+	public void printRegistrationTicket(Person person, boolean print, InputStream headerImage) {
 		PDDocument doc = null;
 		try {
 			doc = createDoc();
@@ -142,7 +191,7 @@ public class Printer {
 			doc.addPage(page);
 
 			PDRectangle mediabox = page.findMediaBox();
-			drawHeaderPDF(doc, page, mediabox);
+			drawHeaderPDF(doc, page, mediabox, headerImage);
 
 			PDFont pdfFont = PDType1Font.HELVETICA;
 			float fontSize = 10;
@@ -160,13 +209,13 @@ public class Printer {
 			String textTicket = createTextTicket(person);
 			putTextInDiferentsLines(doc, page, mediabox, pdfFont, fontSize, leading, textTicket, width, startX, startY);
 
-			
 			String textFooter = "Encuentro para la Organización y Administración de la Hemoterapia de la Provincia de Buenos Aires";
 			List<String> lines = getTextInLines(textFooter, pdfFont, fontSize, width);
-			
-//			putTextInDiferentsLines(doc, page, mediabox, PDType1Font.HELVETICA, 9, leading, textTile, width,
-//					startX, startY);
-			int marginTop = 510;			
+
+			// putTextInDiferentsLines(doc, page, mediabox,
+			// PDType1Font.HELVETICA, 9, leading, textTile, width,
+			// startX, startY);
+			int marginTop = 510;
 			PDPageContentStream stream = new PDPageContentStream(doc, page, true, true);
 			fontSize = 9; // Or whatever font size you want.
 			float titleWidth = pdfFont.getStringWidth(textFooter) / 1000 * fontSize;
@@ -174,31 +223,34 @@ public class Printer {
 
 			stream.beginText();
 			stream.setFont(pdfFont, fontSize);
-			float anteriorX= 0;
+			float anteriorX = 0;
 			float anteriorY = 0;
 			for (String line : lines) {
 				titleWidth = pdfFont.getStringWidth(line) / 1000 * fontSize;
-				stream.moveTextPositionByAmount(((mediabox.getWidth() - titleWidth) / 2)-anteriorX, mediabox.getHeight() - marginTop - anteriorY);
+				stream.moveTextPositionByAmount(((mediabox.getWidth() - titleWidth) / 2) - anteriorX,
+						mediabox.getHeight() - marginTop - anteriorY);
 				stream.drawString(line);
 				anteriorX = (mediabox.getWidth() - titleWidth) / 2;
-				anteriorY =  mediabox.getHeight() - marginTop;
+				anteriorY = mediabox.getHeight() - marginTop;
 				marginTop = marginTop + 15;
-				System.out.println("medidas:" + mediabox.getHeight()+ "-"+ marginTop+ "-"+ titleHeight + "-" + leading);
+				System.out.println(
+						"medidas:" + mediabox.getHeight() + "-" + marginTop + "-" + titleHeight + "-" + leading);
 			}
 			stream.endText();
 			stream.close();
-			
-			
+
 			PDPageContentStream contentStreamDraw = new PDPageContentStream(doc, page, true, true);
-			contentStreamDraw.drawLine(mediabox.getLowerLeftX() + 20, mediabox.getUpperRightY() - 530, mediabox.getUpperRightX() - 20, mediabox.getUpperRightY() - 530);
+			contentStreamDraw.drawLine(mediabox.getLowerLeftX() + 20, mediabox.getUpperRightY() - 530,
+					mediabox.getUpperRightX() - 20, mediabox.getUpperRightY() - 530);
 			contentStreamDraw.close();
-			
+
 			marginTop = 535;
 			startY = mediabox.getUpperRightX() - margin;
 			String textFooter2 = "Villa Gesell 4, 5 y 6 de noviembre de 2015";
-//			putTextInDiferentsLines(doc, page, mediabox, PDType1Font.HELVETICA, 8, leading, textTile, width,
-//			startX, startY);
-			
+			// putTextInDiferentsLines(doc, page, mediabox,
+			// PDType1Font.HELVETICA, 8, leading, textTile, width,
+			// startX, startY);
+
 			PDPageContentStream stream2 = new PDPageContentStream(doc, page, true, true);
 			fontSize = 8; // Or whatever font size you want.
 			titleWidth = pdfFont.getStringWidth(textFooter2) / 1000 * fontSize;
@@ -206,7 +258,8 @@ public class Printer {
 
 			stream2.beginText();
 			stream2.setFont(pdfFont, fontSize);
-			stream2.moveTextPositionByAmount((mediabox.getWidth() - titleWidth) / 2, mediabox.getHeight() - marginTop - titleHeight);
+			stream2.moveTextPositionByAmount((mediabox.getWidth() - titleWidth) / 2,
+					mediabox.getHeight() - marginTop - titleHeight);
 			stream2.drawString(textFooter2);
 			stream2.endText();
 			stream2.close();
@@ -214,8 +267,10 @@ public class Printer {
 			if (print) {
 				PrinterJob printJob = PrinterJob.getPrinterJob();
 				PrintService service = PrintServiceLookup.lookupDefaultPrintService();
-				printJob.setPrintService(service);
-				doc.silentPrint(printJob);
+				if (service != null) {
+					printJob.setPrintService(service);
+					doc.silentPrint(printJob);
+				}
 			}
 
 			doc.save(person.getName() + "-" + person.getSurname() + ".pdf");

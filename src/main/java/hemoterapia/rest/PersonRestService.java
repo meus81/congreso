@@ -3,15 +3,12 @@ package hemoterapia.rest;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.Enumeration;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletContext;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -23,7 +20,7 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.glassfish.jersey.linking.InjectLink;
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
 import hemoterapia.domain.Certificate;
@@ -36,6 +33,8 @@ import hemoterapia.services.PersonService;
 @ApplicationPath("/resources")
 @Path("/")
 public class PersonRestService {
+	private Logger log = Logger.getLogger("fileAppender");
+	
 	
 	@GET
 	@Path("/verify")
@@ -87,7 +86,7 @@ public class PersonRestService {
 	@Path("/person")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public Response savePerson(InputStream incomingData){
+	public Response savePerson(@Context ServletContext context, InputStream incomingData){
 //	public String savePerson(Person person){
 //
 //		System.out.println("calling the post a person... service");
@@ -105,6 +104,15 @@ public class PersonRestService {
 //		while(parametros.hasMoreElements()) {
 //			System.out.println(parametros.nextElement());
 //		}
+		
+		System.out.println("QUE SOS VOS log???? : " + log);
+
+		log.debug("esta es una prueba para ver si se escribe en el log");
+		log.debug("El puto contexto url que es???::: " + context.getContextPath());
+		System.out.println("===================================================");
+		System.out.println("El context path essss::::::::::");
+		System.out.println(context.getContextPath());
+		System.out.println("===================================================");
 		
 		StringBuilder personBuilder = new StringBuilder();
 		try {
@@ -145,7 +153,10 @@ public class PersonRestService {
 		p.setLodgings(lodgingType);
 		
 		PersonService personService = new PersonService();
-		personService.save(p);
+		InputStream headerImage = context.getResourceAsStream("./img/nuevoLogo.png");
+		
+		personService.save(p, headerImage);
+		
 		
         return Response.status(200).entity("Saved successful").build();
 	}

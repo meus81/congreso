@@ -1,11 +1,11 @@
 var services = angular.module('hemoterapia.services', ['ngResource']);
 
 services.factory('PersonFactory', function ($resource) {
-    return $resource('/congreso/rest/person', {}, {
+    return $resource('./rest/person', {}, {
         query: {
             method: 'GET',
             params: {},
-            url: '/congreso/rest/default_person',
+            url: './rest/default_person',
             isArray: false
         },
     	save: {
@@ -14,13 +14,13 @@ services.factory('PersonFactory', function ($resource) {
         search:{
         	method: 'GET',
         	params: {name: "@name", surname: "@surname"},
-        	url: '/congreso/rest/all_persons',
+        	url: './rest/all_persons',
         	isArray: true        	
         },
 	    deletePer:{
 	    	method: 'DELETE',
 	    	params:{},
-	    	url: '/congreso/rest/person/:id',
+	    	url: './rest/person/:id',
 	    	isArray: false
 	    }
     })
@@ -46,7 +46,7 @@ services.service('searchService', function(){
 
 services.factory('StatisticsFactory', function ($resource) {
 	
-	return $resource('/congreso/rest/statistics', {}, {
+	return $resource('./rest/statistics', {}, {
 		query: {
             method: 'GET',
             isArray: false

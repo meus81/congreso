@@ -14,7 +14,16 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 	<servlet>
-		<servlet-name>jersey-serlvet</servlet-name>
+		<servlet-name>Log4JInitServlet</servlet-name>
+		<servlet-class>hemoterapia.configuration.Log4JInitServlet</servlet-class>
+		<init-param>
+			<param-name>log4j-properties-name</param-name>
+			<param-value>WEB-INF/classes/log4j.properties</param-value>			
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>jersey-servlet</servlet-name>
 		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
 
 		<init-param>
@@ -24,16 +33,15 @@
 						com.fasterxml.jackson.jaxrs.json
 			</param-value>
 		</init-param>
-
 		<init-param>
 			<param-name>unit:WidgetPU</param-name>
 			<param-value>persistence/widget</param-value>
 		</init-param>
-		<load-on-startup>1</load-on-startup>
+		<load-on-startup>2</load-on-startup>
 	</servlet>
-
 	<servlet-mapping>
-		<servlet-name>jersey-serlvet</servlet-name>
+		<servlet-name>jersey-servlet</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
+
 </web-app>
