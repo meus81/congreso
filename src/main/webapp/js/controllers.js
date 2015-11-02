@@ -21,7 +21,10 @@ app.controller('SavePersonController', [ '$scope', 'PersonFactory',
 		};
 		$scope.email = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
 		$scope.savePerson = function(person) {
-			PersonFactory.save(person);
+			PersonFactory.save(person, function(response){
+				console.log(response);
+				$scope.person = {amount: response.amount};
+			});
 		};
 		$scope.resetForm = function() {			
 	        $scope.person= {

@@ -53,7 +53,7 @@ public class PersonService {
 		return p;
 	}
 
-	public void save(Person person, InputStream headerImage, String pathToSave) {
+	public String save(Person person, InputStream headerImage, String pathToSave) {
 		Application ap = Application.getInstance();
 		EntityManager em = ap.getEntityManager();
 		em.getTransaction().begin();
@@ -61,8 +61,11 @@ public class PersonService {
 		em.getTransaction().commit();
 		
 		Printer printer = new Printer();
-		printer.printRegistrationTicket(person, true, headerImage, pathToSave);
+		printer.printRegistrationTicket(person, false, headerImage, pathToSave);
 		
+		double amount= person.getAmountToPaid();
+		
+		return "{amount: "+ new Double(amount).toString() + "}";
 	}
 
 	public int deletePerson(int id) {

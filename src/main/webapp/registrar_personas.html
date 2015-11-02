@@ -56,6 +56,46 @@
 		});
 	});
 
+	
+	function PrintElem(elem)
+  	{
+        Popup($(elem).html());
+    }
+
+    function Popup(data) 
+    {
+    	var textFooter1= "Encuentro para la Organizaci&oacute;n y Administraci&oacute;n de la Hemoterapia de la Provincia de Buenos Aires ";
+    	var textFooter2= "Villa Gesell 4, 5 y 6 de noviembre de 2015";
+        var mywindow = window.open('', 'my div', 'height=420,width=595');
+        mywindow.document.write('<html><head><title>ticket</title>');
+        //mywindow.document.write('<link href="css/pdf.css" rel="stylesheet" type="text/css"/>');
+        						
+        mywindow.document.write('</head><body>');
+        mywindow.document.write('<div style="height: 420; width: 595">');
+      	mywindow.document.write('<div><img src="img/nuevoLogo.png" style="height:70;width:220"></div><hr>');
+      	
+      	mywindow.document.write('<br/><br/><br/><br/>');
+      	
+      	mywindow.document.write('<!-- Body --><div style="position:absolute;left:40;right:40;font-family:Helvetica; font-size: 18px; font-style: normal;font-weight: 400;line-height:30px"><center>');
+        mywindow.document.write(data);
+        mywindow.document.write('</center></div>');
+        
+        mywindow.document.write('<div style="position:absolute;left:65;top:720;right:65;"><center>');
+        
+        mywindow.document.write('<p style="font-size: 16px; font-style: normal;font-weight: 400;">'+textFooter1+'</p>');
+        mywindow.document.write('<hr>');
+        mywindow.document.write('<p style="font-size: 14px; font-style: normal;font-weight: 400;">'+textFooter2+'</p>');
+        mywindow.document.write('</center></div>');
+        
+        mywindow.document.write('</div>');	
+        mywindow.document.write('</body></html>'); 
+        
+        mywindow.print();
+        mywindow.close();
+
+        return true;
+    }
+	
 </script>
 </head>
 <body>
@@ -173,9 +213,25 @@
 						<a href="./registrar_personas.html" class="btn btn-default btn-lg"
 							ng-disabled="register.email.$error.required || register.email.$error.email 
 										|| register.nombre.$error.required || register.surname.$error.required"
-							ng-click="savePerson(person);resetForm();"> <i class="fa fa-plus fw"></i>
+							ng-click="savePerson(person);"> <i class="fa fa-plus fw"></i>
 							 <span class="network-name">Registrar
 						</span></a>
+				    			
+						<a href="#" class="btn btn-default btn-lg" 
+							onclick="PrintElem('#mydiv')" ng-click="resetForm();">
+							<i class="fa fa-print fw"></i>
+							 <span class="network-name">Imprimir</span>
+						</a>
+						<a href="#" class="btn btn-default btn-lg" 
+							ng-click="resetForm();"><i class="fa fa-refresh fw"></i>
+							 <span class="network-name">Limpiar Formulario</span>
+						</a>
+						
+						<div id="mydiv" style="display:none">
+						    Recib&iacute; de {{person.name  }} {{person.surname}} la suma de pesos 
+						    $ {{person.amount | number:2}}
+							en concepto de inscripción al 29° encuentro provincial de hemoterapia. 
+						</div>	
 					</form>
 				</div>
 			</div>

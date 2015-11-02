@@ -9,7 +9,8 @@ services.factory('PersonFactory', function ($resource) {
             isArray: false
         },
     	save: {
-	        method: 'POST'
+	        method: 'POST',
+	        isArray: false 
 	    },
         search:{
         	method: 'GET',

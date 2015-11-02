@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import javax.json.Json;
+import javax.json.JsonObject;
 import javax.servlet.ServletContext;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.Consumes;
@@ -87,8 +89,8 @@ public class PersonRestService {
 	@POST
 	@Path("/person")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.TEXT_PLAIN)
-	public Response savePerson(@Context ServletContext context, InputStream incomingData){
+	@Produces(MediaType.APPLICATION_JSON)
+	public JsonObject savePerson(@Context ServletContext context, InputStream incomingData){
 //	public String savePerson(Person person){
 //
 //		System.out.println("calling the post a person... service");
@@ -164,10 +166,41 @@ public class PersonRestService {
 			pathToSave = "/home/meus/proyecto-personal/congreso/" + File.separator + "tickets" + File.separator;
 		}
 		System.out.println("VOY A GUARDAR EL PDF EN: " + pathToSave);
-		personService.save(p, headerImage, pathToSave);
+		String amountToPaid = personService.save(p, headerImage, pathToSave);
+
+		JsonObject value = Json.createObjectBuilder()
+	     .add("result", "ok")
+	     .add("amount", amountToPaid)     
+	     .build();
 		
-		
-        return Response.status(200).entity("Saved successful").build();
+        return value;
 	}
+	
+//	{
+//	    "name": "marcos",
+//	    "surname": "urbaneja",
+//	    "email": "asdfdafs@yahoo.com",
+//	    "address": "asdfasdf",
+//	    "certificate": {
+//	        "idCertificate": 1
+//	    },
+//	    "lodgings": {
+//	        "lodgings_type": "hemoterapia.domain.WithLodgings"
+//	    },
+//	    "companions": 0
+//	}
+//	
+//	{
+//		result: {
+//		valueType: "STRING"
+//		chars: "ok"
+//		string: "ok"
+//		}-
+//		amount: {
+//		valueType: "STRING"
+//		chars: "{amount: 1900.0}"
+//		string: "{amount: 1900.0}"
+//		}-
+//		}
 	
 }
