@@ -46,7 +46,7 @@ public class PersonTest extends TestCase {
 		logger.error("laputa que te pario");
 
 		PersonService personService = new PersonService();
-		Person p = personService.getPerson(7);
+		Person p = personService.getPerson(8);
 		logger.debug("Hola como estas");
 
 		System.out.println("la persona es: " + p.getName() + "-" + p.getSurname() + "-" + p.getCertificate().toString()

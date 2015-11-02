@@ -1,116 +1,209 @@
 <!doctype html>
 <html ng-app="hemoterapia.controllers">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<link rel="icon" href="img/favicon.ico">
-	
-	<title>Congreso de Hemoterapia</title>
-	
-	<!-- Bootstrap core CSS -->
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<!-- Bootstrap theme -->
-	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
-	
-	
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="img/favicon.ico">
+
+<title>29° Congreso de Hemoterapia</title>
+
+<!-- Bootstrap core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link href="css/landing-page.css" rel="stylesheet">
+
+<!-- Custom Fonts -->
+<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
+	type="text/css">
+<link href="css/google-fonts.css" rel="stylesheet" type="text/css">
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
 	      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 	      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	    <![endif]-->
-	<script src="lib/angular/angular.js"></script>
-	<script src="lib/angular/angular-resource.js"></script>
-	<script src="js/services.js"></script>
-	<script src="js/controllers.js"></script>
 
-	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-	<script src="js/bootstrap.js"></script>
 
-	<script type="text/javascript">
+<script src="lib/angular/angular.js"></script>
+<script src="lib/angular/angular-resource.js"></script>
+<script src="js/services.js"></script>
+<script src="js/controllers.js"></script>
+
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+<script src="js/bootstrap.js"></script>
+
+<script type="text/javascript">
 	$(document).ready(function() {
 		$("input:radio").change(function() {
-		    if ($(this).val() === "hemoterapia.domain.WithLodgings") {
-		    	$("#companios_div").show("slow");
-		    } else if ($(this).val() === "hemoterapia.domain.WithoutLodgings") {
-		    	$("#companios_div").hide("slow");
-		    } else if ($(this).val() === "3"){
-		    	$("#companios_div").hide("slow");
-		    	$("#lodgings_div").hide("slow");
-		    } else if (($(this).val() === "1") || ($(this).val() === "2")){
-		    	$("#lodgings_div").show("slow");
-		    }
-		 });
+			if ($(this).val() === "hemoterapia.domain.WithLodgings") {
+				$("#companios_div").show("slow");
+				$("#companions").val(0);
+			} else if ($(this).val() === "hemoterapia.domain.WithoutLodgings") {
+				$("#companios_div").hide("slow");
+			} else if ($(this).val() === "3") {
+				$("#companios_div").hide("slow");
+				$("#lodgings_div").hide("slow");
+				$("#companions").val(0);
+				$("#withoutLodgings").prop('checked',true);
+			} else if (($(this).val() === "1") || ($(this).val() === "2")) {
+				$("#lodgings_div").show("slow");
+			}
+		});
 	});
-	 </script>
+
+</script>
 </head>
 <body>
-	<a href="./index.html" type="link">Inicio</a>
-	<h1> <center>29° Encuentro Anual Provincial de Hemoterapia</center></h1>
-	
-	<br/>
-	<br/>
-	<br/>
-	
-	<div ng-controller="SavePersonController as saveCtrl" class="">
-		<h3> Registraci&oacute;n</h3>
-		<br/>
-		<br/>
-		<form name="register-person" novalidate="novalidate">
-			<label title="Name"> Nombre: 
-				<input type="text" id="name" ng-model="person.name" />
-			</label> <br /> 
-			<label title="Surname"> Apellido: 
-				<input type="text" id="surname" ng-model="person.surname" />
-			</label><br />
-			 <label title="email"> E-mail: 
-				<input type="email" id="email" ng-model="person.email" />
-			</label><br />
-			<p style="vertical-align: middle">
-				<label title="address"> Direcci&oacute;n: </label>
-				<textarea rows="5" cols="25 id="address" ng-model="person.address"></textarea>
-				
-			</p><br />
-			 
-			<div> 
-				<label title="Certificate"> Tipo de	inscripci&oacute;n: </label><br /> 
-				<label> <input type="radio"	name="certificate" ng-model="person.certificate.idCertificate" value="1" checked="cheked">
-					Profesional
-				</label><br /> 
-				<label> <input type="radio"	name="certificate" ng-model="person.certificate.idCertificate" value="2">
-					T&eacute;cnico
-				</label><br />
-				<label> <input type="radio"	name="certificate" ng-model="person.certificate.idCertificate" value="3">
-					Invitado
-				</label><br />
+	<!-- Navigation -->
+	<nav class="navbar navbar-default navbar-fixed-top topnav"
+		role="navigation">
+		<div class="container topnav">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand topnav" href="./index.html">Inicio</a>
 			</div>
-			
-			<div id= "lodgings_div"> 
-				<label title="Lodgings"> Alojamiento </label><br /> 
-				<label>
-					<input type="radio" name="lodgings" ng-model="person.lodgings.lodgings_type" 
-							value="hemoterapia.domain.WithoutLodgings" id="withoutLodgings" checked="checked"> 
-							Sin	Alojamiento
-				</label><br /> 
-				<label> 
-					<input type="radio"	name="lodgings" ng-model="person.lodgings.lodgings_type" 
-					value="hemoterapia.domain.WithLodgings" id="withLodgings"> 
-					Con Alojamiento
-				</label>
-				<br /> 
-				</div> 
-				
-				<div id="companios_div" style="display: none">
-				<label title="Companions"> Acompa&ntilde;antes: 
-					<input type="text" id="companions" ng-model="person.companions" value="0" numeric-only />
-				</label><br />
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="./registrar_personas.html">Registrar</a></li>
+					<li><a href="./consultar_persona.html">Consultar</a></li>
+					<li><a href="./estadisticas.html">Estad&iacute;sticas</a></li>
+				</ul>
 			</div>
-			
-			<input type="submit" value="Registrar"	ng-click="savePerson(person);resetForm();" />
-		</form>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container -->
+	</nav>
+
+
+	<!-- Header -->
+	<a name="about"></a>
+	<div class="intro-header">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1>29° Encuentro Provincial de Hemoterapia</h1>
+				</div>
+			</div>
+		</div>
 	</div>
+
+	<div class="content-section-b">
+		<div class="container">
+			<div class="row">
+				<div ng-controller="SavePersonController as saveCtrl" class="">
+					<h3>Registraci&oacute;n</h3>
+					<br />
+					<form name="register" novalidate="novalidate">
+					
+						<label title="Name"> Nombre*: &nbsp; &nbsp; &nbsp;<input type="text"
+							style="text-align: rigth" size="60" id="name" name="nombre"
+							ng-model="person.name" required/>
+						</label> 
+						<span class="error" ng-show="register.nombre.$error.required">Campo Requerido</span> &nbsp;
+						<br/>
+						
+						<label title="Surname"> Apellido*: &nbsp; &nbsp; &nbsp;<input type="text"
+							style="text-align: rigth" size="60" id="surname" name="surname"
+							ng-model="person.surname" required/>
+						</label>
+						<span class="error" ng-show="register.surname.$error.required">Campo Requerido</span> &nbsp;
+						<br /> 
+						
+						<label title="email"> E-mail*:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+						<input type="email"	style="text-align: rigth" size="60" name="email" ng-model="person.email" required/>
+						</label> &nbsp;
+					    <span class="error" ng-show="register.email.$error.required">Campo Requerido</span> &nbsp;
+					    <span class="error" ng-show="register.email.$error.email">Email Invalido!</span>
+
+						<p style="vertical-align: middle">
+							<label title="address"> Direcci&oacute;n: &nbsp;</label>
+							<textarea rows="2" cols="60" id="address"
+								ng-model="person.address"></textarea>
+						</p>
+
+						<br />
+						<div>
+							<label title="Certificate"> Tipo de inscripci&oacute;n: </label><br />
+							<label> <input type="radio" name="certificate"
+								ng-model="person.certificate.idCertificate" value="1"
+								checked="cheked"> Profesional
+							</label><br /> <label> <input type="radio" name="certificate"
+								ng-model="person.certificate.idCertificate" value="2">
+								T&eacute;cnico
+							</label><br /> <label> <input type="radio" name="certificate"
+								ng-model="person.certificate.idCertificate" value="3">
+								Invitado
+							</label><br />
+						</div>
+
+						<div id="lodgings_div">
+							<label title="Lodgings"> Alojamiento </label><br /> <label>
+								<input type="radio" name="lodgings" id="withoutLodgings"
+								ng-model="person.lodgings.lodgings_type"
+								value="hemoterapia.domain.WithoutLodgings" id="withoutLodgings"
+								checked="checked"> Sin Alojamiento
+							</label><br /> <label> <input type="radio" name="lodgings"
+								ng-model="person.lodgings.lodgings_type"
+								value="hemoterapia.domain.WithLodgings" id="withLodgings">
+								Con Alojamiento
+							</label> <br />
+						</div>
+
+						<div id="companios_div" style="display: none">
+							<label title="Companions"> Acompa&ntilde;antes: <input
+								type="text" id="companions" ng-model="person.companions"
+								value="0" numeric-only />
+							</label><br />
+						</div>
+						<br/>
+
+						<a href="./registrar_personas.html" class="btn btn-default btn-lg"
+							ng-disabled="register.email.$error.required || register.email.$error.email 
+										|| register.nombre.$error.required || register.surname.$error.required"
+							ng-click="savePerson(person);resetForm();"> <i class="fa fa-plus fw"></i>
+							 <span class="network-name">Registrar
+						</span></a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<br />
+	<br />
+	<!-- Footer -->
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<ul class="list-inline">
+						<li><a href="./index.html">Inicio</a></li>
+						<li class="footer-menu-divider">&sdot;</li>
+						<li><a href="./registrar_personas.html">Registrar</a></li>
+						<li class="footer-menu-divider">&sdot;</li>
+						<li><a href="./consultar_persona.html">Consultar</a></li>
+						<li class="footer-menu-divider">&sdot;</li>
+						<li><a href="./estadisticas.html">Estadisticas</a></li>
+					</ul>
+					<p class="copyright text-muted small">Copyright &copy; Meus
+						Company 2015. All Rights Reserved</p>
+				</div>
+			</div>
+		</div>
+	</footer>
 </body>
 </html>

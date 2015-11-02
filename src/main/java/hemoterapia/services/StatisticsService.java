@@ -16,7 +16,13 @@ public class StatisticsService {
 		EntityManager em = ap.getEntityManager();
 		
 		int professionalQTy = ((Long) em.createQuery("SELECT count(*) FROM Person as p where p.certificate.idCertificate= 1").getSingleResult()).intValue();
+		int professionalWithLodgingsQty = ((Long) em.createQuery("SELECT count(*) FROM Person as p where p.certificate.idCertificate= 1 and p.lodgings = 1").getSingleResult()).intValue();
+		int professionalWithoutLodgingsQty = ((Long) em.createQuery("SELECT count(*) FROM Person as p where p.certificate.idCertificate= 1 and p.lodgings = 2").getSingleResult()).intValue();
+		
 		int technicianQTy = ((Long) em.createQuery("SELECT count(*) FROM Person as p where p.certificate.idCertificate=2").getSingleResult()).intValue();
+		int technicianWithLodgingsQty = ((Long) em.createQuery("SELECT count(*) FROM Person as p where p.certificate.idCertificate=2 and p.lodgings = 1").getSingleResult()).intValue();
+		int technicianWithoutLodgingsQty= ((Long) em.createQuery("SELECT count(*) FROM Person as p where p.certificate.idCertificate=2 and p.lodgings= 2").getSingleResult()).intValue();
+		
 		int guestQTy = ((Long) em.createQuery("SELECT count(*) FROM Person as p where p.certificate.idCertificate=3").getSingleResult()).intValue();
 		int companionsQty = ((Long) em.createQuery("SELECT sum(p.companions) FROM Person as p").getSingleResult()).intValue();
 		
@@ -25,7 +31,7 @@ public class StatisticsService {
 				
 		int totalPersons = professionalQTy+technicianQTy+guestQTy+companionsQty;
 		double totalAmount = 0;
-		
+
 		Query all_persons = em.createQuery("SELECT p FROM Person p");
 		List<Person> allPerson = (List<Person>) all_persons.getResultList();
 		
@@ -34,7 +40,9 @@ public class StatisticsService {
 			totalAmount= totalAmount + person.getAmountToPaid();
 		}
 		
-		Statistics result = new Statistics(professionalQTy, technicianQTy, guestQTy, companionsQty, personsWithLodgingsQty, totalPersons, totalAmount);
+		Statistics result = new Statistics(professionalQTy, professionalWithLodgingsQty, professionalWithoutLodgingsQty, 
+										technicianQTy, technicianWithLodgingsQty, technicianWithoutLodgingsQty, 
+										guestQTy, companionsQty, personsWithLodgingsQty, totalPersons, totalAmount);
 		
 		return result;
 	}

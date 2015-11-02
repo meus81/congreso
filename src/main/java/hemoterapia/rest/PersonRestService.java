@@ -1,6 +1,7 @@
 package hemoterapia.rest;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
@@ -23,6 +24,7 @@ import javax.ws.rs.core.Response;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
+import hemoterapia.configuration.OSValidator;
 import hemoterapia.domain.Certificate;
 import hemoterapia.domain.LodgingsType;
 import hemoterapia.domain.Person;
@@ -155,7 +157,14 @@ public class PersonRestService {
 		PersonService personService = new PersonService();
 		InputStream headerImage = context.getResourceAsStream("./img/nuevoLogo.png");
 		
-		personService.save(p, headerImage);
+		String pathToSave= null;
+		if (OSValidator.isWindows()){
+			pathToSave = "C:" + File.separator + "TICKETS" + File.separator;
+		} else if (OSValidator.isUnix()){
+			pathToSave = "/home/meus/proyecto-personal/congreso/" + File.separator + "tickets" + File.separator;
+		}
+		System.out.println("VOY A GUARDAR EL PDF EN: " + pathToSave);
+		personService.save(p, headerImage, pathToSave);
 		
 		
         return Response.status(200).entity("Saved successful").build();

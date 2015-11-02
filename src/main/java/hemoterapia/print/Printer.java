@@ -181,7 +181,7 @@ public class Printer {
 		contentStream.close();
 	}
 
-	public void printRegistrationTicket(Person person, boolean print, InputStream headerImage) {
+	public void printRegistrationTicket(Person person, boolean print, InputStream headerImage, String pathToSave) {
 		PDDocument doc = null;
 		try {
 			doc = createDoc();
@@ -267,13 +267,18 @@ public class Printer {
 			if (print) {
 				PrinterJob printJob = PrinterJob.getPrinterJob();
 				PrintService service = PrintServiceLookup.lookupDefaultPrintService();
+				System.out.println("====================================");
+				System.out.println("IMPRESORAAAAAAAAAAAAAA");
+				System.out.println(service);
+				System.out.println("====================================");
 				if (service != null) {
 					printJob.setPrintService(service);
 					doc.silentPrint(printJob);
 				}
 			}
 
-			doc.save(person.getName() + "-" + person.getSurname() + ".pdf");
+			
+			doc.save(pathToSave + person.getIdPerson() + "-" + person.getName() + "-" + person.getSurname() + ".pdf");
 			doc.close();
 
 		} catch (IOException | COSVisitorException | PrinterException e) {

@@ -15,8 +15,11 @@ app.controller('SavePersonController', [ '$scope', 'PersonFactory',
 		$scope.person = {
 			certificate: {idCertificate: 1},
 			lodgings: {lodgings_type: 'hemoterapia.domain.WithoutLodgings'},
-			companions : 0
+			companions : 0,
+			email: 'me@example.com',
+			address:''			
 		};
+		$scope.email = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
 		$scope.savePerson = function(person) {
 			PersonFactory.save(person);
 		};
@@ -24,13 +27,14 @@ app.controller('SavePersonController', [ '$scope', 'PersonFactory',
 	        $scope.person= {
         		name: '',
         		surname: '',
-        		email: '',
+        		email: 'me@example.com',
         		address: '',
         		certificate: {idCertificate: 1},
     			lodgings: {lodgings_type: 'hemoterapia.domain.WithoutLodgings'},
     			companions : 0
 	        }
 	    };
+	    	    
 	} ]);
 
 
@@ -171,7 +175,13 @@ app.controller('StatisticsController', ['$scope', 'StatisticsFactory',
                                            function($scope, StatisticsFactory) {
 		StatisticsFactory.query({}, function(staticsResults){
 			$scope.professionalsQty= staticsResults.professionalQTy;
+			$scope.professionalWithLodgingsQty= staticsResults.professionalWithLodgingsQty
+			$scope.professionalWithoutLodgingsQty= staticsResults.professionalWithoutLodgingsQty
+			
 			$scope.technicianQty= staticsResults.technicianQTy;
+			$scope.technicianWithLodgingsQty= staticsResults.technicianWithLodgingsQty
+			$scope.technicianWithoutLodgingsQty= staticsResults.technicianWithoutLodgingsQty
+			
 			$scope.guestsQty= staticsResults.guestQTy;
 			$scope.companionsQty= staticsResults.companionsQty;
 			$scope.personsWithLodgingsQty= staticsResults.personsWithLodgingsQty;

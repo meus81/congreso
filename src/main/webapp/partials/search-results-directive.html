@@ -29,8 +29,7 @@
 					<tr ng-repeat="tabledata in tablesdata">
 
 							<td>
-								<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.name |
-									uppercase}}</div>
+								<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.name}}</div>
 								<div ng-show="editingData[tabledata.idPerson]">
 									<input type="text" ng-model="tabledata.name" />
 								</div>
@@ -72,10 +71,21 @@
 								</div>
 							</td>
 							<td>
-								<button ng-hide="editingData[tabledata.idPerson]"
-									    ng-click="modifylineperson(tabledata)">Modify</button>
-								<button ng-show="editingData[tabledata.idPerson]" ng-click="updatelineperson(tabledata)">Update</button>
-								<button ng-hide="editingData[tabledata.idPerson]" ng-click="deletelineperson(tabledata)">Delete</button>
+							<!-- 	 <button class="btn btn-default btn-lg"  ng-hide="editingData[tabledata.idPerson]"
+									    ng-click="modifylineperson(tabledata)" >
+									<i class="fa fa-user-md fw"></i> <span class="network-name">
+								</button>
+								
+								<button class="btn btn-default btn-lg"  ng-show="editingData[tabledata.idPerson]" 
+										ng-click="updatelineperson(tabledata)">
+									<i class="fa fa-repeat fw"></i> <span class="network-name">
+								</button> 
+									 -->
+									
+								<button class="btn btn-default btn-lg" ng-hide="editingData[tabledata.idPerson]" 
+										ng-click="deletelineperson(tabledata)">
+									<i class="fa fa-remove fw"></i> <span class="network-name">
+								</button>
 							</td>
 
 					</tr>
