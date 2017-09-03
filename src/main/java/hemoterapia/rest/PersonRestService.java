@@ -203,4 +203,73 @@ public class PersonRestService {
 //		}-
 //		}
 	
+	@POST
+	@Path("/updatePerson")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public JsonObject updatePerson(@Context ServletContext context, InputStream incomingData){
+		StringBuilder personBuilder = new StringBuilder();
+		try {
+			BufferedReader in = new BufferedReader(new InputStreamReader(incomingData));
+			String line = null;
+			while ((line = in.readLine()) != null) {
+				personBuilder.append(line);
+			}
+		} catch (Exception e) {
+			System.out.println("Error Parsing: - ");
+		}
+		System.out.println("Data Received: " + personBuilder.toString());
+		
+		JSONObject obj = new JSONObject(personBuilder.toString());
+		Integer id = Integer.parseInt("id");
+		String name = obj.getString("name");
+		String surname = obj.getString("surname");
+		String email = obj.getString("email");
+		String address = obj.getString("address");
+		int companions = obj.getInt("companions");
+		int idCertificate = obj.getJSONObject("certificate").getInt("idCertificate");
+		String lodgingsType = obj.getJSONObject("lodgings").getString("lodgings_type");
+		
+//		System.out.println("Data re-contruct " + name + "-" + surname + "-" + companions +"-" + idCertificate);
+		
+		CertificateService certificateService = new CertificateService();
+		Certificate certificate  = certificateService.getCertificate(idCertificate);
+		
+		LodgingsService lodgingsService = new LodgingsService();
+		LodgingsType lodgingType = lodgingsService.getLodgingsType(lodgingsType); 
+		
+		Person p = new Person();
+		p.setIdPerson(id);
+		p.setName(name);
+		p.setSurname(surname);
+		p.setAddress(address);
+		p.setEmail(email);
+		p.setCompanions(companions);
+		p.setCertificate(certificate);
+		p.setLodgings(lodgingType);
+		
+		PersonService personService = new PersonService();
+		InputStream headerImage = context.getResourceAsStream("./img/nuevoLogo.png");
+		
+		String pathToSave= null;
+/*		if (OSValidator.isWindows()){
+			pathToSave = "C:" + File.separator + "TICKETS" + File.separator;
+		} else if (OSValidator.isUnix()){
+			pathToSave = "/home/meus/proyecto-personal/congreso/" + File.separator + "tickets" + File.separator;
+		}
+		System.out.println("VOY A GUARDAR EL PDF EN: " + pathToSave);
+		String amountToPaid = personService.save(p, headerImage, pathToSave);
+
+		JsonObject value = Json.createObjectBuilder()
+	     .add("result", "ok")
+	     .add("amount", amountToPaid)     
+	     .build();
+	     
+*/		int result = personService.modifyPerson(id, p);
+		JsonObject value = Json.createObjectBuilder()
+			.add("result", result)
+			.build();
+        return value;
+	}
+	
 }

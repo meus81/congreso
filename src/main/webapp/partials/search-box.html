@@ -1,0 +1,22 @@
+<form name="search-person" novalidate="novalidate" > 
+	<label title="Name"> Nombre: <input type="text" id="name" ng-model="localPerson.name" />
+	</label> <br /> 
+	<label title="Surname"> Apellido: <input type="text" id="surname" ng-model="localPerson.surname" />
+	</label>
+	<br /> 
+	<br />
+	
+	<button class="btn btn-default btn-lg" type="button"  ng-click="clearSearch()">
+		<i class="fa fa-eraser fw"></i> 
+		<span class="network-name">
+			Limpiar
+		</span>
+	</button>
+	
+	<button class="btn btn-default btn-lg" type="button" ng-disabled="!localPerson" ng-click="doSearch();">
+       	<i class="fa fa-eye fw"></i> 
+       	<span class="network-name">
+          	Buscar
+      	</span>
+	</button>
+</form>

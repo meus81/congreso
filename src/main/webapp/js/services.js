@@ -18,10 +18,14 @@ services.factory('PersonFactory', function ($resource) {
         	url: './rest/all_persons',
         	isArray: true        	
         },
-	    deletePer:{
+	    deletePerson:{
 	    	method: 'DELETE',
 	    	params:{},
 	    	url: './rest/person/:id',
+	    	isArray: false
+	    },
+	    updatePerson:{
+	    	method: 'POST',
 	    	isArray: false
 	    }
     })
@@ -37,6 +41,7 @@ services.service('searchService', function(){
 		return search_results;
 	}
 	this.setResults= function(listOfResults){
+		debugger;
 		console.log("Service - invocaron a setResults");
 		search_results = listOfResults;
 	}

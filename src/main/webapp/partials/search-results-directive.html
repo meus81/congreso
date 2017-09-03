@@ -1,95 +1,84 @@
-<!-- <ul class="thumbnails">
-    <li ng-repeat="note in notes">
-        <my-note class="span2 thumbnail" delete="deleteNote(note.id)" note="note">
-            <button class="btn btn-large close pull-right" ng-click="delete()">&times;</button>
-            <hr/>
-            <p>{{note.title}}</p>
-        </my-note>
-    </li>
-</ul> -->
-		
-		<div class="wraper" ng-hide="!!!tablesdata.length">
-			<h3>Resultados</h3>
-			<table class="table table-striped" >
-				<thead>
-					<tr>
-						<th>Nombre</th>
-						<th>Apellido</th>
-						<th>E-mail</th>
-						<th>Direcci&oacute;n</th>
-						<th>Tipo de Inscripci&oacute;n</th>
-						<th>Alojamiento</th>
-						<th>Acompa&ntilde;ntes</th>
-						<th>Acci&oacute;n</th>
-					</tr>
-				</thead>
-				<tbody>
-					<!-- <li ng-repeat="note in notes">
-            			<my-note class="span2 thumbnail" delete="deleteNoteDirective(note.id)" note="note"> -->
-					<tr ng-repeat="tabledata in tablesdata">
-
-							<td>
-								<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.name}}</div>
-								<div ng-show="editingData[tabledata.idPerson]">
-									<input type="text" ng-model="tabledata.name" />
-								</div>
-							</td>
-							<td>
-								<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.surname}}</div>
-								<div ng-show="editingData[tabledata.idPerson]">
-									<input type="text" ng-model="tabledata.surname" />
-								</div>
-							</td>
-							<td>
-								<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.email}}</div>
-								<div ng-show="editingData[tabledata.idPerson]">
-									<input type="text" ng-model="tabledata.email" />
-								</div>
-							</td>
-							<td>
-								<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.address}}</div>
-								<div ng-show="editingData[tabledata.idPerson]">
-									<input type="text" ng-model="tabledata.address" />
-								</div>
-							</td>
-							<td>
-								<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.certificate.name}}</div>
-								<div ng-show="editingData[tabledata.idPerson]">
-									<input type="text" ng-model="tabledata.certificate" />
-								</div>
-							</td>
-							<td>
-								<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.lodgings.type}}</div>
-								<div ng-show="editingData[tabledata.idPerson]">
-									<input type="text" ng-model="tabledata.lodgings" />
-								</div>
-							</td>
-							<td>
-								<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.companions}}</div>
-								<div ng-show="editingData[tabledata.idPerson]">
-									<input type="text" ng-model="tabledata.companions" />
-								</div>
-							</td>
-							<td>
-							<!-- 	 <button class="btn btn-default btn-lg"  ng-hide="editingData[tabledata.idPerson]"
-									    ng-click="modifylineperson(tabledata)" >
-									<i class="fa fa-user-md fw"></i> <span class="network-name">
-								</button>
-								
-								<button class="btn btn-default btn-lg"  ng-show="editingData[tabledata.idPerson]" 
-										ng-click="updatelineperson(tabledata)">
-									<i class="fa fa-repeat fw"></i> <span class="network-name">
-								</button> 
-									 -->
-									
-								<button class="btn btn-default btn-lg" ng-hide="editingData[tabledata.idPerson]" 
-										ng-click="deletelineperson(tabledata)">
-									<i class="fa fa-remove fw"></i> <span class="network-name">
-								</button>
-							</td>
-
-					</tr>
-				</tbody>
-			</table>
-		</div>
+<div class="wraper" ng-hide="!!!searchResults.length" ng-controller="OperationInSearchResults">
+	<h3>Resultados</h3>
+	<table class="table table-striped" >
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Apellido</th>
+				<th>E-mail</th>
+				<th>Direcci&oacute;n</th>
+				<th>Tipo de Inscripci&oacute;n</th>
+				<th>Alojamiento</th>
+				<th>Acompa&ntilde;ntes</th>
+				<th>Acci&oacute;n</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="tabledata in searchResults">
+				<td>
+					<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.name}}</div>
+					<div ng-show="editingData[tabledata.idPerson]">
+						<input type="text" ng-model="tabledata.name" />
+					</div>
+				</td>
+				<td>
+					<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.surname}}</div>
+					<div ng-show="editingData[tabledata.idPerson]">
+						<input type="text" ng-model="tabledata.surname" />
+					</div>
+				</td>
+				<td>
+					<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.email}}</div>
+					<div ng-show="editingData[tabledata.idPerson]">
+						<input type="text" ng-model="tabledata.email" />
+					</div>
+				</td>
+				<td>
+					<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.address}}</div>
+					<div ng-show="editingData[tabledata.idPerson]">
+						<input type="text" ng-model="tabledata.address" />
+					</div>
+				</td>
+				<td>
+					<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.certificate.name}}</div>
+					<div ng-show="editingData[tabledata.idPerson]">
+						<input type="text" ng-model="tabledata.certificate" />
+					</div>
+				</td>
+				<td>
+					<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.lodgings.type}}</div>
+					<div ng-show="editingData[tabledata.idPerson]">
+						<input type="text" ng-model="tabledata.lodgings" />
+					</div>
+				</td>
+				<td>
+					<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.companions}}</div>
+					<div ng-show="editingData[tabledata.idPerson]">
+						<input type="text" ng-model="tabledata.companions" />
+					</div>
+				</td>
+				<td>
+					<button class="btn btn-default btn-lg" 
+							ng-hide="editingData[tabledata.idPerson]" 
+							ng-click="modifyPerson(tabledata)">
+						<i class="fa fa-pencil-square-o fw"></i> 
+						<span class="network-name"/>
+					</button>
+					<button class="btn btn-default btn-lg" 
+							ng-show="editingData[tabledata.idPerson]" 
+							ng-click="updatePerson(tabledata)">
+						<i class="fa fa-floppy-o fw"></i> 
+						<span class="network-name"/>
+					</button>
+					<button class="btn btn-default btn-lg" 
+							ng-hide="viewField"
+							ng-click="deletePerson(tabledata)">
+						<i class="fa fa-remove fw"></i>
+						<span class="network-name"/>
+					</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
 	

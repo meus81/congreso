@@ -86,40 +86,29 @@
             <div class="row">
 	
        
-				<div ng-controller="SearchPersonController as searchCtrl">
-						<h3>B&uacute;squeda</h3>
-						<br/>
-						<form name="search-person" novalidate="novalidate" ng-submit="getPersons(person);resetForm();">
-							<label title="Name"> Nombre: <input type="text" id="name" ng-model="person.name" />
-							</label> <br /> 
-							<label title="Surname"> Apellido: <input type="text" id="surname" ng-model="person.surname" />
-							</label>
-							<br /> 
-							<br />
-							
-							<button class="btn btn-default btn-lg" type="button"
-			                            ng-disabled="!person" ng-click="getPersons(person);resetForm();">
-			                 <i class="fa fa-eye fw"></i> <span class="network-name">
-			                            Buscar
-							</button>
-							<!-- <button class="btn btn-default btn-lg" ng-disabled="!person" ng-click="getPersons(person);resetForm();">
-                                <i class="fa fa-eye fw"></i> <span class="network-name">Buscar </span>
-                            </button> -->
-						</form>
-						<br/>
-						<br/>
+				<div ng-controller="SearchPersonController as searchCtrl"> 
+					<h3>B&uacute;squeda</h3>
+					<br/>
 					
-			       <my-search-results tablesdata="getResultsForTable()" 
-			       					  modifyperson="setModifyButton(tabledata)"
-			       					  updateperson="updatePerson(tabledata)"
-			       					  deleteperson="deletePerson(tabledata)"></my-search-results>
-			       <!-- <my-notebook notes="getNotes()" ondelete="deleteNote(id)"></my-notebook> -->
+					<hemo-search-box search-person="personToSearch" is-searching="isSearchingForAPerson">
+					</hemo-search-box>
+					<br/>
+					<br/>
+					
+					<div ng-show="isSearching">
+			        	<img ng-show="isSearching" src="http://loadinggif.com/images/image-selection/3.gif" />
+			          	Searching...
+					</div>
+					
+					<hemo-search-results is-searching="isSearchingForAPerson" 
+										search-results="personSearchResults" 
+										search-person="personToSearch">
+					</hemo-search-results>
 				</div>
 			</div>
 		</div>
 	</div>
-
-
+	
 	<!-- Footer -->
     <footer>
 		<div class="container">

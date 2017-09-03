@@ -79,5 +79,27 @@ public class PersonService {
 		System.out.println("Rows affected: " + result);
 		return result;
 	}
+	
+	public int modifyPerson(int id, Person person) {
+		Application ap = Application.getInstance();
+		EntityManager em = ap.getEntityManager();
+		em.getTransaction().begin();
+
+		int result = em.createQuery("UPDATE Person SET name= :name , surname = :surname, "
+									+ "companions= :companions, idCertificate= :idCertificate, "
+									+ "address= :address, email= :email, lodgings= :lodgings "
+									+ "WHERE p.id = :id")
+						.setParameter("name", person.getName())
+						.setParameter("surname", person.getSurname())
+						.setParameter("companions", person.getCompanions())
+						.setParameter("idCertificate", person.getCertificate())
+						.setParameter("address", person.getAddress())
+						.setParameter("email", person.getEmail())
+						.setParameter("lodgings", person.getLodgings())
+						.executeUpdate();
+		em.getTransaction().commit();
+		
+		return result;
+	}
 
 }
