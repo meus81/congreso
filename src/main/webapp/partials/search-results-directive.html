@@ -1,6 +1,7 @@
-<div class="wraper" ng-hide="!!!searchResults.length" ng-controller="OperationInSearchResults">
-	<h3>Resultados</h3>
-	<table class="table table-striped" >
+<div class="wraper" ng-hide="isSearching" >
+	
+	<h3 ng-show="searchResults.length!=0">Resultados</h3>
+	<table class="table table-striped" ng-show="searchResults.length!=0"  ng-controller="OperationInSearchResults">
 		<thead>
 			<tr>
 				<th>Nombre</th>
@@ -42,13 +43,39 @@
 				<td>
 					<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.certificate.name}}</div>
 					<div ng-show="editingData[tabledata.idPerson]">
-						<input type="text" ng-model="tabledata.certificate" />
+						<label> <input type="radio" name="certificate"
+							ng-model="tabledata.certificate.idCertificate" value="1"
+							checked="tabledata.certificate.idCertificate == '1'"> 
+							Profesional
+						</label><br /> 
+						<label> <input type="radio" name="certificate"
+							ng-model="tabledata.certificate.idCertificate" value="2"
+							ng-checked="tabledata.certificate.idCertificate == '2'">
+							T&eacute;cnico
+						</label><br /> 
+						<label> <input type="radio" name="certificate"
+							ng-model="tabledata.certificate.idCertificate" value="3"
+							checked="tabledata.certificate.idCertificate == '3'">
+							Invitado
+						</label>
 					</div>
 				</td>
 				<td>
 					<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.lodgings.type}}</div>
 					<div ng-show="editingData[tabledata.idPerson]">
-						<input type="text" ng-model="tabledata.lodgings" />
+						<label>
+							{{tabledata.lodgings.type}}
+							<input type="radio" name="lodgings" id="withoutLodgings"
+							ng-model="tabledata.lodgings.type"
+							value="hemoterapia.domain.WithoutLodgings" id="withoutLodgings"
+							checked="tabledata.lodgings.type == 'Sin Alojamiento'"> Sin Alojamiento
+						</label><br /> 
+						<label> <input type="radio" name="lodgings"
+							ng-model="tabledata.lodgings.type"
+							value="hemoterapia.domain.WithLodgings" id="withLodgings"
+							checked="tabledata.lodgings.type == 'Con Alojamiento'">
+							Con Alojamiento
+						</label>
 					</div>
 				</td>
 				<td>

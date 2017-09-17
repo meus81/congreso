@@ -1,4 +1,4 @@
-var hemoApp = angular.module('hemoterapia.controllers', [ "hemoterapia.services" ])
+var hemoApp = angular.module('hemoterapia.controllers', [ "hemoterapia.services" ]);
 
 hemoApp.controller('DefaultPersonController', ['$scope', 'PersonFactory',
 	function($scope, PersonFactory) {
@@ -61,25 +61,30 @@ hemoApp.controller('StatisticsController', ['$scope', 'StatisticsFactory',
 	})
 }]);
 
-hemoApp.controller('SearchPersonController', [ '$scope', 'PersonFactory',
-                                           'searchService', function($scope, PersonFactory, searchService) {
+hemoApp.controller('SearchPersonController', [ '$scope', 'PersonFactory', 
+                                               function($scope, PersonFactory) {
 		
-		debugger;
 		$scope.$watch('personToSearch', function(personToSearch){
 			debugger;
-			if(personToSearch){
-				$scope.personSearchResults = [];
-				$scope.isSearchingForAPerson = true;
-				PersonFactory.search({
-					name : personToSearch.name,
-					surname : personToSearch.surname
-				}).$promise.then(function (data){
+			if (!angular.equals($scope.personToSearch, undefined)){
+				if(!angular.equals($scope.personToSearch, {})){
+					$scope.personSearchResults = [];
+					$scope.isSearchingForAPerson = true;
+					PersonFactory.search({
+						name : personToSearch.name,
+						surname : personToSearch.surname
+					}).$promise.then(function (data){
+						$scope.isSearchingForAPerson = false;
+						for (var i = 0, length = data.length; typeof data[i] != 'undefined'; i++) {    		
+							$scope.personSearchResults[i] = data[i];
+						}
+						debugger;
+					});
+					$scope.personToSearch={};
+				} else {
 					$scope.isSearchingForAPerson = false;
-					for (var i = 0, length = data.length; typeof data[i] != 'undefined'; i++) {    		
-						$scope.personSearchResults[i] = data[i];
-					}
-					debugger;
-				});
+					$scope.personSearchResults = [];
+				}
 			} else {
 				$scope.isSearchingForAPerson = false;
 				$scope.personSearchResults = [];
@@ -92,10 +97,9 @@ hemoApp.controller('OperationInSearchResults', [ '$scope', 'PersonFactory',
                                                  'searchService', function($scope, PersonFactory, searchService) {
 	
 		$scope.editingData = {};
-		debugger;
-		for (var i = 0, length = $scope.searchResults.length; i < length; i++) {
-		      $scope.editingData[$scope.searchResults[i].idPerson] = false;
-		}
+//		for (var i = 0, length = $scope.searchResults.length; i < length; i++) {
+//		      $scope.editingData[$scope.searchResults[i].idPerson] = false;
+//		}
 		
 		$scope.modifyPerson= function(tabledata){
 			debugger;
@@ -142,7 +146,7 @@ hemoApp.controller('OperationInSearchResults', [ '$scope', 'PersonFactory',
 hemoApp.directive("hemoSearchBox", function(){	
 	return {
 		restrict: 'E',
-		transclude: false,
+		transclude: true,
 		scope: {
 			searchPerson: '=',
 			isSearching: '='
@@ -156,32 +160,31 @@ hemoApp.directive("hemoSearchBox", function(){
 			};
 			
 			$scope.doSearch = function() {
+				debugger;
 				$scope.searchPerson = $scope.localPerson;
 			};
 		},
-		replace: true,
 		templateUrl:"partials/search-box.html"
 	}
 });
 
 hemoApp.directive("hemoSearchResults", function(){
-	console.log("Dir - mySearchResults");
 	return {
 		restrict: "E",
+		transclude: true,
 		scope: {
 			isSearching:'=',
 			searchResults: '=',
 			searchPerson: '='
 		},
-		templateUrl:"partials/search-results-directive.html",
-		transclude: true
+		templateUrl:"partials/search-results-directive.html"
+	};
+});
 //		> is not in the documentation.
 //		< is for one-way binding.
 //		@ binding is for passing strings. These strings support {{}} expressions for interpolated values.
 //		= binding is for two-way model binding. The model in parent scope is linked to the model in the directive's isolated scope.
 //		& binding is for passing a method into your directive's scope so that it can be called within your directive.
-	}
-});
 
 
 // Solo permitimos numeros en aquellos tags html que tengan la palabra

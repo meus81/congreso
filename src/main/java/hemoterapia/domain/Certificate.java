@@ -33,7 +33,7 @@ public abstract class Certificate implements Serializable {
 	private double taxCompanions;
 	private String name;
 
-	protected int getIdCertificate() {
+	public int getIdCertificate() {
 		return idCertificate;
 	}
 	protected void setIdCertificate(int idCertificate) {

@@ -84,26 +84,20 @@
       <div class="content-section-b">
         <div class="container">
             <div class="row">
-	
-       
-				<div ng-controller="SearchPersonController as searchCtrl"> 
+				<div ng-controller="SearchPersonController"> 
 					<h3>B&uacute;squeda</h3>
 					<br/>
-					
-					<hemo-search-box search-person="personToSearch" is-searching="isSearchingForAPerson">
-					</hemo-search-box>
-					<br/>
-					<br/>
-					
-					<div ng-show="isSearching">
-			        	<img ng-show="isSearching" src="http://loadinggif.com/images/image-selection/3.gif" />
-			          	Searching...
+					<div>
+						<hemo-search-box search-person="personToSearch" is-searching="isSearchingForAPerson">
+						</hemo-search-box>
 					</div>
-					
-					<hemo-search-results is-searching="isSearchingForAPerson" 
+					<br/>
+					<br/>
+					<div>
+						<hemo-search-results is-searching="isSearchingForAPerson" 
 										search-results="personSearchResults" 
 										search-person="personToSearch">
-					</hemo-search-results>
+						</hemo-search-results>
 				</div>
 			</div>
 		</div>

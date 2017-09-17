@@ -1,4 +1,4 @@
-<form name="search-person" novalidate="novalidate" > 
+<form name="search-person" novalidate="novalidate"> 
 	<label title="Name"> Nombre: <input type="text" id="name" ng-model="localPerson.name" />
 	</label> <br /> 
 	<label title="Surname"> Apellido: <input type="text" id="surname" ng-model="localPerson.surname" />
@@ -13,10 +13,15 @@
 		</span>
 	</button>
 	
-	<button class="btn btn-default btn-lg" type="button" ng-disabled="!localPerson" ng-click="doSearch();">
+	<button class="btn btn-default btn-lg" type="button" ng-disabled="!localPerson" ng-click="doSearch()">
        	<i class="fa fa-eye fw"></i> 
        	<span class="network-name">
           	Buscar
       	</span>
 	</button>
+	
+	<div ng-show="isSearching">
+		<img ng-show="isSearching" src="http://loadinggif.com/images/image-selection/3.gif" />
+          Searching...
+    </div>
 </form>
