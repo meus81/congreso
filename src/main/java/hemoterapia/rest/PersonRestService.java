@@ -221,14 +221,18 @@ public class PersonRestService {
 		System.out.println("Data Received: " + personBuilder.toString());
 		
 		JSONObject obj = new JSONObject(personBuilder.toString());
-		Integer id = Integer.parseInt("id");
+		Integer id = obj.getInt("id");
 		String name = obj.getString("name");
 		String surname = obj.getString("surname");
 		String email = obj.getString("email");
 		String address = obj.getString("address");
 		int companions = obj.getInt("companions");
 		int idCertificate = obj.getJSONObject("certificate").getInt("idCertificate");
-		String lodgingsType = obj.getJSONObject("lodgings").getString("lodgings_type");
+		String lodgingsType = obj.getJSONObject("lodgings").getString("type");
+		//"id":58,"idCertificate":{"idCertificate":2,"name":"Technician","taxWithoutLodgings":800,"taxWithLodgings":1450,"taxCompanions":1450},
+		//"address":"10 n526","email":"susi@hotmail.com","name":"Susana","surname":"Chinamberro","companions":0,
+		//"lodgings":{"type":"hemoterapia.domain.WithoutLodgings"}}
+		
 		
 //		System.out.println("Data re-contruct " + name + "-" + surname + "-" + companions +"-" + idCertificate);
 		

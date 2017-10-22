@@ -109,7 +109,34 @@ hemoApp.controller('OperationInSearchResults', [ '$scope', 'PersonFactory',
 		$scope.updatePerson = function(tabledata) {
 			debugger;
 			console.log("Updating person...");
-			$scope.editingData[tablesdata.idPerson] = false;
+			$scope.editingData[tabledata.idPerson] = false;
+			//searchService.updatePerson
+			PersonFactory.updatePerson({id:tabledata.idPerson, name: tabledata.name,
+										surname:tabledata.surname, email: tabledata.email,
+										address:tabledata.address, companions: tabledata.companions, 
+										certificate:tabledata.certificate,
+										lodgings:tabledata.lodgings}, function(response){
+				console.log(response);
+				//$scope.person = {amount: response.amount};
+				/*	STRING name = obj.getString("name");
+					String surname = obj.getString("surname");
+					String email = obj.getString("email");
+					String address = obj.getString("address");
+					int companions = obj.getInt("companions");
+					int idCertificate = obj.getJSONObject("certificate").getInt("idCertificate");
+					String lodgingsType = obj.getJSONObject("lodgings").getString("lodgings_type");
+					
+					address: "10 n526"
+					certificate:{idCertificate: 2, name: "Technician", taxCompanions: 1450, taxWithLodgings: 1450, taxWithoutLodgings: 800}
+					companions:0
+					email:"susi@hotmail.com"
+					idPerson:58
+					lodgings:{type: "tabledata.lodgings.type"}
+					name:"Susana"
+					surname:"Chinamberro"
+				 * 
+				 * */
+			});
 		};
 		
 		$scope.deletePerson = function(tabledata){

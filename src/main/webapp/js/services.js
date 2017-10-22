@@ -12,21 +12,22 @@ services.factory('PersonFactory', function ($resource) {
 	        method: 'POST',
 	        isArray: false 
 	    },
-        search:{
+        search: {
         	method: 'GET',
         	params: {name: "@name", surname: "@surname"},
         	url: './rest/all_persons',
         	isArray: true        	
         },
-	    deletePerson:{
+	    deletePerson: {
 	    	method: 'DELETE',
 	    	params:{},
 	    	url: './rest/person/:id',
 	    	isArray: false
 	    },
-	    updatePerson:{
+	    updatePerson: {
 	    	method: 'POST',
-	    	isArray: false
+	    	isArray: false,
+	    	url: './rest/updatePerson'
 	    }
     })
 });

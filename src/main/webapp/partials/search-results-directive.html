@@ -10,7 +10,7 @@
 				<th>Direcci&oacute;n</th>
 				<th>Tipo de Inscripci&oacute;n</th>
 				<th>Alojamiento</th>
-				<th>Acompa&ntilde;ntes</th>
+				<th>Acompa&ntilde;antes</th>
 				<th>Acci&oacute;n</th>
 			</tr>
 		</thead>
@@ -45,7 +45,7 @@
 					<div ng-show="editingData[tabledata.idPerson]">
 						<label> <input type="radio" name="certificate"
 							ng-model="tabledata.certificate.idCertificate" value="1"
-							checked="tabledata.certificate.idCertificate == '1'"> 
+							ng-checked="tabledata.certificate.idCertificate == '1'"> 
 							Profesional
 						</label><br /> 
 						<label> <input type="radio" name="certificate"
@@ -55,7 +55,7 @@
 						</label><br /> 
 						<label> <input type="radio" name="certificate"
 							ng-model="tabledata.certificate.idCertificate" value="3"
-							checked="tabledata.certificate.idCertificate == '3'">
+							ng-checked="tabledata.certificate.idCertificate == '3'">
 							Invitado
 						</label>
 					</div>
@@ -64,16 +64,16 @@
 					<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.lodgings.type}}</div>
 					<div ng-show="editingData[tabledata.idPerson]">
 						<label>
-							{{tabledata.lodgings.type}}
-							<input type="radio" name="lodgings" id="withoutLodgings"
+							<input type="radio" name="lodgings"
 							ng-model="tabledata.lodgings.type"
-							value="hemoterapia.domain.WithoutLodgings" id="withoutLodgings"
-							checked="tabledata.lodgings.type == 'Sin Alojamiento'"> Sin Alojamiento
+							value="hemoterapia.domain.WithoutLodgings"
+							ng-checked="false"> 
+							Sin Alojamiento
 						</label><br /> 
 						<label> <input type="radio" name="lodgings"
 							ng-model="tabledata.lodgings.type"
-							value="hemoterapia.domain.WithLodgings" id="withLodgings"
-							checked="tabledata.lodgings.type == 'Con Alojamiento'">
+							value="hemoterapia.domain.WithLodgings" 
+							ng-checked="true">
 							Con Alojamiento
 						</label>
 					</div>

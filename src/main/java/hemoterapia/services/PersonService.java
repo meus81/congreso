@@ -85,10 +85,10 @@ public class PersonService {
 		EntityManager em = ap.getEntityManager();
 		em.getTransaction().begin();
 
-		int result = em.createQuery("UPDATE Person SET name= :name , surname = :surname, "
-									+ "companions= :companions, idCertificate= :idCertificate, "
-									+ "address= :address, email= :email, lodgings= :lodgings "
-									+ "WHERE p.id = :id")
+		int result = em.createQuery("UPDATE Person SET name= :name , surname = :surname, " +
+									"companions= :companions, idCertificate= :idCertificate, " +
+									"address= :address, email= :email, lodgings= :lodgings " +
+									"WHERE id = :id")
 						.setParameter("name", person.getName())
 						.setParameter("surname", person.getSurname())
 						.setParameter("companions", person.getCompanions())
@@ -96,6 +96,7 @@ public class PersonService {
 						.setParameter("address", person.getAddress())
 						.setParameter("email", person.getEmail())
 						.setParameter("lodgings", person.getLodgings())
+						.setParameter("id", id)
 						.executeUpdate();
 		em.getTransaction().commit();
 		
