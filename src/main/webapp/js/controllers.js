@@ -110,7 +110,7 @@ hemoApp.controller('OperationInSearchResults', [ '$scope', 'PersonFactory',
 			debugger;
 			console.log("Updating person...");
 			$scope.editingData[tabledata.idPerson] = false;
-			//searchService.updatePerson
+			
 			PersonFactory.updatePerson({id:tabledata.idPerson, name: tabledata.name,
 										surname:tabledata.surname, email: tabledata.email,
 										address:tabledata.address, companions: tabledata.companions, 
@@ -118,6 +118,15 @@ hemoApp.controller('OperationInSearchResults', [ '$scope', 'PersonFactory',
 										lodgings:tabledata.lodgings}, function(response){
 				console.log(response);
 			});
+			
+			var indice = 0;
+			var keys = Object.keys($scope.searchResults);
+			for(var i = keys.length - 1; i >= 0; i--){
+				if(tabledata.idPerson == $scope.searchResults[i].idPerson) {
+					indice = i;
+				}
+			};
+			tabledata = $scope.searchResults[indice];
 		};
 		
 		$scope.deletePerson = function(tabledata){
