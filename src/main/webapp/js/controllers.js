@@ -117,55 +117,26 @@ hemoApp.controller('OperationInSearchResults', [ '$scope', 'PersonFactory',
 										certificate:tabledata.certificate,
 										lodgings:tabledata.lodgings}, function(response){
 				console.log(response);
-				//$scope.person = {amount: response.amount};
-				/*	STRING name = obj.getString("name");
-					String surname = obj.getString("surname");
-					String email = obj.getString("email");
-					String address = obj.getString("address");
-					int companions = obj.getInt("companions");
-					int idCertificate = obj.getJSONObject("certificate").getInt("idCertificate");
-					String lodgingsType = obj.getJSONObject("lodgings").getString("lodgings_type");
-					
-					address: "10 n526"
-					certificate:{idCertificate: 2, name: "Technician", taxCompanions: 1450, taxWithLodgings: 1450, taxWithoutLodgings: 800}
-					companions:0
-					email:"susi@hotmail.com"
-					idPerson:58
-					lodgings:{type: "tabledata.lodgings.type"}
-					name:"Susana"
-					surname:"Chinamberro"
-				 * 
-				 * */
 			});
 		};
 		
 		$scope.deletePerson = function(tabledata){
 			debugger;
-			console.log("Ctrl - Delete resultados para la tabla");
-	//    	delete($scope.editingData[tabledata.idPerson]);
-			var indice = 0;
-			var keys = Object.keys($scope.editingData);
-			for(var i = keys.length - 1; i >= 0; i--){
-				if(keys[i] == tabledata.idPerson) {
-					indice = keys[i];
-				}
-			};
 			console.log("eliminando de editingData");
-			console.log("el indice es: " + indice);
-			delete($scope.editingData).indice;    	
+			console.log("Los resultados de la tabla: " + $scope.searchResults);
 			
-			indice = 0;
-			for(var i = $scope.tablesdata.length - 1; i >= 0; i--) {
-				if($scope.tablesdata[i] == tabledata) {
+			$scope.editingData[tabledata.idPerson] = false;			
+			var indice = 0;
+			var keys = Object.keys($scope.searchResults);
+			for(var i = keys.length - 1; i >= 0; i--){
+				if(tabledata.idPerson == $scope.searchResults[i].idPerson) {
 					indice = i;
 				}
 			};
-			console.log("eliminando de tablesdata");
-			console.log("el indice es: " + indice);
-			($scope.tablesdata).splice(indice, 1);
+			$scope.searchResults.splice(indice, 1);
+			console.log("Despues del borrado: " + $scope.searchResults);
 			
-//	    	searchService.deleteAResult(tabledata.idPerson);
-//  	  	    PersonFactory.deletePer({id:tabledata.idPerson});
+  	  	    PersonFactory.deletePerson({id:tabledata.idPerson});
 		};
 	}
 ]);
