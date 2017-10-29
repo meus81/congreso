@@ -86,12 +86,14 @@ public class PersonService {
 		em.getTransaction().begin();
 
 		int result = em.createQuery("UPDATE Person SET name= :name , surname = :surname, " +
-									"companions= :companions, idCertificate= :idCertificate, " +
+									"companionsTypeOne= :companionsTypeOne, companionsTypeTwo= :companionsTypeTwo, " +
+									"idCertificate= :idCertificate, " +
 									"address= :address, email= :email, lodgings= :lodgings " +
 									"WHERE id = :id")
 						.setParameter("name", person.getName())
 						.setParameter("surname", person.getSurname())
-						.setParameter("companions", person.getCompanionsTypeOne())
+						.setParameter("companionsTypeOne", person.getCompanionsTypeOne())
+						.setParameter("companionsTypeTwo", person.getCompanionsTypeTwo())
 						.setParameter("idCertificate", person.getCertificate())
 						.setParameter("address", person.getAddress())
 						.setParameter("email", person.getEmail())

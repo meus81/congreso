@@ -35,7 +35,7 @@ hemoApp.controller('SavePersonController', [ '$scope', 'PersonFactory',
 				debugger;
 			}).$promise.then(
 					function(data){
-						$scope.successTextAlert = person.name + " registrada/o correctamente";
+						$scope.successTextAlert = person.name + " se ha registrada/o correctamente";
 					    $scope.showSuccessAlert = true;
 					}, function(data){
 						$scope.errorTextAlert = person.name + " no se ha podido registrar :(";
@@ -101,7 +101,16 @@ hemoApp.controller('SearchPersonController', [ '$scope', 'PersonFactory',
 						surname : personToSearch.surname
 					}).$promise.then(function (data){
 						$scope.isSearchingForAPerson = false;
-						for (var i = 0, length = data.length; typeof data[i] != 'undefined'; i++) {    		
+						for (var i = 0, length = data.length; typeof data[i] != 'undefined'; i++) {   
+							if(data[i].lodgings.type == "Sin Alojamiento opcion 1"){
+								data[i].lodgings.clase = "hemoterapia.domain.WithoutLodgings";
+							} else if(data[i].lodgings.type == "Sin Alojamiento opcion 2"){
+									data[i].lodgings.clase = "hemoterapia.domain.WithoutLodgings2";
+							} else if(data[i].lodgings.type == "Con Alojamiento opcion 1"){
+									data[i].lodgings.clase = "hemoterapia.domain.WithLodgings";
+							} else if(data[i].lodgings.type == "Con Alojamiento opcion 2"){
+									data[i].lodgings.clase = "hemoterapia.domain.WithLodgings2";
+							}
 							$scope.personSearchResults[i] = data[i];
 						}
 						debugger;
@@ -131,15 +140,39 @@ hemoApp.controller('OperationInSearchResults', [ '$scope', 'PersonFactory',
 			debugger;
 			$scope.editingData[tabledata.idPerson] = true;
 		};
+		$scope.cancelPerson= function(tabledata){
+			debugger;
+			$scope.editingData[tabledata.idPerson] = false;
+		};
 		
 		$scope.updatePerson = function(tabledata) {
 			debugger;
 			console.log("Updating person...");
 			$scope.editingData[tabledata.idPerson] = false;
 			
+			if (tabledata.certificate.idCertificate == '1'){
+				tabledata.certificate.name= "Professional";
+			} else if (tabledata.certificate.idCertificate == '2'){
+				tabledata.certificate.name= "Technician";
+			} else if (tabledata.certificate.idCertificate == '3'){
+				tabledata.certificate.name= "Guest";
+			}
+			
+			if(tabledata.lodgings.clase == "hemoterapia.domain.WithoutLodgings"){
+				tabledata.lodgings.type = "Sin Alojamiento opcion 1";
+			} else if(tabledata.lodgings.clase == "hemoterapia.domain.WithoutLodgings2"){
+				tabledata.lodgings.type = "Sin Alojamiento opcion 2";
+			} else if(tabledata.lodgings.clase == "hemoterapia.domain.WithLodgings"){
+				tabledata.lodgings.type = "Con Alojamiento opcion 1";
+			} else if(tabledata.lodgings.clase == "hemoterapia.domain.WithLodgings2" ){
+				tabledata.lodgings.type = "Con Alojamiento opcion 2";
+			}
+			
 			PersonFactory.updatePerson({id:tabledata.idPerson, name: tabledata.name,
 										surname:tabledata.surname, email: tabledata.email,
-										address:tabledata.address, companions: tabledata.companions, 
+										address:tabledata.address, 
+										companionsTypeOne: tabledata.companionsTypeOne,
+										companionsTypeTwo: tabledata.companionsTypeTwo,
 										certificate:tabledata.certificate,
 										lodgings:tabledata.lodgings}, function(response){
 				console.log(response);

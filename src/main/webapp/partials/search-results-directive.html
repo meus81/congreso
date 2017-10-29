@@ -10,7 +10,8 @@
 				<th>Direcci&oacute;n</th>
 				<th>Tipo de Inscripci&oacute;n</th>
 				<th>Alojamiento</th>
-				<th>Acompa&ntilde;antes</th>
+				<th>Acompa&ntilde;antes opc.1</th>
+				<th>Acompa&ntilde;antes opc.2</th>
 				<th>Acci&oacute;n</th>
 			</tr>
 		</thead>
@@ -43,17 +44,17 @@
 				<td>
 					<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.certificate.name}}</div>
 					<div ng-show="editingData[tabledata.idPerson]">
-						<label> <input type="radio" name="certificate"
+						<label> <input type="radio" name="{{'certificate' + tabledata.idPerson}}"
 							ng-model="tabledata.certificate.idCertificate" value="1"
 							ng-checked="tabledata.certificate.idCertificate == '1'"> 
 							Profesional
 						</label><br /> 
-						<label> <input type="radio" name="certificate"
+						<label> <input type="radio" name="{{'certificate' + tabledata.idPerson}}"
 							ng-model="tabledata.certificate.idCertificate" value="2"
 							ng-checked="tabledata.certificate.idCertificate == '2'">
 							T&eacute;cnico
 						</label><br /> 
-						<label> <input type="radio" name="certificate"
+						<label> <input type="radio" name="{{'certificate' + tabledata.idPerson}}"
 							ng-model="tabledata.certificate.idCertificate" value="3"
 							ng-checked="tabledata.certificate.idCertificate == '3'">
 							Invitado
@@ -61,27 +62,46 @@
 					</div>
 				</td>
 				<td>
-					<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.lodgings.type}}</div>
-					<div ng-show="editingData[tabledata.idPerson]">
+					<div ng-hide="editingData[tabledata.idPerson] || tabledata.certificate.idCertificate == '3'">{{tabledata.lodgings.type}}</div>
+					<div ng-show="editingData[tabledata.idPerson] && (tabledata.certificate.idCertificate == '1' || tabledata.certificate.idCertificate == '2')">
 						<label>
-							<input type="radio" name="lodgings"
-							ng-model="tabledata.lodgings.type"
+							<input type="radio" name="{{'lodgings' + tabledata.idPerson}}"
+							ng-model="tabledata.lodgings.clase"
 							value="hemoterapia.domain.WithoutLodgings"
-							ng-checked="false"> 
-							Sin Alojamiento
+							ng-checked="tabledata.lodgings.type == 'Sin Alojamiento opcion 1'"> 
+							Sin Alojamiento op.1
 						</label><br /> 
-						<label> <input type="radio" name="lodgings"
-							ng-model="tabledata.lodgings.type"
-							value="hemoterapia.domain.WithLodgings" 
-							ng-checked="true">
-							Con Alojamiento
+						<label> <input type="radio" name="{{'lodgings' + tabledata.idPerson}}"
+							ng-model="tabledata.lodgings.clase"
+							value="hemoterapia.domain.WithoutLodgings2" 
+							ng-checked="tabledata.lodgings.type == 'Sin Alojamiento opcion 2'">
+							Sin Alojamiento op.2
+						</label>
+						<label>
+							<input type="radio" name="{{'lodgings' + tabledata.idPerson}}"
+							ng-model="tabledata.lodgings.clase"
+							value="hemoterapia.domain.WithLodgings"
+							ng-checked="tabledata.lodgings.type == 'Con Alojamiento opcion 1'"> 
+							Con Alojamiento op.1
+						</label><br /> 
+						<label> <input type="radio" name="{{'lodgings' + tabledata.idPerson}}"
+							ng-model="tabledata.lodgings.clase"
+							value="hemoterapia.domain.WithLodgings2" 
+							ng-checked="tabledata.lodgings.type == 'Con Alojamiento opcion 2'">
+							Con Alojamiento op.2
 						</label>
 					</div>
 				</td>
 				<td>
-					<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.companions}}</div>
+					<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.companionsTypeOne}}</div>
 					<div ng-show="editingData[tabledata.idPerson]">
-						<input type="text" ng-model="tabledata.companions" />
+						<input type="text" ng-model="tabledata.companionsTypeOne" />
+					</div>
+				</td>
+				<td>
+					<div ng-hide="editingData[tabledata.idPerson]">{{tabledata.companionsTypeTwo}}</div>
+					<div ng-show="editingData[tabledata.idPerson]">
+						<input type="text" ng-model="tabledata.companionsTypeTwo" />
 					</div>
 				</td>
 				<td>
@@ -100,7 +120,13 @@
 					<button class="btn btn-default btn-lg" 
 							ng-hide="viewField"
 							ng-click="deletePerson(tabledata)">
-						<i class="fa fa-remove fw"></i>
+						<i class="fa fa-trash-o"></i>
+						<span class="network-name"/>
+					</button>
+					<button class="btn btn-default btn-lg" 
+							ng-show="editingData[tabledata.idPerson]" 
+							ng-click="cancelPerson(tabledata)">
+						<i class="fa fa-ban"></i>
 						<span class="network-name"/>
 					</button>
 				</td>

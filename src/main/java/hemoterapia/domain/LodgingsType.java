@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlSeeAlso;
 
-@XmlSeeAlso({WithLodgings.class, WithoutLodgings.class})
+@XmlSeeAlso({WithLodgings.class, WithoutLodgings.class, WithLodgings2.class, WithoutLodgings2.class})
 public abstract class LodgingsType implements Serializable{
 
 	/**

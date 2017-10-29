@@ -30,6 +30,6 @@ public class WithoutLodgings extends LodgingsType{
 	
 	@Override
 	public String toString(){
-		return "Sin Alojamiento opcion 1";
+		return "Sin Alojamiento Opcion 1";
 	}
 }

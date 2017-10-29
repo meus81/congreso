@@ -233,50 +233,32 @@ public class PersonRestService {
 		String surname = obj.getString("surname");
 		String email = obj.getString("email");
 		String address = obj.getString("address");
-		int companions = obj.getInt("companions");
+		int companionsTypeOne = obj.getInt("companionsTypeOne");
+		int companionsTypeTwo = obj.getInt("companionsTypeTwo");
 		int idCertificate = obj.getJSONObject("certificate").getInt("idCertificate");
-		String lodgingsType = obj.getJSONObject("lodgings").getString("type");
+		String lodgingsType = obj.getJSONObject("lodgings").getString("clase");
 		//"id":58,"idCertificate":{"idCertificate":2,"name":"Technician","taxWithoutLodgings":800,"taxWithLodgings":1450,"taxCompanions":1450},
 		//"address":"10 n526","email":"susi@hotmail.com","name":"Susana","surname":"Chinamberro","companions":0,
 		//"lodgings":{"type":"hemoterapia.domain.WithoutLodgings"}}
-		
-		
-//		System.out.println("Data re-contruct " + name + "-" + surname + "-" + companions +"-" + idCertificate);
-		
+
 		CertificateService certificateService = new CertificateService();
 		Certificate certificate  = certificateService.getCertificate(idCertificate);
 		
 		LodgingsService lodgingsService = new LodgingsService();
 		LodgingsType lodgingType = lodgingsService.getLodgingsType(lodgingsType); 
 		
-		Person p = new Person();
-		p.setIdPerson(id);
+		Person p = this.getPerson(id);
 		p.setName(name);
 		p.setSurname(surname);
 		p.setAddress(address);
 		p.setEmail(email);
-		p.setCompanionsTypeOne(companions);
+		p.setCompanionsTypeOne(companionsTypeOne);
+		p.setCompanionsTypeTwo(companionsTypeTwo);
 		p.setCertificate(certificate);
 		p.setLodgings(lodgingType);
 		
 		PersonService personService = new PersonService();
-		InputStream headerImage = context.getResourceAsStream("./img/nuevoLogo.png");
-		
-		String pathToSave= null;
-/*		if (OSValidator.isWindows()){
-			pathToSave = "C:" + File.separator + "TICKETS" + File.separator;
-		} else if (OSValidator.isUnix()){
-			pathToSave = "/home/meus/proyecto-personal/congreso/" + File.separator + "tickets" + File.separator;
-		}
-		System.out.println("VOY A GUARDAR EL PDF EN: " + pathToSave);
-		String amountToPaid = personService.save(p, headerImage, pathToSave);
-
-		JsonObject value = Json.createObjectBuilder()
-	     .add("result", "ok")
-	     .add("amount", amountToPaid)     
-	     .build();
-	     
-*/		int result = personService.modifyPerson(id, p);
+		int result = personService.modifyPerson(id, p);
 		JsonObject value = Json.createObjectBuilder()
 			.add("result", result)
 			.build();
