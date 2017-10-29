@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.json.Json;
@@ -135,11 +136,13 @@ public class PersonRestService {
 		String surname = obj.getString("surname");
 		String email = obj.getString("email");
 		String address = obj.getString("address");
-		int companions = obj.getInt("companions");
+		int companionsTypeOne = obj.getInt("companionsTypeOne");
+		int companionsTypeTwo = obj.getInt("companionsTypeTwo");
 		int idCertificate = obj.getJSONObject("certificate").getInt("idCertificate");
 		String lodgingsType = obj.getJSONObject("lodgings").getString("lodgings_type");
 		
-		System.out.println("Data re-contruct " + name + "-" + surname + "-" + companions +"-" + idCertificate);
+		System.out.println("Data re-construct " + name + "-" + surname + "-" + 
+							companionsTypeOne + "-" + companionsTypeTwo +"-" + idCertificate);
 		
 		CertificateService certificateService = new CertificateService();
 		Certificate certificate  = certificateService.getCertificate(idCertificate);
@@ -152,25 +155,29 @@ public class PersonRestService {
 		p.setSurname(surname);
 		p.setAddress(address);
 		p.setEmail(email);
-		p.setCompanions(companions);
+		p.setCompanionsTypeOne(companionsTypeOne);
+		p.setCompanionsTypeTwo(companionsTypeTwo);
 		p.setCertificate(certificate);
 		p.setLodgings(lodgingType);
 		
 		PersonService personService = new PersonService();
-		InputStream headerImage = context.getResourceAsStream("./img/nuevoLogo.png");
+		InputStream headerImage = context.getResourceAsStream("./img/logoPDF.png");
 		
 		String pathToSave= null;
 		if (OSValidator.isWindows()){
 			pathToSave = "C:" + File.separator + "TICKETS" + File.separator;
 		} else if (OSValidator.isUnix()){
-			pathToSave = "/home/meus/proyecto-personal/congreso/" + File.separator + "tickets" + File.separator;
+			pathToSave = File.separator +"home" + File.separator + "meus" + File.separator + "proyecto-personal" + "congreso" + File.separator + "tickets" + File.separator;
+		} else if (OSValidator.isMac()){
+			pathToSave = File.separator +"Users" + File.separator + "meus" + File.separator + "gitProjects" + File.separator + "congreso" + File.separator + "tickets" + File.separator;
 		}
 		System.out.println("VOY A GUARDAR EL PDF EN: " + pathToSave);
-		String amountToPaid = personService.save(p, headerImage, pathToSave);
+		Double amountToPaid = personService.save(p, headerImage, pathToSave);
+		DecimalFormat df = new DecimalFormat("#0.00");
 
 		JsonObject value = Json.createObjectBuilder()
 	     .add("result", "ok")
-	     .add("amount", amountToPaid)     
+	     .add("amount", df.format(amountToPaid))     
 	     .build();
 		
         return value;
@@ -248,7 +255,7 @@ public class PersonRestService {
 		p.setSurname(surname);
 		p.setAddress(address);
 		p.setEmail(email);
-		p.setCompanions(companions);
+		p.setCompanionsTypeOne(companions);
 		p.setCertificate(certificate);
 		p.setLodgings(lodgingType);
 		

@@ -2,81 +2,114 @@ package hemoterapia.statistics;
 
 public class Statistics {
 
-	private int professionalQTy;
-	private int professionalWithLodgingsQty;
-	private int professionalWithoutLodgingsQty;
+	private int professionalQty;
+	private int professionalWithoutLodgingsOptionOneQty;
+	private int professionalWithoutLodgingsOptionTwoQty;
+	private int professionalWithLodgingsOptionOneQty;
+	private int professionalWithLodgingsOptionTwoQty;
 	
-	private int technicianQTy;
-	private int technicianWithLodgingsQty;
-	private int technicianWithoutLodgingsQty;
+	private int technicianQty;
+	private int technicianWithoutLodgingsOptionOneQty;
+	private int technicianWithoutLodgingsOptionTwoQty;
+	private int technicianWithLodgingsOptionOneQty;
+	private int technicianWithLodgingsOptionTwoQty;
 	
-	private int guestQTy;
-	private int companionsQty;
-	private int personsWithLodgingsQty;
+	private int guestQty;
+	private int companionsTypeOneQty;
+	private int companionsTypeTwoQty;
 	private int totalPersons;
 	private double totalAmount;
 	
-	public int getProfessionalQTy() {
-		return professionalQTy;
+
+	public int getProfessionalQty() {
+		return professionalQty;
 	}
-	public void setProfessionalQTy(int professionalQTy) {
-		this.professionalQTy = professionalQTy;
-	}
-	
-	public int getProfessionalWithLodgingsQty() {
-		return professionalWithLodgingsQty;
-	}
-	public void setProfessionalWithLodgingsQty(int professionalsWithLodgingsQty) {
-		this.professionalWithLodgingsQty = professionalsWithLodgingsQty;
+	public void setProfessionalQty(int professionalQty) {
+		this.professionalQty = professionalQty;
 	}
 
-	public int getProfessionalWithoutLodgingsQty() {
-		return professionalWithoutLodgingsQty;
+	public int getProfessionalWithoutLodgingsOptionOneQty() {
+		return professionalWithoutLodgingsOptionOneQty;
 	}
-	public void setProfessionalWithoutLodgingsQty(int professionalWithoutLodgingssQty) {
-		this.professionalWithoutLodgingsQty = professionalWithoutLodgingssQty;
-	}
-
-	public int getTechnicianQTy() {
-		return technicianQTy;
-	}
-	public void setTechnicianQTy(int technicianQTy) {
-		this.technicianQTy = technicianQTy;
+	public void setProfessionalWithoutLodgingsOptionOneQty(int professionalWithoutLodgingsOptionOneQty) {
+		this.professionalWithoutLodgingsOptionOneQty = professionalWithoutLodgingsOptionOneQty;
 	}
 
-	public int getTechnicianWithLodgingsQty() {
-		return technicianWithLodgingsQty;
+	public int getProfessionalWithoutLodgingsOptionTwoQty() {
+		return professionalWithoutLodgingsOptionTwoQty;
 	}
-	public void setTechnicianWithLodgingsQty(int technicianWithLodgingsQty) {
-		this.technicianWithLodgingsQty = technicianWithLodgingsQty;
-	}
-
-	public int getTechnicianWithoutLodgingsQty() {
-		return technicianWithoutLodgingsQty;
-	}
-	public void setTechnicianWithoutLodgingsQty(int technicianWithoutLodgingssQty) {
-		this.technicianWithoutLodgingsQty = technicianWithoutLodgingssQty;
+	public void setProfessionalWithoutLodgingsOptionTwoQty(int professionalWithoutLodgingsOptionTwoQty) {
+		this.professionalWithoutLodgingsOptionTwoQty = professionalWithoutLodgingsOptionTwoQty;
 	}
 
-	public int getGuestQTy() {
-		return guestQTy;
+	public int getProfessionalWithLodgingsOptionOneQty() {
+		return professionalWithLodgingsOptionOneQty;
 	}
-	public void setGuestQTy(int guestQTy) {
-		this.guestQTy = guestQTy;
-	}
-
-	public int getCompanionsQty() {
-		return companionsQty;
-	}
-	public void setCompanionsQty(int companionsQty) {
-		this.companionsQty = companionsQty;
+	public void setProfessionalWithLodgingsOptionOneQty(int professionalWithLodgingsOptionOneQty) {
+		this.professionalWithLodgingsOptionOneQty = professionalWithLodgingsOptionOneQty;
 	}
 
-	public int getPersonsWithLodgingsQty() {
-		return personsWithLodgingsQty;
+	public int getProfessionalWithLodgingsOptionTwoQty() {
+		return professionalWithLodgingsOptionTwoQty;
 	}
-	public void setPersonsWithLodgingsQty(int personsWithLodgingsQty) {
-		this.personsWithLodgingsQty = personsWithLodgingsQty;
+	public void setProfessionalWithLodgingsOptionTwoQty(int professionalWithLodgingsOptionTwoQty) {
+		this.professionalWithLodgingsOptionTwoQty = professionalWithLodgingsOptionTwoQty;
+	}
+
+	public int getTechnicianQty() {
+		return technicianQty;
+	}
+	public void setTechnicianQty(int technicianQty) {
+		this.technicianQty = technicianQty;
+	}
+
+	public int getTechnicianWithoutLodgingsOptionOneQty() {
+		return technicianWithoutLodgingsOptionOneQty;
+	}
+	public void setTechnicianWithoutLodgingsOptionOneQty(int technicianWithoutLodgingsOptionOneQty) {
+		this.technicianWithoutLodgingsOptionOneQty = technicianWithoutLodgingsOptionOneQty;
+	}
+
+	public int getTechnicianWithoutLodgingsOptionTwoQty() {
+		return technicianWithoutLodgingsOptionTwoQty;
+	}
+	public void setTechnicianWithoutLodgingsOptionTwoQty(int technicianWithoutLodgingsOptionTwoQty) {
+		this.technicianWithoutLodgingsOptionTwoQty = technicianWithoutLodgingsOptionTwoQty;
+	}
+
+	public int getTechnicianWithLodgingsOptionOneQty() {
+		return technicianWithLodgingsOptionOneQty;
+	}
+	public void setTechnicianWithLodgingsOptionOneQty(int technicianWithLodgingsOptionOneQty) {
+		this.technicianWithLodgingsOptionOneQty = technicianWithLodgingsOptionOneQty;
+	}
+
+	public int getTechnicianWithLodgingsOptionTwoQty() {
+		return technicianWithLodgingsOptionTwoQty;
+	}
+	public void setTechnicianWithLodgingsOptionTwoQty(int technicianWithLodgingsOptionTwoQty) {
+		this.technicianWithLodgingsOptionTwoQty = technicianWithLodgingsOptionTwoQty;
+	}
+
+	public int getGuestQty() {
+		return guestQty;
+	}
+	public void setGuestQty(int guestQty) {
+		this.guestQty = guestQty;
+	}
+
+	public int getCompanionsTypeOneQty() {
+		return companionsTypeOneQty;
+	}
+	public void setCompanionsTypeOneQty(int companionsTypeOneQty) {
+		this.companionsTypeOneQty = companionsTypeOneQty;
+	}
+
+	public int getCompanionsTypeTwoQty() {
+		return companionsTypeTwoQty;
+	}
+	public void setCompanionsTypeTwoQty(int companionsTypeTwoQty) {
+		this.companionsTypeTwoQty = companionsTypeTwoQty;
 	}
 
 	public int getTotalPersons() {
@@ -93,22 +126,28 @@ public class Statistics {
 		this.totalAmount = totalAmount;
 	}
 
+	public Statistics(	int professionalQty, int professionalWithoutLodgingsOptionOneQty, int professionalWithoutLodgingsOptionTwoQty, 
+						int professionalWithLodgingsOptionOneQty, int professionalWithLodgingsOptionTwoQty,
+						int technicianQty, int technicianWithoutLodgingsOptionOneQty, int technicianWithoutLodgingsOptionTwoQty,
+						int technicianWithLodgingsOptionOneQty, int technicianWithLodgingsOptionTwoQty, 
+						int guestQty, int companionsTypeOneQty, int companionsTypeTwoQty, int totalPersons, double totalAmount) {
+		
+		this.setProfessionalQty(professionalQty);
+		this.setProfessionalWithoutLodgingsOptionOneQty(professionalWithoutLodgingsOptionOneQty);
+		this.setProfessionalWithoutLodgingsOptionTwoQty(professionalWithoutLodgingsOptionTwoQty);
+		this.setProfessionalWithLodgingsOptionOneQty(professionalWithLodgingsOptionOneQty);
+		this.setProfessionalWithLodgingsOptionTwoQty(professionalWithLodgingsOptionTwoQty);
+		
+		this.setTechnicianQty(technicianQty);
+		this.setTechnicianWithoutLodgingsOptionOneQty(technicianWithoutLodgingsOptionOneQty);
+		this.setTechnicianWithoutLodgingsOptionTwoQty(technicianWithoutLodgingsOptionTwoQty);
+		this.setTechnicianWithLodgingsOptionOneQty(technicianWithLodgingsOptionOneQty);
+		this.setTechnicianWithLodgingsOptionTwoQty(technicianWithLodgingsOptionTwoQty);
+		
+		this.setGuestQty(guestQty);
+		this.setCompanionsTypeOneQty(companionsTypeOneQty);
+		this.setCompanionsTypeTwoQty(companionsTypeTwoQty);
 
-	public Statistics(int professionalQTy, int professionalWithLodgingsQty, int professionalWithoutLodgingsQty,
-					  int technicianQTy, int technicianWithLodgingsQty, int technicianWithoutLodgingsQty, 
-					  int guestQTy, int companionsQty, int personsWithLodgingsQty, int totalPersons, double totalAmount) {
-		
-		this.setProfessionalQTy(professionalQTy);
-		this.setProfessionalWithLodgingsQty(professionalWithLodgingsQty);
-		this.setProfessionalWithoutLodgingsQty(professionalWithoutLodgingsQty);
-		
-		this.setTechnicianQTy(technicianQTy);
-		this.setTechnicianWithLodgingsQty(technicianWithLodgingsQty);
-		this.setTechnicianWithoutLodgingsQty(technicianWithoutLodgingsQty);
-		
-		this.setGuestQTy(guestQTy);
-		this.setCompanionsQty(companionsQty);
-		this.setPersonsWithLodgingsQty(personsWithLodgingsQty);
 		this.setTotalPersons(totalPersons);
 		this.setTotalAmount(totalAmount);
 	}

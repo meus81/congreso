@@ -59,9 +59,9 @@ public class Printer {
 
 			float margin = 30;
 			float headerX = mediabox.getLowerLeftX() + margin;
-			float headerY = mediabox.getUpperRightY() - margin - 40;
-			float headerWidth = 140;
-			float headerHeight = 40;
+			float headerY = mediabox.getUpperRightY() - margin - 100;
+			float headerWidth = 374;
+			float headerHeight = 100;
 
 			// Si lo queremos rotar
 			// float margin = 50;
@@ -84,7 +84,7 @@ public class Printer {
 		} catch (IOException e) {
 			try {
 				tmp_image = ImageIO.read(new File(
-						"C:\\Program Files\\Apache Software Foundation\\Tomcat 7.0\\webapps\\congreso\\img\\nuevoLogo.png"));
+						"C:\\Program Files\\Apache Software Foundation\\Tomcat 7.0\\webapps\\congreso\\img\\logoPDF.png"));
 				BufferedImage image = new BufferedImage(tmp_image.getWidth(), tmp_image.getHeight(),
 						BufferedImage.TYPE_4BYTE_ABGR);
 				image.createGraphics().drawRenderedImage(tmp_image, null);
@@ -129,10 +129,10 @@ public class Printer {
 	private String createTextTicket(Person person) {
 		String completeName = person.getName() + " " + person.getSurname();
 		Double total2Pay = person.getAmountToPaid();
-		DecimalFormat df = new DecimalFormat("#.00");
+		DecimalFormat df = new DecimalFormat("#0.00");
 
-		return "Recibí de " + completeName + " la suma de pesos " + df.format(total2Pay)
-				+ " en concepto de inscripción al 29° encuentro provincial" + " de hemoterapia.";
+		return "Recibí de " + completeName + " la suma de pesos $ " + df.format(total2Pay)
+				+ " en concepto de inscripción al 30° encuentro provincial" + " de hemoterapia.";
 	}
 
 	private List<String> getTextInLines(String text, PDFont pdfFont, float fontSize, float width) throws IOException {
@@ -200,7 +200,7 @@ public class Printer {
 			float margin = 50;
 			float width = mediabox.getWidth() - 2 * margin;
 			float startX = mediabox.getLowerLeftX() + margin;
-			float startY = mediabox.getUpperRightY() - margin - 100;
+			float startY = mediabox.getUpperRightY() - margin - 150;
 			// si lo queremos rotar a 90°
 			// float startX = mediabox.getLowerLeftY() + margin;
 			// float startY = mediabox.getUpperRightX() - margin - 10;
@@ -246,7 +246,7 @@ public class Printer {
 
 			marginTop = 535;
 			startY = mediabox.getUpperRightX() - margin;
-			String textFooter2 = "Villa Gesell 4, 5 y 6 de noviembre de 2015";
+			String textFooter2 = "Mar del Plata 2017";
 			// putTextInDiferentsLines(doc, page, mediabox,
 			// PDType1Font.HELVETICA, 8, leading, textTile, width,
 			// startX, startY);

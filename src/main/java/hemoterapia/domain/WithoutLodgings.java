@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement
-@XmlType(name="Sin Alojamiento", factoryMethod="getInstance")
+@XmlType(name="Sin Alojamiento opcion 1", factoryMethod="getInstance")
 public class WithoutLodgings extends LodgingsType{
 
 	/**
@@ -24,12 +24,12 @@ public class WithoutLodgings extends LodgingsType{
 	}
 	
 	@Override
-	public double getAmount(Certificate certificate, int companions) {
+	public double getAmount(Certificate certificate, int companionsTypeOne, int companionsTypeTwo) {
 		return certificate.getAmountWithoutLodgings();
 	}
 	
 	@Override
 	public String toString(){
-		return "Sin Alojamiento";
+		return "Sin Alojamiento opcion 1";
 	}
 }

@@ -42,7 +42,8 @@ public class Person implements Serializable {
 	private String surname;
 	private String email;
 	private String address;
-	private int companions;
+	private int companionsTypeOne;
+	private int companionsTypeTwo;
 
 	@XmlElement(name = "certificate", required = true)
 	@ManyToOne(optional = false)
@@ -77,14 +78,22 @@ public class Person implements Serializable {
 		this.surname = surname;
 	}
 
-	public int getCompanions() {
-		return companions;
+	public int getCompanionsTypeOne() {
+		return companionsTypeOne;
 	}
 
-	public void setCompanions(int companions) {
-		this.companions = companions;
+	public void setCompanionsTypeOne(int companions) {
+		this.companionsTypeOne = companions;
 	}
 
+	public int getCompanionsTypeTwo() {
+		return companionsTypeTwo;
+	}
+
+	public void setCompanionsTypeTwo(int companions) {
+		this.companionsTypeTwo = companions;
+	}
+	
 	public String getEmail() {
 		return email;
 	}
@@ -118,10 +127,10 @@ public class Person implements Serializable {
 	}
 
 	public double getAmountToPaid() {
-		return this.getCertificate().getAmount(this.getLodgings(), this.getCompanions());
+		return this.getCertificate().getAmount(this.getLodgings(), this.getCompanionsTypeOne(), this.getCompanionsTypeTwo());
 	}
 
 	public String imprimiteLindo() {
-		return this.getName() + " - titulo: " + this.getCertificate() + " - acompañantes: "  + this.getCompanions()  + " - Alojamiento: " + this.getLodgings();
+		return this.getName() + " - titulo: " + this.getCertificate() + " - acompañantes: "  + this.getCompanionsTypeOne()  + " - Alojamiento: " + this.getLodgings();
 	}
 }

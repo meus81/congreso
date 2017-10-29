@@ -53,7 +53,7 @@ public class PersonService {
 		return p;
 	}
 
-	public String save(Person person, InputStream headerImage, String pathToSave) {
+	public Double save(Person person, InputStream headerImage, String pathToSave) {
 		Application ap = Application.getInstance();
 		EntityManager em = ap.getEntityManager();
 		em.getTransaction().begin();
@@ -65,7 +65,7 @@ public class PersonService {
 		
 		double amount= person.getAmountToPaid();
 		
-		return "{amount: "+ new Double(amount).toString() + "}";
+		return amount;
 	}
 
 	public int deletePerson(int id) {
@@ -91,7 +91,7 @@ public class PersonService {
 									"WHERE id = :id")
 						.setParameter("name", person.getName())
 						.setParameter("surname", person.getSurname())
-						.setParameter("companions", person.getCompanions())
+						.setParameter("companions", person.getCompanionsTypeOne())
 						.setParameter("idCertificate", person.getCertificate())
 						.setParameter("address", person.getAddress())
 						.setParameter("email", person.getEmail())

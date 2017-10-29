@@ -28,10 +28,20 @@ public class Professional extends Certificate implements Serializable{
 	}
 
 	@Override
-	public double getAmountWithLodgings(int companions) {
-//		CertificateService certificateService = new CertificateService();
-//		certificateService.getCertificate(id)
-		System.out.println("La tasa a pagar es: " + this.getTaxWithLodgings() + " + " + companions + " * " + this.getTaxCompanions());
-		return this.getTaxWithLodgings() + companions * this.getTaxCompanions();
+	public double getAmountWithLodgings(int companionsTypeOne, int companionsTypeTwo) {
+		double total = this.getTaxWithLodgings() + companionsTypeOne * this.getTaxCompanions() + companionsTypeTwo * this.getTaxCompanions2();
+		System.out.println("La tasa a pagar es: " + this.getTaxWithLodgings() + " + " + 
+							companionsTypeOne + " * " + this.getTaxCompanions() + " + " +
+							companionsTypeTwo + " * " + this.getTaxCompanions2() +  "= " + total );
+		return total;
+	}
+
+	@Override
+	public double getAmountWithLodgings2(int companionsTypeOne, int companionsTypeTwo) {
+		double total = this.getTaxWithLodgings2() + companionsTypeOne * this.getTaxCompanions() + companionsTypeTwo * this.getTaxCompanions2();
+		System.out.println("La tasa a pagar es: " + this.getTaxWithLodgings2() + " + " 
+							+ companionsTypeOne + " * " + this.getTaxCompanions() + " + "
+							+ companionsTypeTwo + " * " + this.getTaxCompanions2() +  "= " + total );
+		return total;
 	}
 }

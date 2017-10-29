@@ -12,7 +12,7 @@ public abstract class LodgingsType implements Serializable{
 	*/
 	private static final long serialVersionUID = 1L;
 	
-	public abstract double getAmount(Certificate certificate, int companions);
+	public abstract double getAmount(Certificate certificate, int companionsTypeOne, int companionsTypeTwo);
 
 	/**
 	 * Returns true if the Object's class name matches this Object's class name.

@@ -12,12 +12,17 @@ import org.hibernate.usertype.UserType;
 
 import hemoterapia.domain.LodgingsType;
 import hemoterapia.domain.WithLodgings;
+import hemoterapia.domain.WithLodgings2;
 import hemoterapia.domain.WithoutLodgings;
+import hemoterapia.domain.WithoutLodgings2;
 
 public class LodgingsUserType implements UserType {
 
-	public static final int WITH_LODGING_DB_VALUE = 1;
-	public static final int WITHOUT_LODGING_DB_VALUE = 2;
+	public static final int WITH_LODGING_1_DB_VALUE = 1;
+	public static final int WITH_LODGING_2_DB_VALUE = 3;
+	public static final int WITHOUT_LODGING_1_DB_VALUE = 2;
+	public static final int WITHOUT_LODGING_2_DB_VALUE = 4;
+	
 
 	@Override
 	public Object assemble(Serializable cached, Object owner) throws HibernateException {
@@ -68,11 +73,17 @@ public class LodgingsUserType implements UserType {
 		}
 		LodgingsType lodgingsType = null;
 		switch (lodgingsValue) {
-		case WITH_LODGING_DB_VALUE:
+		case WITH_LODGING_1_DB_VALUE:
 			lodgingsType = WithLodgings.getInstance();
 			break;
-		case WITHOUT_LODGING_DB_VALUE:
+		case WITH_LODGING_2_DB_VALUE:
+			lodgingsType = WithLodgings2.getInstance();
+			break;
+		case WITHOUT_LODGING_1_DB_VALUE:
 			lodgingsType = WithoutLodgings.getInstance();
+			break;
+		case WITHOUT_LODGING_2_DB_VALUE:
+			lodgingsType = WithoutLodgings2.getInstance();
 			break;
 		default:
 			throw new RuntimeException("Unknown Lodgins value [" + lodgingsValue + "]");
@@ -87,9 +98,13 @@ public class LodgingsUserType implements UserType {
 			st.setNull(index, Types.INTEGER);
 		} else {
 			if (value.equals(WithLodgings.getInstance())) {
-				st.setInt(index, WITH_LODGING_DB_VALUE);
+				st.setInt(index, WITH_LODGING_1_DB_VALUE);
+			} else if (value.equals(WithLodgings2.getInstance())) {
+				st.setInt(index, WITH_LODGING_2_DB_VALUE);
 			} else if (value.equals(WithoutLodgings.getInstance())) {
-				st.setInt(index, WITHOUT_LODGING_DB_VALUE);
+				st.setInt(index, WITHOUT_LODGING_1_DB_VALUE);
+			} else if (value.equals(WithoutLodgings2.getInstance())) {
+				st.setInt(index, WITHOUT_LODGING_2_DB_VALUE);
 			} else {
 				throw new RuntimeException("Unknown CustomerState [" + value + "]");
 			}

@@ -15,21 +15,49 @@ public class StatisticsService {
 		Application ap = Application.getInstance();
 		EntityManager em = ap.getEntityManager();
 		
-		int professionalQTy = ((Long) em.createQuery("SELECT count(*) FROM Person as p where p.certificate.idCertificate= 1").getSingleResult()).intValue();
-		int professionalWithLodgingsQty = ((Long) em.createQuery("SELECT count(*) FROM Person as p where p.certificate.idCertificate= 1 and p.lodgings = 1").getSingleResult()).intValue();
-		int professionalWithoutLodgingsQty = ((Long) em.createQuery("SELECT count(*) FROM Person as p where p.certificate.idCertificate= 1 and p.lodgings = 2").getSingleResult()).intValue();
+		int professionalQty = ((Long) em.createQuery("SELECT count(*) FROM Person as p where p.certificate.idCertificate= 1").getSingleResult()).intValue();
+		int professionalWithoutLodgingsOptionOneQty = ((Long) em.createQuery(	"SELECT count(*) " +
+																		 		"FROM Person as p "+
+																		 		"WHERE 	 p.certificate.idCertificate= 1 AND " +
+																						"p.lodgings = 2").getSingleResult()).intValue();
+		int professionalWithoutLodgingsOptionTwoQty = ((Long) em.createQuery(	"SELECT count(*) " +
+																		 		"FROM Person as p "+
+																		 		"WHERE   p.certificate.idCertificate= 1 AND " +
+																		 				"p.lodgings = 4").getSingleResult()).intValue();
+		int professionalWithLodgingsOptionOneQty = ((Long) em.createQuery(	"SELECT count(*) " +
+																		 	"FROM Person as p "+
+																		 	"WHERE   p.certificate.idCertificate= 1 AND " +
+																	 				"p.lodgings = 1").getSingleResult()).intValue();
+		int professionalWithLodgingsOptionTwoQty = ((Long) em.createQuery(	"SELECT count(*) " +
+																		 	"FROM Person as p "+
+																		 	"WHERE   p.certificate.idCertificate= 1 AND " +
+																	 				"p.lodgings = 3").getSingleResult()).intValue();
 		
-		int technicianQTy = ((Long) em.createQuery("SELECT count(*) FROM Person as p where p.certificate.idCertificate=2").getSingleResult()).intValue();
-		int technicianWithLodgingsQty = ((Long) em.createQuery("SELECT count(*) FROM Person as p where p.certificate.idCertificate=2 and p.lodgings = 1").getSingleResult()).intValue();
-		int technicianWithoutLodgingsQty= ((Long) em.createQuery("SELECT count(*) FROM Person as p where p.certificate.idCertificate=2 and p.lodgings= 2").getSingleResult()).intValue();
 		
-		int guestQTy = ((Long) em.createQuery("SELECT count(*) FROM Person as p where p.certificate.idCertificate=3").getSingleResult()).intValue();
-		int companionsQty = ((Long) em.createQuery("SELECT sum(p.companions) FROM Person as p").getSingleResult()).intValue();
+		int technicianQty = ((Long) em.createQuery("SELECT count(*) FROM Person as p where p.certificate.idCertificate=2").getSingleResult()).intValue();
+		int technicianWithoutLodgingsOptionOneQty = ((Long) em.createQuery(	"SELECT count(*) " +
+																	 		"FROM Person as p "+
+																	 		"WHERE 	 p.certificate.idCertificate= 2 AND " +
+																					"p.lodgings = 2").getSingleResult()).intValue();
+		int technicianWithoutLodgingsOptionTwoQty = ((Long) em.createQuery(	"SELECT count(*) " +
+																	 		"FROM Person as p "+
+																	 		"WHERE   p.certificate.idCertificate= 2 AND " +
+																	 				"p.lodgings = 4").getSingleResult()).intValue();
+		int technicianWithLodgingsOptionOneQty = ((Long) em.createQuery(	"SELECT count(*) " +
+																		 	"FROM Person as p "+
+																		 	"WHERE   p.certificate.idCertificate= 2 AND " +
+																	 				"p.lodgings = 1").getSingleResult()).intValue();
+		int technicianWithLodgingsOptionTwoQty = ((Long) em.createQuery(	"SELECT count(*) " +
+																		 	"FROM Person as p "+
+																		 	"WHERE   p.certificate.idCertificate= 2 AND " +
+																	 				"p.lodgings = 3").getSingleResult()).intValue();		
 		
-		int inscriptsWithLodgingsQty = ((Long) em.createQuery("SELECT count(*) FROM Person as p WHERE p.lodgings = 1").getSingleResult()).intValue();
-		int personsWithLodgingsQty = companionsQty + inscriptsWithLodgingsQty;
-				
-		int totalPersons = professionalQTy+technicianQTy+guestQTy+companionsQty;
+		int guestQty = ((Long) em.createQuery("SELECT count(*) FROM Person as p where p.certificate.idCertificate=3").getSingleResult()).intValue();
+		
+		int companionsTypeOneQty = ((Long) em.createQuery("SELECT sum(p.companionsTypeOne) FROM Person as p").getSingleResult()).intValue();
+		int companionsTypeTwoQty = ((Long) em.createQuery("SELECT sum(p.companionsTypeTwo) FROM Person as p").getSingleResult()).intValue();
+
+		int totalPersons = professionalQty + technicianQty + guestQty + companionsTypeOneQty + companionsTypeTwoQty;
 		double totalAmount = 0;
 
 		Query all_persons = em.createQuery("SELECT p FROM Person p");
@@ -40,9 +68,11 @@ public class StatisticsService {
 			totalAmount= totalAmount + person.getAmountToPaid();
 		}
 		
-		Statistics result = new Statistics(professionalQTy, professionalWithLodgingsQty, professionalWithoutLodgingsQty, 
-										technicianQTy, technicianWithLodgingsQty, technicianWithoutLodgingsQty, 
-										guestQTy, companionsQty, personsWithLodgingsQty, totalPersons, totalAmount);
+		Statistics result = new Statistics(professionalQty, professionalWithoutLodgingsOptionOneQty, professionalWithoutLodgingsOptionTwoQty, 
+											professionalWithLodgingsOptionOneQty, professionalWithLodgingsOptionTwoQty,
+											technicianQty, technicianWithoutLodgingsOptionOneQty, technicianWithoutLodgingsOptionTwoQty,
+											technicianWithLodgingsOptionOneQty, technicianWithLodgingsOptionTwoQty, 
+											guestQty, companionsTypeOneQty, companionsTypeTwoQty, totalPersons, totalAmount);
 		
 		return result;
 	}

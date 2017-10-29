@@ -24,10 +24,20 @@ public class Technician extends Certificate {
 	}
 
 	@Override
-	public double getAmountWithLodgings(int companions) {
-		double total = this.getTaxWithLodgings() + companions * this.getTaxCompanions();
-		System.out.println("La tasa a pagar es: " + this.getTaxWithLodgings() + " + " 
-							+ companions + " * " + this.getTaxCompanions() + "= " + total );
+	public double getAmountWithLodgings(int companionsTypeOne, int companionsTypeTwo) {
+		double total = this.getTaxWithLodgings() + companionsTypeOne * this.getTaxCompanions() + companionsTypeTwo * this.getTaxCompanions2();
+		System.out.println("La tasa a pagar es: " + this.getTaxWithLodgings() + " + " +
+							companionsTypeOne + " * " + this.getTaxCompanions() + " + " +
+							companionsTypeTwo + " * " + this.getTaxCompanions2() +  "= " + total );
+		return total;
+	}
+
+	@Override
+	public double getAmountWithLodgings2(int companionsTypeOne, int companionsTypeTwo) {
+		double total = this.getTaxWithLodgings2() + companionsTypeOne * this.getTaxCompanions() + companionsTypeTwo * this.getTaxCompanions2();
+		System.out.println("La tasa a pagar es: " + this.getTaxWithLodgings2() + " + " 
+							+ companionsTypeOne + " * " + this.getTaxCompanions() + " + "
+							+ companionsTypeTwo + " * " + this.getTaxCompanions2() +  "= " + total );
 		return total;
 	}
 }

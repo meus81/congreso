@@ -25,7 +25,12 @@ public class Guest extends Certificate {
 	}
 
 	@Override
-	public double getAmountWithLodgings(int companions) {
+	public double getAmountWithLodgings(int companionsTypeOne, int companionsTypeTwo) {
 		return this.getTaxWithoutLodgings();
+	}
+
+	@Override
+	public double getAmountWithLodgings2(int companionsTypeOne, int companionsTypeTwo) {
+		return this.getTaxWithoutLodgings2();
 	}
 }

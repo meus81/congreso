@@ -90,21 +90,27 @@
 	
 					<div ng-controller="StatisticsController">
 						
-						<p> Cantidad de Profesionales inscriptos: <b>{{professionalsQty}}</b></p>
+						<p> Cantidad de Profesionales inscriptos: <b>{{professionalQty}}</b></p>
 						<ul class="">
-                            <li><p> Cantidad de Profesionales inscriptos CON Alojamiento: <b>{{professionalWithLodgingsQty}}</b></p></li>
-							<li><p> Cantidad de Profesionales inscriptos SIN Alojamiento: <b>{{professionalWithoutLodgingsQty}}</b></p></li>
+							<li><p> Cantidad de Profesionales inscriptos SIN Alojamiento opci&oacute;n 1 ($4000): <b>{{professionalWithoutLodgingsOptionOneQty}} Subtotal: {{professionalWithoutLodgingsOptionOneQty * 4000 | number:2}}</b></p></li>
+                            <li><p> Cantidad de Profesionales inscriptos SIN Alojamiento opci&oacute;n 2 ($4400): <b>{{professionalWithoutLodgingsOptionTwoQty}} Subtotal: {{professionalWithoutLodgingsOptionTwoQty * 4400 | number:2}}</b></p></li>
+                            <li><p> Cantidad de Profesionales inscriptos CON Alojamiento opci&oacute;n 1 ($6000): <b>{{professionalWithLodgingsOptionOneQty}} Subtotal: {{professionalWithLodgingsOptionOneQty * 6000 | number:2}}</b></p></li>
+                            <li><p> Cantidad de Profesionales inscriptos CON Alojamiento opci&oacute;n 2 ($6600): <b>{{professionalWithLodgingsOptionTwoQty}} Subtotal: {{professionalWithLodgingsOptionTwoQty * 6600 | number:2}}</b></p></li>
 						</ul>
 						
 						<p> Cantidad de T&eacute;cnicos inscriptos: <b>{{technicianQty}}</b></p>
 						<ul class="">
-							<li><p> Cantidad de T&eacute;cnicos inscriptos CON Alojamiento: <b>{{technicianWithLodgingsQty}}</b></p></li>
-							<li><p> Cantidad de T&eacute;cnicos inscriptos SIN Alojamiento: <b>{{technicianWithoutLodgingsQty}}</b></p></li>
+							<li><p> Cantidad de T&eacute;cnicos inscriptos SIN Alojamiento opci&oacute;n 1 ($3000): <b>{{technicianWithoutLodgingsOptionOneQty}} Subtotal: {{technicianWithoutLodgingsOptionOneQty * 3000 | number:2}}</b></p></li>
+							<li><p> Cantidad de T&eacute;cnicos inscriptos SIN Alojamiento opci&oacute;n 2 ($3300): <b>{{technicianWithoutLodgingsOptionTwoQty}} Subtotal: {{technicianWithoutLodgingsOptionTwoQty * 3300 | number:2}}</b></p></li>
+							<li><p> Cantidad de T&eacute;cnicos inscriptos CON Alojamiento opci&oacute;n 1 ($5000): <b>{{technicianWithLodgingsOptionOneQty}} Subtotal: {{technicianWithLodgingsOptionOneQty * 5000 | number:2}}</b></p></li>
+							<li><p> Cantidad de T&eacute;cnicos inscriptos CON Alojamiento opci&oacute;n 2 ($5500): <b>{{technicianWithLodgingsOptionTwoQty}} Subtotal: {{technicianWithLodgingsOptionTwoQty * 5500 | number:2}}</b></p></li>
 						</ul>
 						
-						<p> Cantidad de Invitados inscriptos: <b>{{guestsQty}}</b></p>
-						<p> Cantidad de acompañantes con alojamiento: <b>{{companionsQty}}</b></p>
-						<p> Cantidad de inscriptos con alojamiento sumado a sus acompa&ntilde;antes: <b>{{personsWithLodgingsQty}}</b></p>
+						<p> Cantidad de Invitados inscriptos ($0): <b>{{guestQty}}</b></p>
+						
+						<p> Cantidad de acompañantes con alojamiento tipo 1 ($6000): <b>{{companionsTypeOneQty}} Subtotal: {{companionsTypeOneQty * 6000| number:2}}</b></p>
+						<p> Cantidad de acompañantes con alojamiento tipo 2 ($6600): <b>{{companionsTypeTwoQty}} Subtotal: {{companionsTypeTwoQty * 6600| number:2}}</b></p>
+						
 						<hr>
 						<p> Total de personas: <b>{{totalPersons}}</b></p>
 						<p> Total recaudado: <b>${{totalAmount | number:2}}</b></p>

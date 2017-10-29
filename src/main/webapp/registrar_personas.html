@@ -40,18 +40,33 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("input:radio").change(function() {
-			if ($(this).val() === "hemoterapia.domain.WithLodgings") {
+			if ($(this).val() === "hemoterapia.domain.WithLodgings" || $(this).val() === "hemoterapia.domain.WithLodgings2" ) {
 				$("#companios_div").show("slow");
-				$("#companions").val(0);
-			} else if ($(this).val() === "hemoterapia.domain.WithoutLodgings") {
+				$("#companionsTypeOne").val(0);
+				$("#companionsTypeTwo").val(0);
+			} else if ($(this).val() === "hemoterapia.domain.WithoutLodgings" || $(this).val() === "hemoterapia.domain.WithoutLodgings2") {
 				$("#companios_div").hide("slow");
 			} else if ($(this).val() === "3") {
 				$("#companios_div").hide("slow");
 				$("#lodgings_div").hide("slow");
-				$("#companions").val(0);
+				$("#companionsTypeOne").val(0);
+				$("#companionsTypeTwo").val(0);
 				$("#withoutLodgings").prop('checked',true);
-			} else if (($(this).val() === "1") || ($(this).val() === "2")) {
+			} else if ($(this).val() === "1")  {
 				$("#lodgings_div").show("slow");
+				
+				$("#label1").text("Sin Alojamiento opción 1 ($4000)");
+				$("#label2").text("Sin Alojamiento opción 2 ($4400)");
+				$("#label3").text("Con Alojamiento opción 1 ($6000)");
+				$("#label4").text("Con Alojamiento opción 2 ($6600)");
+				
+			} else if ($(this).val() === "2") {
+				$("#lodgings_div").show("slow");
+				
+				$("#label1").text("Sin Alojamiento opción 1 ($3000)");
+				$("#label2").text("Sin Alojamiento opción 2 ($3300)");
+				$("#label3").text("Con Alojamiento opción 1 ($5000)");
+				$("#label4").text("Con Alojamiento opción 2 ($5500)");
 			}
 		});
 	});
@@ -67,16 +82,20 @@
     	var textFooter1= "Encuentro para la Organizaci&oacute;n y Administraci&oacute;n de la Hemoterapia de la Provincia de Buenos Aires ";
     	var textFooter2= "Mar del Plata de 2017";
         var mywindow = window.open('', 'my div', 'height=420,width=595');
-        mywindow.document.write('<html><head><title>ticket</title>');
+        var is_chrome = Boolean(mywindow.chrome);
+        
+        mywindow.document.write('<html><head><title>Ticket</title>');
         //mywindow.document.write('<link href="css/pdf.css" rel="stylesheet" type="text/css"/>');
+        //mywindow.document.write('<link href="css/google-fonts.css" rel="stylesheet" type="text/css"/>');
+   
         						
         mywindow.document.write('</head><body>');
         mywindow.document.write('<div style="height: 420; width: 595">');
-      	mywindow.document.write('<div><img src="img/nuevoLogo.png" style="height:70;width:220"></div><hr>');
+      	mywindow.document.write('<div style="position:absolute;left:75"><center><img src="img/logoPDF.png" style="height:150px;width:560px"/><hr></center></div>');
       	
-      	mywindow.document.write('<br/><br/><br/><br/>');
+      	mywindow.document.write('<br/><br/><br/>');
       	
-      	mywindow.document.write('<!-- Body --><div style="position:absolute;left:40;right:40;font-family:Helvetica; font-size: 18px; font-style: normal;font-weight: 400;line-height:30px"><center>');
+      	mywindow.document.write('<!-- Body --><div style="position:absolute;left:40;right:40;top:250;font-family:Helvetica; font-size: 18px; font-style: normal;font-weight: 400;line-height:30px"><center>');
         mywindow.document.write(data);
         mywindow.document.write('</center></div>');
         
@@ -90,8 +109,22 @@
         mywindow.document.write('</div>');	
         mywindow.document.write('</body></html>'); 
         
-        mywindow.print();
-        mywindow.close();
+        mywindow.document.close(); // necessary for IE >= 10 and necessary before onload for chrome
+
+        if (is_chrome) {
+            mywindow.onload = function() { // wait until all resources loaded 
+                mywindow.focus(); // necessary for IE >= 10
+                mywindow.print();  // change window to mywindow
+                mywindow.close();// change window to mywindow
+            };
+        }
+        else {
+            mywindow.document.close(); // necessary for IE >= 10
+            mywindow.focus(); // necessary for IE >= 10
+            mywindow.print();
+            mywindow.close();
+        }
+
 
         return true;
     }
@@ -190,27 +223,45 @@
 						</div>
 
 						<div id="lodgings_div">
-							<label title="Lodgings"> Alojamiento </label><br /> <label>
-								<input type="radio" name="lodgings" id="withoutLodgings"
-								ng-model="person.lodgings.lodgings_type"
-								value="hemoterapia.domain.WithoutLodgings" id="withoutLodgings"
-								checked="checked"> Sin Alojamiento
-							</label><br /> <label> <input type="radio" name="lodgings"
-								ng-model="person.lodgings.lodgings_type"
-								value="hemoterapia.domain.WithLodgings" id="withLodgings">
-								Con Alojamiento
-							</label> <br />
+							<label title="Lodgings"> Alojamiento</label><br /> 
+								<label>
+									<input type="radio" name="lodgings" id="withoutLodgings"
+									ng-model="person.lodgings.lodgings_type"
+									value="hemoterapia.domain.WithoutLodgings"
+									checked="checked"> <span id="label1">Sin Alojamiento opci&oacute;n 1 ($4000)</span>
+								</label><br /> 
+								<label>
+									<input type="radio" name="lodgings" id="withoutLodgings2"
+									ng-model="person.lodgings.lodgings_type"
+									value="hemoterapia.domain.WithoutLodgings2">
+									<span id="label2">Sin Alojamiento opci&oacute;n 2 ($4400)</span>
+								</label><br /> 
+							
+								<label> <input type="radio" name="lodgings"
+									ng-model="person.lodgings.lodgings_type"
+									value="hemoterapia.domain.WithLodgings" id="withLodgings">
+									<span id="label3">Con Alojamiento opci&oacute;n 1 ($6000)</span>
+								</label> <br />
+								<label> <input type="radio" name="lodgings"
+									ng-model="person.lodgings.lodgings_type"
+									value="hemoterapia.domain.WithLodgings2" id="withLodgings2">
+									<span id="label4">Con Alojamiento opci&oacute;n 2 ($6600)</span>
+								</label> <br />
 						</div>
 
 						<div id="companios_div" style="display: none">
-							<label title="Companions"> Acompa&ntilde;antes: <input
-								type="text" id="companions" ng-model="person.companions"
+							<label title="Companions"> Acompa&ntilde;antes $6000: <input
+								type="text" id="companionsTypeOne" ng-model="person.companionsTypeOne"
+								value="0" numeric-only />
+							</label><br />
+							<label title="Companions"> Acompa&ntilde;antes $6600: <input
+								type="text" id="companionsTypeTwo" ng-model="person.companionsTypeTwo"
 								value="0" numeric-only />
 							</label><br />
 						</div>
 						<br/>
 
-						<a href="./registrar_personas.html" class="btn btn-default btn-lg"
+						<a href="#" class="btn btn-default btn-lg"
 							ng-disabled="register.email.$error.required || register.email.$error.email 
 										|| register.nombre.$error.required || register.surname.$error.required"
 							ng-click="savePerson(person);"> <i class="fa fa-plus fw"></i>
@@ -222,15 +273,25 @@
 							<i class="fa fa-print fw"></i>
 							 <span class="network-name">Imprimir</span>
 						</a>
-						<a href="#" class="btn btn-default btn-lg" 
+						
+						<a href="" class="btn btn-default btn-lg" 
 							ng-click="resetForm();"><i class="fa fa-refresh fw"></i>
 							 <span class="network-name">Limpiar Formulario</span>
 						</a>
 						
+						<div class="alert alert-success" ng-show="showSuccessAlert">
+        					<strong>Perfecto!</strong> {{successTextAlert}}
+        				</div>
+        				
+        				<div class="alert alert-danger alert-dismissable fade in" ng-show="showErrorAlert">
+        					<strong>Algo sali&oacute; mal</strong> {{errorTextAlert}}
+        				</div>
+
+        
 						<div id="mydiv" style="display:none">
 						    Recib&iacute; de {{person.name  }} {{person.surname}} la suma de pesos 
-						    $ {{person.amount | number:2}}
-							en concepto de inscripción al 30° encuentro provincial de hemoterapia. 
+						    $ {{person.amount.chars | number:2}}
+							en concepto de inscripci&oacute;n al 30° encuentro provincial de hemoterapia. 
 						</div>	
 					</form>
 				</div>

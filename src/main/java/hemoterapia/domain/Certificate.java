@@ -29,8 +29,11 @@ public abstract class Certificate implements Serializable {
 	private int idCertificate;
 
 	private double taxWithLodgings;
+	private double taxWithLodgings2;
 	private double taxWithoutLodgings;
+	private double taxWithoutLodgings2;
 	private double taxCompanions;
+	private double taxCompanions2;
 	private String name;
 
 	public int getIdCertificate() {
@@ -47,18 +50,39 @@ public abstract class Certificate implements Serializable {
 		this.taxWithLodgings = taxWithLodgings;
 	}
 
+	public double getTaxWithLodgings2() {
+		return taxWithLodgings2;
+	}
+	public void setTaxWithLodgings2(double taxWithLodgings) {
+		this.taxWithLodgings2 = taxWithLodgings;
+	}
+	
 	public double getTaxWithoutLodgings() {
 		return taxWithoutLodgings;
 	}
 	public void setTaxWithoutLodgings(double taxWithoutLodgings) {
 		this.taxWithoutLodgings = taxWithoutLodgings;
 	}
-
+	
+	public double getTaxWithoutLodgings2() {
+		return taxWithoutLodgings2;
+	}
+	public void setTaxWithoutLodgings2(double taxWithoutLodgings) {
+		this.taxWithoutLodgings2 = taxWithoutLodgings;
+	}
+	
 	public double getTaxCompanions() {
 		return taxCompanions;
 	}
 	public void setTaxCompanions(double taxCompanions) {
 		this.taxCompanions = taxCompanions;
+	}
+	
+	public double getTaxCompanions2() {
+		return taxCompanions2;
+	}
+	public void setTaxCompanions2(double taxCompanions) {
+		this.taxCompanions2 = taxCompanions;
 	}
 
 	public String getName() {
@@ -68,11 +92,15 @@ public abstract class Certificate implements Serializable {
 		this.name = aName;
 	}
 
-	public double getAmount(LodgingsType lodgingsType, int companions) {
-		return lodgingsType.getAmount(this, companions);
+	public double getAmount(LodgingsType lodgingsType, int companionsTypeOne, int companionsTypeTwo) {
+		return lodgingsType.getAmount(this, companionsTypeOne, companionsTypeTwo);
 	}
 	public double getAmountWithoutLodgings() {
 		return this.getTaxWithoutLodgings();
 	}
-	public abstract double getAmountWithLodgings(int companions);
+	public double getAmountWithoutLodgings2() {
+		return this.getTaxWithoutLodgings2();
+	}
+	public abstract double getAmountWithLodgings(int companionsTypeOne, int companionsTypeTwo);
+	public abstract double getAmountWithLodgings2(int companionsTypeOne, int companionsTypeTwo);
 }

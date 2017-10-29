@@ -5,8 +5,11 @@ hemoApp.controller('DefaultPersonController', ['$scope', 'PersonFactory',
 		PersonFactory.query({}, function(personFactory) {
 			$scope.name = personFactory.name;
 			$scope.surname = personFactory.surname;
-			$scope.companions = personFactory.companions;
+			$scope.companionsTypeOne = personFactory.companionsTypeOne;
+			$scope.companionsTypeTwo = personFactory.companionsTypeTwo;
 			$scope.certificate = personFactory.certificate;
+			$scope.showSuccessAlert = false;
+			$scope.showErrorAlert = false;
 		})
 	} 
 ]);
@@ -16,18 +19,33 @@ hemoApp.controller('SavePersonController', [ '$scope', 'PersonFactory',
 		$scope.person = {
 			certificate: {idCertificate: 1},
 			lodgings: {lodgings_type: 'hemoterapia.domain.WithoutLodgings'},
-			companions : 0,
+			companionsTypeOne : 0,
+			companionsTypeTwo : 0,
 			email: 'me@example.com',
 			address:''			
 		};
+		$scope.showSuccessAlert = false;
+		$scope.showErrorAlert = false;
 		$scope.email = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
+		
 		$scope.savePerson = function(person) {
 			PersonFactory.save(person, function(response){
 				console.log(response);
-				$scope.person = {amount: response.amount};
-			});
+				$scope.person.amount = response.amount;
+				debugger;
+			}).$promise.then(
+					function(data){
+						$scope.successTextAlert = person.name + " registrada/o correctamente";
+					    $scope.showSuccessAlert = true;
+					}, function(data){
+						$scope.errorTextAlert = person.name + " no se ha podido registrar :(";
+					    $scope.showErrorAlert = true;
+					}
+			);
 		};
-		$scope.resetForm = function() {			
+		
+		$scope.resetForm = function() {		
+			$scope.showSuccessAlert = false;
 	        $scope.person= {
         		name: '',
         		surname: '',
@@ -35,27 +53,35 @@ hemoApp.controller('SavePersonController', [ '$scope', 'PersonFactory',
         		address: '',
         		certificate: {idCertificate: 1},
     			lodgings: {lodgings_type: 'hemoterapia.domain.WithoutLodgings'},
-    			companions : 0
+    			companionsTypeOne : 0,
+    			companionsTypeTwo : 0,
 	        }
+	        $scope.showSuccessAlert = false;
+			$scope.showErrorAlert = false;
 	    };
-	    	    
 	} 
 ]);
 
 hemoApp.controller('StatisticsController', ['$scope', 'StatisticsFactory',
                                         function($scope, StatisticsFactory) {
 	StatisticsFactory.query({}, function(staticsResults){
-		$scope.professionalsQty= staticsResults.professionalQTy;
-		$scope.professionalWithLodgingsQty= staticsResults.professionalWithLodgingsQty
-		$scope.professionalWithoutLodgingsQty= staticsResults.professionalWithoutLodgingsQty
 		
-		$scope.technicianQty= staticsResults.technicianQTy;
-		$scope.technicianWithLodgingsQty= staticsResults.technicianWithLodgingsQty
-		$scope.technicianWithoutLodgingsQty= staticsResults.technicianWithoutLodgingsQty
+		$scope.professionalQty= staticsResults.professionalQty;
+		$scope.professionalWithoutLodgingsOptionOneQty= staticsResults.professionalWithoutLodgingsOptionOneQty;
+		$scope.professionalWithoutLodgingsOptionTwoQty= staticsResults.professionalWithoutLodgingsOptionTwoQty;
+		$scope.professionalWithLodgingsOptionOneQty= staticsResults.professionalWithLodgingsOptionOneQty;
+		$scope.professionalWithLodgingsOptionTwoQty= staticsResults.professionalWithLodgingsOptionTwoQty;
 		
-		$scope.guestsQty= staticsResults.guestQTy;
-		$scope.companionsQty= staticsResults.companionsQty;
-		$scope.personsWithLodgingsQty= staticsResults.personsWithLodgingsQty;
+		$scope.technicianQty= staticsResults.technicianQty;
+		$scope.technicianWithoutLodgingsOptionOneQty= staticsResults.technicianWithoutLodgingsOptionOneQty;
+		$scope.technicianWithoutLodgingsOptionTwoQty= staticsResults.technicianWithoutLodgingsOptionTwoQty;
+		$scope.technicianWithLodgingsOptionOneQty= staticsResults.technicianWithLodgingsOptionOneQty;
+		$scope.technicianWithLodgingsOptionTwoQty= staticsResults.technicianWithLodgingsOptionTwoQty;
+		
+		$scope.guestQty= staticsResults.guestQty;
+		$scope.companionsTypeOneQty= staticsResults.companionsTypeOneQty;
+		$scope.companionsTypeTwoQty= staticsResults.companionsTypeTwoQty;
+		
 		$scope.totalPersons= staticsResults.totalPersons;
 		$scope.totalAmount= staticsResults.totalAmount;
 	})
